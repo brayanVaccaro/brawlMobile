@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("brawlers")
-    suspend fun getBrawlers(): BrawlerApiResponse
+    suspend fun getAllBrawlers(): BrawlerApiResponse
 }

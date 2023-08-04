@@ -40,7 +40,7 @@ class RemoteApi(
         if (client == null) {
             try {
                 // Carica il certificato del server dalla cartella delle risorse
-                val certificateInputStream = context.resources.openRawResource(R.raw.nginxSelfsigned)
+                val certificateInputStream = context.resources.openRawResource(R.raw.nginx_selfsigned)
                 // Crea un KeyStore con il certificato del server
                 val keyStore = KeyStore.getInstance(KeyStore.getDefaultType())
                 keyStore.load(null)
