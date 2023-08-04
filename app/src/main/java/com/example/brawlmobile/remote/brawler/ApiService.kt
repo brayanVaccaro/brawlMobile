@@ -1,4 +1,4 @@
-package com.example.brawlmobile.remote
+package com.example.brawlmobile.remote.brawler
 
 import com.example.brawlmobile.remote.model.BrawlerApiResponse
 import retrofit2.http.GET

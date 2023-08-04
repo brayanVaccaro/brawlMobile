@@ -1,6 +1,6 @@
 package com.example.brawlmobile.remote.model
 
-import com.example.brawlmobile.models.BrawlerModel
+import com.example.brawlmobile.models.brawler.BrawlerModel
 
 data class BrawlerApiResponse(
     val items: List<BrawlerModel>,

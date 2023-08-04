@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.adapter.BrawlerAdapter
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         adapter = BrawlerAdapter(this)
 
         recyclerView = findViewById(R.id.mainRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this, 3)
         recyclerView.adapter = adapter
 
         viewModel.brawlers.observe(this, Observer {brawlers ->

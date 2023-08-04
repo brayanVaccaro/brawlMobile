@@ -2,7 +2,7 @@ package com.example.brawlmobile.repository
 
 import android.content.Context
 import android.util.Log
-import com.example.brawlmobile.remote.RemoteApi
+import com.example.brawlmobile.remote.brawler.RemoteApi
 import com.example.brawlmobile.remote.model.BrawlerApiResponse
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow

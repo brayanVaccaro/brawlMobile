@@ -1,4 +1,4 @@
-package com.example.brawlmobile.remote
+package com.example.brawlmobile.remote.brawler
 
 import android.content.Context
 import com.example.brawlmobile.R
@@ -15,8 +15,7 @@ import javax.net.ssl.X509TrustManager
 
 
 /**
- * Questa classe permette di creare un'istanza di Retrofit configurata per effettuare richieste all'API remota specificata
- * tramite l'URL di base BASE_URL. Utilizza un OkHttpClient personalizzato per accettare un certificato del server personalizzato,
+ * Questa classe permette di creare un'istanza di Retrofit configurata per effettuare richieste all'API remota specificata tramite l'URL di base BASE_URL. Utilizza un OkHttpClient personalizzato per accettare un certificato del server personalizzato,
  * il quale viene caricato da una risorsa locale.
  */
 class RemoteApi(

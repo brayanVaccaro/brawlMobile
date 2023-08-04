@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.brawlmobile.models.BrawlerModel
+import com.example.brawlmobile.models.brawler.BrawlerModel
 import com.example.brawlmobile.repository.BrawlerRepository
 import com.example.brawlmobile.repository.BrawlerRepositoryInterface
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +18,7 @@ class MainActivityViewModel(context: Context): ViewModel() {
 
     // TAG per il logging
     private val TAG ="MainActivityViewModel"
+    private val spriteUrl = "https://cdn-old.brawlify.com/brawler-bs/"
 
     // Inizializzazione del repository nel costruttore
     init {
@@ -45,7 +46,8 @@ class MainActivityViewModel(context: Context): ViewModel() {
                         id = it.id,
                         name =  it.name,
                         starPowers = it.starPowers,
-                        gadgets = it.gadgets
+                        gadgets = it.gadgets,
+                        spriteUrl = "${spriteUrl}${it.name}.png"
                     )
                 }
 
