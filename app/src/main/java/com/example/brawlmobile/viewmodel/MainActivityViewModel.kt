@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.brawlmobile.models.brawler.BrawlerModel
+import com.example.brawlmobile.models.web.TextModel
 import com.example.brawlmobile.repository.BrawlerRepository
 import com.example.brawlmobile.repository.BrawlerRepositoryInterface
+import com.example.brawlmobile.repository.web.WebRepository
+import com.example.brawlmobile.repository.web.WebRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,6 +18,7 @@ class MainActivityViewModel(context: Context): ViewModel() {
 
     // Repository per accedere ai dati dei Brawler da una API remota
     private val brawlerRepository: BrawlerRepositoryInterface
+    private val webRepository: WebRepositoryInterface
 
     // TAG per il logging
     private val TAG ="MainActivityViewModel"
@@ -23,6 +27,7 @@ class MainActivityViewModel(context: Context): ViewModel() {
     // Inizializzazione del repository nel costruttore
     init {
         brawlerRepository = BrawlerRepository(context)
+        webRepository = WebRepository()
     }
 
     // LiveData per mantenere l'elenco dei Brawler aggiornato nell'UI
@@ -30,10 +35,14 @@ class MainActivityViewModel(context: Context): ViewModel() {
         MutableLiveData<List<BrawlerModel>>()
     }
 
+    val webText: MutableLiveData<TextModel> by lazy {
+        MutableLiveData<TextModel>()
+    }
+
     // Metodo per ottenere i Brawler dall'API remota
     fun getBrawlers() {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG,"recupero il flow dal repo")
+            Log.d(TAG,"recupero il primo flow dal BrawlerRepo")
 
             // Ottengo un FLow di BrawlerApiResponse da BrawlerRepository
             val brawlerFlow = brawlerRepository.fetchBrawlersFlow()
@@ -56,5 +65,36 @@ class MainActivityViewModel(context: Context): ViewModel() {
             }
         }
     }
+
+    fun getWebText(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d(TAG,"recupero il secondo flow dal WebRepo")
+
+            val textFlow = webRepository.getTextFromWebFlow(name)
+
+            textFlow.collect{
+
+                var uiText: TextModel? = null
+                when(it.size) {
+                    7 -> uiText = TextModel(
+                        description = it[0],
+                                trait = "",
+                                firstAttack = it[1],
+                                secondAttack = "",
+                                firstSuper = it[2],
+                                secondSuper = "",
+                                firstGadget = it[3],
+                                secondGadget = it[4],
+                                firstStarPower = it[5],
+                                secondStarPower = it[6]
+
+                    )
+                }
+
+                webText.postValue(uiText)
+            }
+        }
+    }
+
 
 }
