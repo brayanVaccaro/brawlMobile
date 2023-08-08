@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.brawlmobile.R
 import com.example.brawlmobile.models.brawler.BrawlerModel
 import com.example.brawlmobile.models.web.TextModel
 import com.example.brawlmobile.repository.BrawlerRepository
@@ -14,14 +15,14 @@ import com.example.brawlmobile.repository.web.WebRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel(context: Context): ViewModel() {
+class MainActivityViewModel(context: Context) : ViewModel() {
 
     // Repository per accedere ai dati dei Brawler da una API remota
     private val brawlerRepository: BrawlerRepositoryInterface
     private val webRepository: WebRepositoryInterface
 
     // TAG per il logging
-    private val TAG ="MainActivityViewModel"
+    private val TAG = "MainActivityViewModel"
     private val spriteUrl = "https://cdn-old.brawlify.com/brawler-bs/"
 
     // Inizializzazione del repository nel costruttore
@@ -42,18 +43,18 @@ class MainActivityViewModel(context: Context): ViewModel() {
     // Metodo per ottenere i Brawler dall'API remota
     fun getBrawlers() {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG,"recupero il primo flow dal BrawlerRepo")
+            Log.d(TAG, "recupero il primo flow dal BrawlerRepo")
 
             // Ottengo un FLow di BrawlerApiResponse da BrawlerRepository
             val brawlerFlow = brawlerRepository.fetchBrawlersFlow()
 
             // Raccolgo i dati ottenuti dal flusso
-            brawlerFlow.collect{brawlersFromRepo ->
+            brawlerFlow.collect { brawlersFromRepo ->
                 // Trasformo i dati dell'API remota nel modello BrawlerModel dell'UI
                 val uiBrawlers = brawlersFromRepo.items.map {
                     BrawlerModel(
                         id = it.id,
-                        name =  it.name,
+                        name = it.name,
                         starPowers = it.starPowers,
                         gadgets = it.gadgets,
                         spriteUrl = "${spriteUrl}${it.name}.png"
@@ -68,26 +69,39 @@ class MainActivityViewModel(context: Context): ViewModel() {
 
     fun getWebText(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG,"recupero il secondo flow dal WebRepo")
+            Log.d(TAG, "recupero il secondo flow dal WebRepo")
 
             val textFlow = webRepository.getTextFromWebFlow(name)
 
-            textFlow.collect{
+            textFlow.collect {
 
                 var uiText: TextModel? = null
-                when(it.size) {
+                when (it.size) {
                     7 -> uiText = TextModel(
                         description = it[0],
-                                trait = "",
-                                firstAttack = it[1],
-                                secondAttack = "",
-                                firstSuper = it[2],
-                                secondSuper = "",
-                                firstGadget = it[3],
-                                secondGadget = it[4],
-                                firstStarPower = it[5],
-                                secondStarPower = it[6]
-
+                        trait = "",
+                        firstAttack = it[1],
+                        secondAttack = "",
+                        firstSuper = it[2],
+                        secondSuper = "",
+                        firstGadget = it[3],
+                        secondGadget = it[4],
+                        firstStarPower = it[5],
+                        secondStarPower = it[6],
+                        layoutResId = R.layout.item_text_size7
+                    )
+                    8 -> uiText = TextModel(
+                        description = it[0],
+                        trait = it[1],
+                        firstAttack = it[2],
+                        secondAttack = "",
+                        firstSuper = it[3],
+                        secondSuper = "",
+                        firstGadget = it[4],
+                        secondGadget = it[5],
+                        firstStarPower = it[6],
+                        secondStarPower = it[7],
+                        layoutResId = R.layout.item_text_size8
                     )
                 }
 

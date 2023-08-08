@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.adapter.BrawlerAdapter
+import com.example.brawlmobile.adapter.TextAdapter
 import com.example.brawlmobile.models.brawler.HeaderModel
 import com.example.brawlmobile.viewmodel.MainActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MainActivityViewModelFactory
@@ -16,7 +18,7 @@ class DetailsActivity : AppCompatActivity() {
     private val TAG = "DetailsActivity"
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: BrawlerAdapter
+    private lateinit var adapter: TextAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +41,25 @@ class DetailsActivity : AppCompatActivity() {
         )
 
         Log.d(TAG, "headers vale = $headers")
+
         viewModel = ViewModelProvider(
             this,
             MainActivityViewModelFactory(applicationContext)
         )[MainActivityViewModel::class.java]
-        viewModel.webText.observe(this, Observer { text ->
 
+        adapter = TextAdapter()
+
+        recyclerView = findViewById(R.id.detailsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
+        viewModel.webText.observe(this, Observer { text ->
+            adapter.setData(text, headers)
         })
+
+        if (name != null) {
+            viewModel.getWebText(name)
+        }
 
     }
 }

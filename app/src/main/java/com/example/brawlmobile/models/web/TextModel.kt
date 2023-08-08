@@ -10,5 +10,6 @@ data class TextModel(
     val firstGadget: String,
     val secondGadget: String,
     val firstStarPower: String,
-    val secondStarPower: String
+    val secondStarPower: String,
+    val layoutResId: Int
 )
