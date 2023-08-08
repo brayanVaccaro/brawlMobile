@@ -62,7 +62,10 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                     textViews[6].text = headers.secondGadget
                     textViews[7].text = text.secondGadget
                     textViews[8].text = headers.firstStarPower
-                    Log.d("ParagraphAdapter2","setto i dati della firstStarPower: ${text.firstStarPower}")
+                    Log.d(
+                        "ParagraphAdapter2",
+                        "setto i dati della firstStarPower: ${text.firstStarPower}"
+                    )
                     textViews[9].text = text.firstStarPower
                     textViews[10].text = headers.secondStarPower
                     textViews[11].text = text.secondStarPower
@@ -84,6 +87,24 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                     textViews[11].text = headers.secondStarPower
                     textViews[12].text = text.secondStarPower
                 }
+                14 -> {
+                    Log.d("ParagraphAdapter2", "Sono in size 14")
+
+                    textViews[0].text = headers.name
+                    textViews[1].text = text.description
+                    textViews[2].text = text.firstAttack
+                    textViews[3].text = text.secondAttack
+                    textViews[4].text = text.firstSuper
+                    textViews[5].text = text.secondSuper
+                    textViews[6].text = headers.firstGadget
+                    textViews[7].text = text.firstGadget
+                    textViews[8].text = headers.secondGadget
+                    textViews[9].text = text.secondGadget
+                    textViews[10].text = headers.firstStarPower
+                    textViews[11].text = text.firstStarPower
+                    textViews[12].text = headers.secondStarPower
+                    textViews[13].text = text.secondStarPower
+                }
             }
         }
     }
@@ -93,13 +114,13 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d(TAG,"layoutResId = ${text?.layoutResId}")
+        Log.d(TAG, "layoutResId = ${text?.layoutResId}")
         return text?.layoutResId ?: 0
     }
 
     fun setData(data_text: TextModel, data_headers: HeaderModel) {
-        Log.d(TAG,"sono in setdata, setto text e headers")
-        Log.d(TAG,"text e headers valgono = $data_text e $data_headers")
+        Log.d(TAG, "sono in setdata, setto text e headers")
+        Log.d(TAG, "text e headers valgono = $data_text e $data_headers")
         text = data_text
         headers = data_headers
         notifyDataSetChanged()
@@ -140,6 +161,26 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                 // Attacchi
                 R.id.txtFirstAttack,
                 R.id.txtFirstSuper,
+                // Gadgets
+                R.id.placeholder_G1,
+                R.id.txtFirstGadget,
+                R.id.placeholder_G2,
+                R.id.txtSecondGadget,
+                // StarPowers
+                R.id.placeholder_S1,
+                R.id.txtFirstStarPower,
+                R.id.placeholder_S2,
+                R.id.txtSecondStarPower
+            )
+            R.layout.item_text_size9 -> listOf(
+                // Info generali
+                R.id.HeaderName,
+                R.id.txtDescription,
+                // Attacchi
+                R.id.txtFirstAttack,
+                R.id.txtSecondAttack,
+                R.id.txtFirstSuper,
+                R.id.txtSecondSuper,
                 // Gadgets
                 R.id.placeholder_G1,
                 R.id.txtFirstGadget,

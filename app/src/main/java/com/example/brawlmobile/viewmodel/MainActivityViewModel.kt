@@ -73,13 +73,13 @@ class MainActivityViewModel(context: Context) : ViewModel() {
             Log.d(TAG, "recupero il secondo flow dal WebRepo")
 
             val textFlow = webRepository.getTextFromWebFlow(name)
-            Log.d(TAG,"textFlow vale = $textFlow")
+            Log.d(TAG, "textFlow vale = $textFlow")
             textFlow.collect {
 
                 var uiText: TextModel? = null
                 when (it.size) {
                     7 -> {
-                        Log.d(TAG,"sono in size 7")
+                        Log.d(TAG, "sono in size 7")
 
                         uiText = TextModel(
                             description = it[0],
@@ -94,11 +94,11 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                             secondStarPower = it[6],
                             layoutResId = R.layout.item_text_size7
                         )
-                        Log.d(TAG,"uiText_size7 vale $uiText")
+                        Log.d(TAG, "uiText_size7 vale $uiText")
 
                     }
                     8 -> {
-                        Log.d(TAG,"sono in size 8")
+                        Log.d(TAG, "sono in size 8")
                         uiText = TextModel(
                             description = it[0],
                             trait = it[1],
@@ -112,8 +112,26 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                             secondStarPower = it[7],
                             layoutResId = R.layout.item_text_size8
                         )
-                        Log.d(TAG,"uiText_size8 vale $uiText")
+                        Log.d(TAG, "uiText_size8 vale $uiText")
                     }
+                    9 -> {
+                        Log.d(TAG, "sono in size 8")
+                        uiText = TextModel(
+                            description = it[0],
+                            trait = "",
+                            firstAttack = it[1],
+                            secondAttack = it[2],
+                            firstSuper = it[3],
+                            secondSuper = it[4],
+                            firstGadget = it[5],
+                            secondGadget = it[6],
+                            firstStarPower = it[7],
+                            secondStarPower = it[8],
+                            layoutResId = R.layout.item_text_size9
+                        )
+                        Log.d(TAG, "uiText_size8 vale $uiText")
+                    }
+
                 }
 
                 webText.postValue(uiText)
