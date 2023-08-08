@@ -14,6 +14,7 @@ import com.example.brawlmobile.repository.web.WebRepository
 import com.example.brawlmobile.repository.web.WebRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 class MainActivityViewModel(context: Context) : ViewModel() {
 
@@ -72,37 +73,47 @@ class MainActivityViewModel(context: Context) : ViewModel() {
             Log.d(TAG, "recupero il secondo flow dal WebRepo")
 
             val textFlow = webRepository.getTextFromWebFlow(name)
-
+            Log.d(TAG,"textFlow vale = $textFlow")
             textFlow.collect {
 
                 var uiText: TextModel? = null
                 when (it.size) {
-                    7 -> uiText = TextModel(
-                        description = it[0],
-                        trait = "",
-                        firstAttack = it[1],
-                        secondAttack = "",
-                        firstSuper = it[2],
-                        secondSuper = "",
-                        firstGadget = it[3],
-                        secondGadget = it[4],
-                        firstStarPower = it[5],
-                        secondStarPower = it[6],
-                        layoutResId = R.layout.item_text_size7
-                    )
-                    8 -> uiText = TextModel(
-                        description = it[0],
-                        trait = it[1],
-                        firstAttack = it[2],
-                        secondAttack = "",
-                        firstSuper = it[3],
-                        secondSuper = "",
-                        firstGadget = it[4],
-                        secondGadget = it[5],
-                        firstStarPower = it[6],
-                        secondStarPower = it[7],
-                        layoutResId = R.layout.item_text_size8
-                    )
+                    7 -> {
+                        Log.d(TAG,"sono in size 7")
+
+                        uiText = TextModel(
+                            description = it[0],
+                            trait = "",
+                            firstAttack = it[1],
+                            secondAttack = "",
+                            firstSuper = it[2],
+                            secondSuper = "",
+                            firstGadget = it[3],
+                            secondGadget = it[4],
+                            firstStarPower = it[5],
+                            secondStarPower = it[6],
+                            layoutResId = R.layout.item_text_size7
+                        )
+                        Log.d(TAG,"uiText_size7 vale $uiText")
+
+                    }
+                    8 -> {
+                        Log.d(TAG,"sono in size 8")
+                        uiText = TextModel(
+                            description = it[0],
+                            trait = it[1],
+                            firstAttack = it[2],
+                            secondAttack = "",
+                            firstSuper = it[3],
+                            secondSuper = "",
+                            firstGadget = it[4],
+                            secondGadget = it[5],
+                            firstStarPower = it[6],
+                            secondStarPower = it[7],
+                            layoutResId = R.layout.item_text_size8
+                        )
+                        Log.d(TAG,"uiText_size8 vale $uiText")
+                    }
                 }
 
                 webText.postValue(uiText)

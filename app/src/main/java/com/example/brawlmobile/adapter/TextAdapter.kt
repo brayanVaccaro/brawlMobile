@@ -18,9 +18,20 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
+        Log.d(TAG, "viewType vale = $viewType")
         val view = inflater.inflate(viewType, parent, false)
         val textViewIds = getTextViewIdsForLayout(viewType)
+        Log.d(TAG, "onCreateViewHolder")
         return ViewHolder(view, textViewIds)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d(TAG, "onBindViewHolder")
+
+        text?.let {
+            headers?.let { it1 -> holder.bindData(it, it1) }
+
+        }
     }
 
     class ViewHolder(
@@ -28,15 +39,20 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
         textViewIds: List<Int>
 
     ) : RecyclerView.ViewHolder(view) {
+
+
         private val textViews: List<TextView> = textViewIds.map { view.findViewById(it) }
 
         fun bindData(
             text: TextModel,
             headers: HeaderModel
         ) {
-//            Log.d(TAG, )
-            when(textViews.size) {
+            Log.d("ParagraphAdapter2", "Sono in bindData()")
+
+            when (textViews.size) {
                 12 -> {
+                    Log.d("ParagraphAdapter2", "Sono in size 12")
+
                     textViews[0].text = headers.name
                     textViews[1].text = text.description
                     textViews[2].text = text.firstAttack
@@ -46,11 +62,14 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                     textViews[6].text = headers.secondGadget
                     textViews[7].text = text.secondGadget
                     textViews[8].text = headers.firstStarPower
+                    Log.d("ParagraphAdapter2","setto i dati della firstStarPower: ${text.firstStarPower}")
                     textViews[9].text = text.firstStarPower
                     textViews[10].text = headers.secondStarPower
                     textViews[11].text = text.secondStarPower
                 }
                 13 -> {
+                    Log.d("ParagraphAdapter2", "Sono in size 13")
+
                     textViews[0].text = headers.name
                     textViews[1].text = text.description
                     textViews[2].text = text.trait
@@ -69,47 +88,53 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
         }
     }
 
+    override fun getItemCount(): Int {
+        return if (text != null) 1 else 0
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        Log.d(TAG,"layoutResId = ${text?.layoutResId}")
+        return text?.layoutResId ?: 0
+    }
+
     fun setData(data_text: TextModel, data_headers: HeaderModel) {
+        Log.d(TAG,"sono in setdata, setto text e headers")
+        Log.d(TAG,"text e headers valgono = $data_text e $data_headers")
         text = data_text
         headers = data_headers
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        text?.let {headers?.let { it1 -> holder.bindData(it, it1) }
-
-        }
-    }
-
-    override fun getItemCount(): Int {
-        return 1
-    }
-
 
     private fun getTextViewIdsForLayout(layoutId: Int): List<Int> {
+        Log.d(TAG, "Sto recuperando gli id delle view")
+
 
         return when (layoutId) {
-            R.layout.item_text_size7 -> listOf(
-                // Info generali
-                R.id.BrawlerName,
-                R.id.txtDescription,
-                // Attacchi
-                R.id.txtFirstAttack,
-                R.id.txtFirstSuper,
-                // Gadgets
-                R.id.placeholder_G1,
-                R.id.txtFirstGadget,
-                R.id.placeholder_G2,
-                R.id.txtSecondGadget,
-                // StarPowers
-                R.id.placeholder_S1,
-                R.id.txtFirstSuper,
-                R.id.placeholder_S2,
-                R.id.txtSecondStarPower
-            )
+            R.layout.item_text_size7 -> {
+                Log.d(TAG, "Sono in size 7")
+                listOf(
+                    // Info generali
+                    R.id.HeaderName,
+                    R.id.txtDescription,
+                    // Attacchi
+                    R.id.txtFirstAttack,
+                    R.id.txtFirstSuper,
+                    // Gadgets
+                    R.id.placeholder_G1,
+                    R.id.txtFirstGadget,
+                    R.id.placeholder_G2,
+                    R.id.txtSecondGadget,
+                    // StarPowers
+                    R.id.placeholder_S1,
+                    R.id.txtFirstStarPower,
+                    R.id.placeholder_S2,
+                    R.id.txtSecondStarPower
+                )
+            }
             R.layout.item_text_size8 -> listOf(
                 // Info generali
-                R.id.BrawlerName,
+                R.id.HeaderName,
                 R.id.txtDescription,
                 R.id.txtTrait,
                 // Attacchi
@@ -122,7 +147,7 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                 R.id.txtSecondGadget,
                 // StarPowers
                 R.id.placeholder_S1,
-                R.id.txtFirstSuper,
+                R.id.txtFirstStarPower,
                 R.id.placeholder_S2,
                 R.id.txtSecondStarPower
             )

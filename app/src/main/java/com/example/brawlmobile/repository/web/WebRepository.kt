@@ -14,13 +14,16 @@ class WebRepository : WebRepositoryInterface {
 
     override suspend fun getTextFromWebFlow(name: String): Flow<List<String>> = flow {
         while (true) {
+            Log.d(TAG,"prendo il testo da web")
             val response = Remote.webService.getTextFromWeb(name)
             if (response.isSuccessful) {
                 val htmlBody = response.body()?.string() ?: ""
                 val resultText = extractText(htmlBody)
+                Log.d(TAG,"il testo da web vale = $resultText")
+
                 emit(resultText)
             } else {
-                throw IOException("Errore nella risposta dal sito Web: ${response.code()}")
+                Log.d(TAG,"Errore nella risposta dal sito Web: ${response.code()}")
             }
         }
     }
