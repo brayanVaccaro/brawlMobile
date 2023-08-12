@@ -45,6 +45,11 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
     }
 
     override fun onLayoutClick(brawlerModel: BrawlerModel) {
+
+        if(brawlerModel.name == "El-Primo") {
+            brawlerModel.name = "El_Primo"
+        }
+
         // Creo il bundle con i relativi dati da passare alla DetailsActivity
         val bundle = Bundle()
         bundle.putString("EXTRA_NAME", brawlerModel.name)

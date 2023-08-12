@@ -47,7 +47,7 @@ class DetailsActivity : AppCompatActivity() {
             MainActivityViewModelFactory(applicationContext)
         )[MainActivityViewModel::class.java]
 
-        adapter = TextAdapter()
+        adapter = TextAdapter(this)
 
         recyclerView = findViewById(R.id.detailsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -57,9 +57,14 @@ class DetailsActivity : AppCompatActivity() {
             Log.d(TAG,"sto invocando setData")
             adapter.setData(text, headers)
         })
+        viewModel.webUrls.observe(this, Observer { urls ->
+            Log.d(TAG,"sto invocando setImages")
+            adapter.setImages(urls)
+        })
 
         if (name != null) {
             viewModel.getWebText(name)
+            viewModel.getWebUrls(name)
         }
 
     }

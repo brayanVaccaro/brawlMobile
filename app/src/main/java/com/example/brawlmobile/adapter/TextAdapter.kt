@@ -1,19 +1,26 @@
 package com.example.brawlmobile.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
 import com.example.brawlmobile.models.brawler.HeaderModel
+import com.example.brawlmobile.models.web.ImagesModel
 import com.example.brawlmobile.models.web.TextModel
 
-class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
+class TextAdapter(
+    private val context: Context
+) : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
 
     private var headers: HeaderModel? = null
     private var text: TextModel? = null
+    private var urls: ImagesModel? = null
     private var TAG = "TextAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,37 +28,66 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
         Log.d(TAG, "viewType vale = $viewType")
         val view = inflater.inflate(viewType, parent, false)
         val textViewIds = getTextViewIdsForLayout(viewType)
+        val imageViewIds = getImageViewIdsForLayout(viewType)
         Log.d(TAG, "onCreateViewHolder")
-        return ViewHolder(view, textViewIds)
+        return ViewHolder(view, textViewIds, imageViewIds, context)
+    }
+
+    private fun getImageViewIdsForLayout(layoutId: Int): List<Int> {
+        Log.d(TAG, "Sto recuperando gli id delle ImageView")
+
+        return when (layoutId) {
+            R.layout.item_text_size7,
+            R.layout.item_text_size9,
+            R.layout.item_text_size8 -> {
+                Log.d(TAG, "Sono in size 7/8/9")
+                listOf(
+                    R.id.imgDefaultSkin,
+                    R.id.imgFirstGadget,
+                    R.id.imgSecondGadget,
+                    R.id.imgFirstStarPower,
+                    R.id.imgSecondStarPower
+
+                )
+            }
+            else -> emptyList()
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder")
 
-        text?.let {
-            headers?.let { it1 -> holder.bindData(it, it1) }
+        text?.let {it ->
+            headers?.let { it1 ->
+                urls?.let { it2 -> holder.bindData(it, it1, it2) }
 
+            }
         }
     }
 
     class ViewHolder(
         view: View,
-        textViewIds: List<Int>
+        textViewIds: List<Int>,
+        imageViewIds: List<Int>,
+        private val context: Context
 
     ) : RecyclerView.ViewHolder(view) {
 
 
         private val textViews: List<TextView> = textViewIds.map { view.findViewById(it) }
+        private val imageViews: List<ImageView> = imageViewIds.map { view.findViewById(it) }
 
         fun bindData(
             text: TextModel,
-            headers: HeaderModel
+            headers: HeaderModel,
+            urls: ImagesModel
+
         ) {
-            Log.d("ParagraphAdapter2", "Sono in bindData()")
+            Log.d("TextAdapter", "Sono in bindData()")
 
             when (textViews.size) {
                 12 -> {
-                    Log.d("ParagraphAdapter2", "Sono in size 12")
+                    Log.d("TextAdapter", "Sono in size 12")
 
                     textViews[0].text = headers.name
                     textViews[1].text = text.description
@@ -63,7 +99,7 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                     textViews[7].text = text.secondGadget
                     textViews[8].text = headers.firstStarPower
                     Log.d(
-                        "ParagraphAdapter2",
+                        "TextAdapter",
                         "setto i dati della firstStarPower: ${text.firstStarPower}"
                     )
                     textViews[9].text = text.firstStarPower
@@ -71,7 +107,7 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                     textViews[11].text = text.secondStarPower
                 }
                 13 -> {
-                    Log.d("ParagraphAdapter2", "Sono in size 13")
+                    Log.d("TextAdapter", "Sono in size 13")
 
                     textViews[0].text = headers.name
                     textViews[1].text = text.description
@@ -88,7 +124,7 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                     textViews[12].text = text.secondStarPower
                 }
                 14 -> {
-                    Log.d("ParagraphAdapter2", "Sono in size 14")
+                    Log.d("TextAdapter", "Sono in size 14")
 
                     textViews[0].text = headers.name
                     textViews[1].text = text.description
@@ -106,6 +142,11 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
                     textViews[13].text = text.secondStarPower
                 }
             }
+            Glide.with(context).load(urls.defaultSkin).into(imageViews[0])
+            Glide.with(context).load(urls.firstGadgetUrl).into(imageViews[1])
+            Glide.with(context).load(urls.secondGadgetUrl).into(imageViews[2])
+            Glide.with(context).load(urls.firstStarPowerUrl).into(imageViews[3])
+            Glide.with(context).load(urls.secondStarPowerUrl).into(imageViews[4])
         }
     }
 
@@ -120,15 +161,25 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
 
     fun setData(data_text: TextModel, data_headers: HeaderModel) {
         Log.d(TAG, "sono in setdata, setto text e headers")
-        Log.d(TAG, "text e headers valgono = $data_text e $data_headers")
+        Log.d(TAG, "text vale = $data_text")
+        Log.d(TAG, "headers vale = $data_headers")
         text = data_text
         headers = data_headers
         notifyDataSetChanged()
     }
 
+    fun setImages(data_urls: ImagesModel) {
+
+        Log.d(TAG, "sono in setImages, setto gli urls")
+        Log.d(TAG, "urls vale = $data_urls")
+        urls = data_urls
+        notifyDataSetChanged()
+
+    }
+
 
     private fun getTextViewIdsForLayout(layoutId: Int): List<Int> {
-        Log.d(TAG, "Sto recuperando gli id delle view")
+        Log.d(TAG, "Sto recuperando gli id delle TextView")
 
 
         return when (layoutId) {

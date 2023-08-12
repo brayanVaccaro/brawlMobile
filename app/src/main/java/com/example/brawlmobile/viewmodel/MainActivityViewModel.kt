@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.brawlmobile.R
 import com.example.brawlmobile.models.brawler.BrawlerModel
+import com.example.brawlmobile.models.web.ImagesModel
 import com.example.brawlmobile.models.web.TextModel
 import com.example.brawlmobile.repository.BrawlerRepository
 import com.example.brawlmobile.repository.BrawlerRepositoryInterface
 import com.example.brawlmobile.repository.web.WebRepository
 import com.example.brawlmobile.repository.web.WebRepositoryInterface
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
@@ -39,6 +41,10 @@ class MainActivityViewModel(context: Context) : ViewModel() {
 
     val webText: MutableLiveData<TextModel> by lazy {
         MutableLiveData<TextModel>()
+    }
+
+    val webUrls: MutableLiveData<ImagesModel> by lazy {
+        MutableLiveData<ImagesModel>()
     }
 
     // Metodo per ottenere i Brawler dall'API remota
@@ -115,7 +121,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                         Log.d(TAG, "uiText_size8 vale $uiText")
                     }
                     9 -> {
-                        Log.d(TAG, "sono in size 8")
+                        Log.d(TAG, "sono in size 9")
                         uiText = TextModel(
                             description = it[0],
                             trait = "",
@@ -129,7 +135,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                             secondStarPower = it[8],
                             layoutResId = R.layout.item_text_size9
                         )
-                        Log.d(TAG, "uiText_size8 vale $uiText")
+                        Log.d(TAG, "uiText_size9 vale $uiText")
                     }
 
                 }
@@ -139,5 +145,31 @@ class MainActivityViewModel(context: Context) : ViewModel() {
         }
     }
 
+    fun getWebUrls(name: String) {
+        viewModelScope.launch {
+            val urlsFlow = webRepository.getUrlsFromWebFlow(name)
+            var uiUrls: ImagesModel? = null
+            urlsFlow.collect {
+                Log.d(TAG,"size della Lista degli urls vale = ${it.size}")
+                when (it.size) {
+                    7 -> uiUrls = ImagesModel(
+                        defaultSkin = it[0],
+                        firstGadgetUrl = it[3],
+                        secondGadgetUrl = it[4],
+                        firstStarPowerUrl = it[5],
+                        secondStarPowerUrl = it[6]
+                    )
+                    8 -> uiUrls = ImagesModel(
+                        defaultSkin = it[0],
+                        firstGadgetUrl = it[4],
+                        secondGadgetUrl = it[5],
+                        firstStarPowerUrl = it[6],
+                        secondStarPowerUrl = it[7]
+                    )
+                }
+                webUrls.postValue(uiUrls)
+            }
 
+        }
+    }
 }

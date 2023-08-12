@@ -20,14 +20,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Brawler Description"
+        app:layout_constraintBottom_toTopOf="@+id/txtDescription"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="txtDescription"
+        app:layout_constraintBottom_toTopOf="@+id/HeaderTrait"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderDescription" />
 
@@ -36,14 +40,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Brawler Trait"
+        app:layout_constraintBottom_toTopOf="@+id/txtTrait"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
 
     <TextView
         android:id="@+id/txtTrait"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="txtTrait"
+        app:layout_constraintBottom_toTopOf="@+id/HeaderAttacks"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderTrait" />
 
@@ -52,14 +60,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Brawler Attack"
+        app:layout_constraintBottom_toTopOf="@+id/txtFirstAttack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTrait" />
 
     <TextView
         android:id="@+id/txtFirstAttack"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="txtFirstAttack"
+        app:layout_constraintBottom_toTopOf="@+id/HeaderSupers"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderAttacks" />
 
@@ -68,14 +80,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Brawler Super"
+        app:layout_constraintBottom_toTopOf="@+id/txtFirstSuper"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFirstAttack" />
 
     <TextView
         android:id="@+id/txtFirstSuper"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="txtFirstSuper"
+        app:layout_constraintBottom_toTopOf="@+id/HeaderGadgets"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderSupers" />
 
@@ -86,21 +102,25 @@
         android:text="GADGETS"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtFirstSuper" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2" />
 
     <TextView
         android:id="@+id/placeholder_G1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="placeholder_G1"
+        app:layout_constraintBottom_toTopOf="@+id/txtFirstGadget"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HeaderGadgets" />
+        app:layout_constraintTop_toBottomOf="@id/HeaderGadgets" />
 
     <TextView
         android:id="@+id/txtFirstGadget"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="txtFirstGadget"
+        app:layout_constraintBottom_toTopOf="@+id/placeholder_G2"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_G1" />
 
@@ -109,14 +129,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="placeholder_G2"
+        app:layout_constraintBottom_toTopOf="@+id/txtSecondGadget"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFirstGadget" />
 
     <TextView
         android:id="@+id/txtSecondGadget"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="txtSecondGadget"
+        app:layout_constraintBottom_toTopOf="@+id/HeaderStarPowers"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_G2" />
 
@@ -127,21 +151,25 @@
         android:text="STAR POWERS"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSecondGadget" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal3" />
 
     <TextView
         android:id="@+id/placeholder_S1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="placeholder_S1"
+        app:layout_constraintBottom_toTopOf="@+id/txtFirstStarPower"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HeaderStarPowers" />
+        app:layout_constraintTop_toBottomOf="@id/HeaderStarPowers" />
 
     <TextView
         android:id="@+id/txtFirstStarPower"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="txtFirstStarPower"
+        app:layout_constraintBottom_toTopOf="@+id/placeholder_S2"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_S1" />
 
@@ -150,23 +178,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="placeholder_S2"
+        app:layout_constraintBottom_toTopOf="@+id/txtSecondStarPower"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFirstStarPower" />
 
     <TextView
         android:id="@+id/txtSecondStarPower"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="txtSecondStarPower"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_S2" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineVertical"
@@ -175,14 +200,70 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.8" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontal2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontal3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/HeaderName" />
+        android:id="@+id/imgDefaultSkin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertical"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgFirstGadget"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtFirstGadget"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtFirstGadget"
+        app:layout_constraintTop_toTopOf="@+id/txtFirstGadget" />
+
+    <ImageView
+        android:id="@+id/imgSecondGadget"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtSecondGadget"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtSecondGadget"
+        app:layout_constraintTop_toTopOf="@+id/txtSecondGadget" />
+
+    <ImageView
+        android:id="@+id/imgFirstStarPower"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtFirstStarPower"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtFirstStarPower"
+        app:layout_constraintTop_toTopOf="@+id/txtFirstStarPower" />
+
+    <ImageView
+        android:id="@+id/imgSecondStarPower"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtSecondStarPower"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtSecondStarPower"
+        app:layout_constraintTop_toTopOf="@+id/txtSecondStarPower" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
