@@ -14,6 +14,7 @@ import com.example.brawlmobile.adapter.BrawlerAdapter
 import com.example.brawlmobile.models.brawler.BrawlerModel
 import com.example.brawlmobile.viewmodel.MainActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MainActivityViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
     private lateinit var recyclerView: RecyclerView
@@ -23,7 +24,33 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
     private var TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_v2)
+
+        // Gestiamo la bottomNavigationView
+        val bottomNavigationView: BottomNavigationView = findViewById<BottomNavigationView?>(R.id.bottomNavigationView)
+            bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+                when(menuItem.itemId) {
+                    R.id.menu_home -> {
+                        Intent(this,MainActivity::class.java).also {
+                            startActivity(it)
+                        }
+                        true
+                    }
+                    R.id.menu_player -> {
+                        Intent(this,PlayerActivity::class.java).also {
+                            startActivity(it)
+                        }
+                        true
+                    }
+                    else -> {false}
+                }
+            }
+
+
+
+
+
+
 
         viewModel = ViewModelProvider(
             this,
