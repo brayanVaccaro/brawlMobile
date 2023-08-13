@@ -31,15 +31,15 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
         bottomNavigationView.setOnItemSelectedListener() { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
-                    Intent(this, MainActivity::class.java).also {
-                        startActivity(it)
-                    }
+
                     true
                 }
                 R.id.menu_player -> {
                     Intent(this, PlayerActivity::class.java).also {
                         startActivity(it)
+                        finish()
                     }
+
                     true
                 }
                 else -> {
@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
                 }
             }
         }
+        bottomNavigationView.selectedItemId = R.id.menu_home
 
         viewModel = ViewModelProvider(
             this,
