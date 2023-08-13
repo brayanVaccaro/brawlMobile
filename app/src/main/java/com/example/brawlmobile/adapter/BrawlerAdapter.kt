@@ -15,7 +15,7 @@ import com.example.brawlmobile.models.brawler.BrawlerModel
 
 class BrawlerAdapter(
     private val context: Context,
-    private val onLayoutClickListener: OnLayoutClickListener
+    private val onClickListener: OnClickListener
 ): RecyclerView.Adapter<BrawlerAdapter.ViewHolder>() {
 
     private var brawlers: MutableList<BrawlerModel> = mutableListOf()
@@ -36,7 +36,7 @@ class BrawlerAdapter(
         brawlers.addAll(data)
         notifyDataSetChanged()
     }
-    interface OnLayoutClickListener {
+    interface OnClickListener {
         fun onLayoutClick(brawlerModel: BrawlerModel){}
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -54,7 +54,7 @@ class BrawlerAdapter(
         Glide.with(context).load(brawlerModel.spriteUrl).into(holder.imageView)
         holder.txtBrawlerName.text = brawlerModel.name
         holder.clickableLayout.setOnClickListener {
-            onLayoutClickListener.onLayoutClick(brawlerModel)
+            onClickListener.onLayoutClick(brawlerModel)
         }
     }
 

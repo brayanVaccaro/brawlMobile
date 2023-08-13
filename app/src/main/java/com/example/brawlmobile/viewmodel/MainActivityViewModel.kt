@@ -9,14 +9,12 @@ import com.example.brawlmobile.R
 import com.example.brawlmobile.models.brawler.BrawlerModel
 import com.example.brawlmobile.models.web.ImagesModel
 import com.example.brawlmobile.models.web.TextModel
-import com.example.brawlmobile.repository.BrawlerRepository
-import com.example.brawlmobile.repository.BrawlerRepositoryInterface
+import com.example.brawlmobile.repository.brawler.BrawlerRepository
+import com.example.brawlmobile.repository.brawler.BrawlerRepositoryInterface
 import com.example.brawlmobile.repository.web.WebRepository
 import com.example.brawlmobile.repository.web.WebRepositoryInterface
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class MainActivityViewModel(context: Context) : ViewModel() {
 

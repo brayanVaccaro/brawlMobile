@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.adapter.BrawlerAdapter
 import com.example.brawlmobile.models.brawler.BrawlerModel
@@ -16,7 +15,7 @@ import com.example.brawlmobile.viewmodel.MainActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MainActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
+class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: BrawlerAdapter
@@ -27,30 +26,27 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
         setContentView(R.layout.activity_main_v2)
 
         // Gestiamo la bottomNavigationView
-        val bottomNavigationView: BottomNavigationView = findViewById<BottomNavigationView?>(R.id.bottomNavigationView)
-            bottomNavigationView.setOnItemSelectedListener() { menuItem ->
-                when(menuItem.itemId) {
-                    R.id.menu_home -> {
-                        Intent(this,MainActivity::class.java).also {
-                            startActivity(it)
-                        }
-                        true
+        val bottomNavigationView: BottomNavigationView =
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_home -> {
+                    Intent(this, MainActivity::class.java).also {
+                        startActivity(it)
                     }
-                    R.id.menu_player -> {
-                        Intent(this,PlayerActivity::class.java).also {
-                            startActivity(it)
-                        }
-                        true
+                    true
+                }
+                R.id.menu_player -> {
+                    Intent(this, PlayerActivity::class.java).also {
+                        startActivity(it)
                     }
-                    else -> {false}
+                    true
+                }
+                else -> {
+                    false
                 }
             }
-
-
-
-
-
-
+        }
 
         viewModel = ViewModelProvider(
             this,
@@ -63,7 +59,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
         recyclerView.layoutManager = GridLayoutManager(this, 3)
         recyclerView.adapter = adapter
 
-        viewModel.brawlers.observe(this, Observer {brawlers ->
+        viewModel.brawlers.observe(this, Observer { brawlers ->
             adapter.setBrawlers(brawlers)
         })
 
@@ -73,7 +69,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
 
     override fun onLayoutClick(brawlerModel: BrawlerModel) {
 
-        if(brawlerModel.name == "El-Primo") {
+        if (brawlerModel.name == "El-Primo") {
             brawlerModel.name = "El_Primo"
         }
 
@@ -85,7 +81,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
         bundle.putString("EXTRA_STARPOWER_1_NAME", brawlerModel.starPowers[0].name)
         bundle.putString("EXTRA_STARPOWER_2_NAME", brawlerModel.starPowers[1].name)
 
-        Log.d(TAG,"bundle vale = $bundle")
+        Log.d(TAG, "bundle vale = $bundle")
         // Creo l'intento in cui passo il bundle e faccio partire la DetailsActivity
         Intent(this, DetailsActivity::class.java)
             .also {
@@ -95,7 +91,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnLayoutClickListener {
             }
 
         // Creo un Toast in cui visualizzare il nome del Brawler
-        Toast.makeText(this,"Brawler: ${brawlerModel.name}", Toast.LENGTH_SHORT)
+        Toast.makeText(this, "Brawler: ${brawlerModel.name}", Toast.LENGTH_SHORT)
             .show()
     }
 }
