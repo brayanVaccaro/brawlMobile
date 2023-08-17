@@ -20,13 +20,17 @@ class MainActivityViewModel(context: Context) : ViewModel() {
 
     // Repository per accedere ai dati dei Brawler da una API remota
     private val brawlerRepository: BrawlerRepositoryInterface
+
+    // Repository per prelevare dati da web
     private val webRepository: WebRepositoryInterface
 
     // TAG per il logging
     private val TAG = "MainActivityViewModel"
+
+    // Url da cui prendere le immagini dei brawler, i nomi dei brawler saranno gli endpoint
     private val spriteUrl = "https://cdn-old.brawlify.com/brawler-bs/"
 
-    // Inizializzazione del repository nel costruttore
+    // Inizializzazione dei repository nel costruttore
     init {
         brawlerRepository = BrawlerRepository(context)
         webRepository = WebRepository()
@@ -37,10 +41,12 @@ class MainActivityViewModel(context: Context) : ViewModel() {
         MutableLiveData<List<BrawlerModel>>()
     }
 
+    // LiveData per mantenere l'elenco dei testi aggiornato nell'UI
     val webText: MutableLiveData<TextModel> by lazy {
         MutableLiveData<TextModel>()
     }
 
+    // LiveData per mantenere l'elenco degli url delle immagini aggiornato nell'UI
     val webUrls: MutableLiveData<ImagesModel> by lazy {
         MutableLiveData<ImagesModel>()
     }
@@ -72,6 +78,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
         }
     }
 
+    // Metodo per ottenere i testi dal sito web
     fun getWebText(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
             Log.d(TAG, "recupero il secondo flow dal WebRepo")
@@ -81,6 +88,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
             textFlow.collect {
 
                 var uiText: TextModel? = null
+                // In base alla size del Flow ho diversi TextModel da dover rappresentare
                 when (it.size) {
                     7 -> {
                         Log.d(TAG, "sono in size 7")
@@ -143,34 +151,42 @@ class MainActivityViewModel(context: Context) : ViewModel() {
         }
     }
 
+    // Metodo per ottenere gli urls delle immagini
     fun getWebUrls(name: String) {
         viewModelScope.launch {
             val urlsFlow = webRepository.getUrlsFromWebFlow(name)
             var uiUrls: ImagesModel? = null
             urlsFlow.collect {
-                Log.d(TAG,"size della Lista degli urls vale = ${it.size}")
+                Log.d(TAG, "size della Lista degli urls vale = ${it.size}")
+                // In base alla size del flow imposto le immagini corrette da dover visualizzare
                 when (it.size) {
-                    5 -> uiUrls = ImagesModel(
-                        defaultSkin = it[0],
-                        firstGadgetUrl = it[1],
-                        secondGadgetUrl = it[2],
-                        firstStarPowerUrl = it[3],
-                        secondStarPowerUrl = it[4]
-                    )
-                    7 -> uiUrls = ImagesModel(
-                        defaultSkin = it[0],
-                        firstGadgetUrl = it[3],
-                        secondGadgetUrl = it[4],
-                        firstStarPowerUrl = it[5],
-                        secondStarPowerUrl = it[6]
-                    )
-                    8 -> uiUrls = ImagesModel(
-                        defaultSkin = it[0],
-                        firstGadgetUrl = it[3],
-                        secondGadgetUrl = it[4],
-                        firstStarPowerUrl = it[6],
-                        secondStarPowerUrl = it[7]
-                    )
+                    5 -> {
+                        uiUrls = ImagesModel(
+                            defaultSkin = it[0],
+                            firstGadgetUrl = it[1],
+                            secondGadgetUrl = it[2],
+                            firstStarPowerUrl = it[3],
+                            secondStarPowerUrl = it[4]
+                        )
+                    }
+                    7 -> {
+                        uiUrls = ImagesModel(
+                            defaultSkin = it[0],
+                            firstGadgetUrl = it[3],
+                            secondGadgetUrl = it[4],
+                            firstStarPowerUrl = it[5],
+                            secondStarPowerUrl = it[6]
+                        )
+                    }
+                    8 -> {
+                        uiUrls = ImagesModel(
+                            defaultSkin = it[0],
+                            firstGadgetUrl = it[3],
+                            secondGadgetUrl = it[4],
+                            firstStarPowerUrl = it[6],
+                            secondStarPowerUrl = it[7]
+                        )
+                    }
                 }
                 webUrls.postValue(uiUrls)
             }
