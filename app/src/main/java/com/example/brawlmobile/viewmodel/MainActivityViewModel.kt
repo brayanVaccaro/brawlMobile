@@ -150,6 +150,13 @@ class MainActivityViewModel(context: Context) : ViewModel() {
             urlsFlow.collect {
                 Log.d(TAG,"size della Lista degli urls vale = ${it.size}")
                 when (it.size) {
+                    5 -> uiUrls = ImagesModel(
+                        defaultSkin = it[0],
+                        firstGadgetUrl = it[1],
+                        secondGadgetUrl = it[2],
+                        firstStarPowerUrl = it[3],
+                        secondStarPowerUrl = it[4]
+                    )
                     7 -> uiUrls = ImagesModel(
                         defaultSkin = it[0],
                         firstGadgetUrl = it[3],
@@ -159,8 +166,8 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                     )
                     8 -> uiUrls = ImagesModel(
                         defaultSkin = it[0],
-                        firstGadgetUrl = it[4],
-                        secondGadgetUrl = it[5],
+                        firstGadgetUrl = it[3],
+                        secondGadgetUrl = it[4],
                         firstStarPowerUrl = it[6],
                         secondStarPowerUrl = it[7]
                     )

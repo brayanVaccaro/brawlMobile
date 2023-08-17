@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.brawlmobile.models.player.PlayerBrawlersUnlocked
 import com.example.brawlmobile.models.player.PlayerInfoModel
+import com.example.brawlmobile.remote.model.BrawlersUnlocked
 import com.example.brawlmobile.repository.player.PlayerRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,6 +26,9 @@ class PlayerActivityViewModel(
 
     val playerInfo: MutableLiveData<PlayerInfoModel> by lazy {
         MutableLiveData<PlayerInfoModel>()
+    }
+    val playerBrawlersUnlocked: MutableLiveData<List<BrawlersUnlocked>> by lazy {
+        MutableLiveData<List<BrawlersUnlocked>>()
     }
 
     fun getPlayerInfo(tag: String) {
@@ -51,8 +56,11 @@ class PlayerActivityViewModel(
                     bestTimeAsBigBrawler = it.bestTimeAsBigBrawler,
                     brawlersUnlocked = it.brawlers
                 )
+                val uiPlayerBrawlersUnlocked = uiPlayerInfo.brawlersUnlocked
+                Log.d(TAG,"uiPlayerBrawlerUnlocked vale = $uiPlayerBrawlersUnlocked")
 
                 playerInfo.postValue(uiPlayerInfo)
+                playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
             }
         }
 

@@ -58,7 +58,7 @@ class DetailsActivity : AppCompatActivity() {
             adapter.setData(text, headers)
         })
         viewModel.webUrls.observe(this, Observer { urls ->
-            Log.d(TAG,"sto invocando setImages")
+            Log.d(TAG,"sto invocando setImages, url vale $urls")
             adapter.setImages(urls)
         })
 
