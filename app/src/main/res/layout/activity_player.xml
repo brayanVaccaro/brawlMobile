@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/arrowIconEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_forward" />
@@ -32,17 +33,32 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="Insert Your Personal Tag"
-        android:inputType="text"
-        app:layout_constraintEnd_toStartOf="@+id/submitTag"
+    <LinearLayout
+        android:id="@+id/editLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expandEdit" />
+        app:layout_constraintTop_toBottomOf="@id/expandEdit">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="Insert Your Personal Tag"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/submitTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/notValidPlayerTag"
@@ -52,15 +68,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editText" />
 
-    <Button
-        android:id="@+id/submitTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SUBMIT"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText" />
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/playerScrollView"
         android:layout_width="match_parent"
@@ -68,7 +75,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submitTag">
+        app:layout_constraintTop_toBottomOf="@id/editLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -97,7 +104,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/playerRecyclerViewInfo">
 
                 <ImageView
-                    android:id="@+id/headerIcon"
+                    android:id="@+id/arrowIconUnlocked"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_forward" />

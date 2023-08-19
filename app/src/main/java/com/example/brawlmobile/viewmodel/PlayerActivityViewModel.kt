@@ -30,39 +30,47 @@ class PlayerActivityViewModel(
     val playerBrawlersUnlocked: MutableLiveData<List<BrawlersUnlocked>> by lazy {
         MutableLiveData<List<BrawlersUnlocked>>()
     }
+    val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     fun getPlayerInfo(tag: String) {
         viewModelScope.launch(Dispatchers.IO) {
             Log.d(TAG, "recupero i dati del player")
-            val playerInfoFlow = playerRepository.fetchPlayerInfo(tag)
+            try {
+                val playerInfoFlow = playerRepository.fetchPlayerInfo(tag)
+                playerInfoFlow.collect {
+                    Log.d(TAG, "sono nel collect")
+                    val uiPlayerInfo = PlayerInfoModel(
+                        tag = it.tag,
+                        name = it.name,
+                        nameColor = it.nameColor,
+                        icon = it.icon,
+                        trophies = it.trophies,
+                        highestTrophies = it.highestTrophies,
+                        expLevel = it.expLevel,
 
-            playerInfoFlow.collect {
-                Log.d(TAG, "sono nel collect")
-                val uiPlayerInfo = PlayerInfoModel(
-                    tag = it.tag,
-                    name = it.name,
-                    nameColor = it.nameColor,
-                    icon = it.icon,
-                    trophies = it.trophies,
-                    highestTrophies = it.highestTrophies,
-                    expLevel = it.expLevel,
+                        expPoints = it.expPoints,
+                        isQualifiedFromChampionshipChallenge = it.isQualifiedFromChampionshipChallenge,
+                        threeVsThreeVictories = it.threeVsThreeVictories,
+                        soloVictories = it.soloVictories,
+                        duoVictories = it.duoVictories,
+                        bestRoboRumbleTime = it.bestRoboRumbleTime,
+                        bestTimeAsBigBrawler = it.bestTimeAsBigBrawler,
+                        brawlersUnlocked = it.brawlers
+                    )
+                    val uiPlayerBrawlersUnlocked = uiPlayerInfo.brawlersUnlocked
+                    Log.d(TAG, "uiPlayerBrawlerUnlocked vale = $uiPlayerBrawlersUnlocked")
 
-                    expPoints = it.expPoints,
-                    isQualifiedFromChampionshipChallenge = it.isQualifiedFromChampionshipChallenge,
-                    threeVsThreeVictories = it.threeVsThreeVictories,
-                    soloVictories = it.soloVictories,
-                    duoVictories = it.duoVictories,
-                    bestRoboRumbleTime = it.bestRoboRumbleTime,
-                    bestTimeAsBigBrawler = it.bestTimeAsBigBrawler,
-                    brawlersUnlocked = it.brawlers
-                )
-                val uiPlayerBrawlersUnlocked = uiPlayerInfo.brawlersUnlocked
-                Log.d(TAG,"uiPlayerBrawlerUnlocked vale = $uiPlayerBrawlersUnlocked")
-
-                playerInfo.postValue(uiPlayerInfo)
-                playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
+                    playerInfo.postValue(uiPlayerInfo)
+                    playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
+                }
+            } catch (e: Exception) {
+                errorLiveData.postValue("${e.message}")
             }
         }
 
+    }
+
+    fun clearErrorMessage() {
+        errorLiveData.postValue(null)
     }
 }

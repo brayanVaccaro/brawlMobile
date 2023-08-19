@@ -4,11 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,7 +37,8 @@ class PlayerActivity : AppCompatActivity() {
             PlayerActivityViewModelFactory(this)
         )[PlayerActivityViewModel::class.java]
 
-        val headerIcon: ImageView = findViewById(R.id.headerIcon)
+        val arrowIconEdit: ImageView = findViewById(R.id.arrowIconEdit)
+        val arrowIconUnlocked: ImageView = findViewById(R.id.arrowIconUnlocked)
         val expandible: LinearLayout = findViewById(R.id.expandibleLayout)
         val expandEdit: LinearLayout = findViewById(R.id.expandEdit)
 
@@ -95,47 +92,50 @@ class PlayerActivity : AppCompatActivity() {
         viewModel.playerBrawlersUnlocked.observe(this, Observer { data ->
             adapterBrawlersUnlocked.setBrawlersUnlocked(data)
         })
+        viewModel.errorLiveData.observe(this, Observer { errorMessagge ->
+            if (!errorMessagge.isNullOrEmpty()) {
+                Toast.makeText(this, errorMessagge, Toast.LENGTH_LONG).show()
+                viewModel.clearErrorMessage()
+            }
+        })
 
-
+        // Gestiamo il submit del tag
+        val editTextLayout: LinearLayout = findViewById(R.id.editLayout)
         val editText: EditText = findViewById(R.id.editText)
         val submitButton: Button = findViewById(R.id.submitTag)
         submitButton.setOnClickListener {
             playerTag = editText.text.toString()
-            expandible.visibility = View.VISIBLE
             viewModel.getPlayerInfo(playerTag)
+            expandible.visibility = View.VISIBLE
         }
 
-        //Gestiamo l'header a scendere dei brawler sbloccatu
-
+        //Gestiamo l'header a scendere dei brawler sbloccati
         val headerText: TextView = findViewById(R.id.headerText)
         expandible.visibility = View.GONE
         expandible.setOnClickListener {
             if (recyclerViewBrawlers.visibility == View.GONE) {
                 recyclerViewBrawlers.visibility = View.VISIBLE
-                headerIcon.setImageResource(R.drawable.ic_arrow_down)
+                arrowIconUnlocked.setImageResource(R.drawable.ic_arrow_down)
 
             } else {
                 recyclerViewBrawlers.visibility = View.GONE
-                headerIcon.setImageResource(R.drawable.ic_arrow_forward)
+                arrowIconUnlocked.setImageResource(R.drawable.ic_arrow_forward)
             }
         }
 
-
         //Gestiamo l'header a scendere dell'editText
-        editText.visibility = View.GONE
+        editTextLayout.visibility = View.GONE
         expandEdit.setOnClickListener {
-            if (editText.visibility == View.GONE) {
-                editText.visibility = View.VISIBLE
-                headerIcon.setImageResource(R.drawable.ic_arrow_down)
+            if (editTextLayout.visibility == View.GONE) {
+                editTextLayout.visibility = View.VISIBLE
+                arrowIconEdit.setImageResource(R.drawable.ic_arrow_down)
 
 
             } else {
-                editText.visibility = View.GONE
-                headerIcon.setImageResource(R.drawable.ic_arrow_forward)
+                editTextLayout.visibility = View.GONE
+                arrowIconEdit.setImageResource(R.drawable.ic_arrow_forward)
             }
         }
-
-
     }
 
 

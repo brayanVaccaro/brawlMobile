@@ -28,9 +28,7 @@ class PlayerRepository(
     override suspend fun fetchPlayerInfo(tag: String): Flow<PlayerInfoResponse> = flow {
         Log.d(TAG, "Prendo le info del player")
         while (true) {
-            try {
-
-
+//            try {
                 val resultInfoPlayer = remoteApi.brawlerApiService.getPlayerInfo(tag)
 
                 // Mappa per trasformare i nomi di alcuni brawler (necessario successivamente per ottenere le immagini giuste)
@@ -55,11 +53,11 @@ class PlayerRepository(
                 delay(5000)
 
 
-                delay(5000)
-            }
-            catch (e: Error) {
-                emit()
-            }
+//            }
+//            catch (e: Exception) {
+//                Log.e(TAG,"Errore durante il recupero dei dati ${e.message}")
+//
+//            }
         }
 
     }
