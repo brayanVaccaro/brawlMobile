@@ -41,6 +41,10 @@ class PlayerActivity : AppCompatActivity() {
             PlayerActivityViewModelFactory(this)
         )[PlayerActivityViewModel::class.java]
 
+        val headerIcon: ImageView = findViewById(R.id.headerIcon)
+        val expandible: LinearLayout = findViewById(R.id.expandibleLayout)
+        val expandEdit: LinearLayout = findViewById(R.id.expandEdit)
+
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
             findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -49,12 +53,20 @@ class PlayerActivity : AppCompatActivity() {
                 R.id.menu_home -> {
                     Intent(this, MainActivity::class.java).also {
                         startActivity(it)
-                        finish()
+
                     }
                     true
                 }
                 R.id.menu_player -> {
 
+                    true
+                }
+                R.id.menu_favourite -> {
+                    Intent(this,FavouriteActivity::class.java)
+                        .also {
+                            startActivity(it)
+
+                        }
                     true
                 }
                 else -> {
@@ -89,13 +101,14 @@ class PlayerActivity : AppCompatActivity() {
         val submitButton: Button = findViewById(R.id.submitTag)
         submitButton.setOnClickListener {
             playerTag = editText.text.toString()
+            expandible.visibility = View.VISIBLE
             viewModel.getPlayerInfo(playerTag)
         }
 
-        //Gestiamo l'header a scendere
-        val headerIcon: ImageView = findViewById(R.id.headerIcon)
-        val expandible: LinearLayout = findViewById(R.id.expandibleLayout)
+        //Gestiamo l'header a scendere dei brawler sbloccatu
+
         val headerText: TextView = findViewById(R.id.headerText)
+        expandible.visibility = View.GONE
         expandible.setOnClickListener {
             if (recyclerViewBrawlers.visibility == View.GONE) {
                 recyclerViewBrawlers.visibility = View.VISIBLE
@@ -103,6 +116,21 @@ class PlayerActivity : AppCompatActivity() {
 
             } else {
                 recyclerViewBrawlers.visibility = View.GONE
+                headerIcon.setImageResource(R.drawable.ic_arrow_forward)
+            }
+        }
+
+
+        //Gestiamo l'header a scendere dell'editText
+        editText.visibility = View.GONE
+        expandEdit.setOnClickListener {
+            if (editText.visibility == View.GONE) {
+                editText.visibility = View.VISIBLE
+                headerIcon.setImageResource(R.drawable.ic_arrow_down)
+
+
+            } else {
+                editText.visibility = View.GONE
                 headerIcon.setImageResource(R.drawable.ic_arrow_forward)
             }
         }

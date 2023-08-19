@@ -6,11 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.brawlmobile.R
+import com.example.brawlmobile.data.database.AppDatabase
+import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 import com.example.brawlmobile.models.brawler.BrawlerModel
 import com.example.brawlmobile.models.web.ImagesModel
 import com.example.brawlmobile.models.web.TextModel
 import com.example.brawlmobile.repository.brawler.BrawlerRepository
 import com.example.brawlmobile.repository.brawler.BrawlerRepositoryInterface
+import com.example.brawlmobile.repository.favourite.FavouriteRepository
 import com.example.brawlmobile.repository.web.WebRepository
 import com.example.brawlmobile.repository.web.WebRepositoryInterface
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +27,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
     // Repository per prelevare dati da web
     private val webRepository: WebRepositoryInterface
 
+
     // TAG per il logging
     private val TAG = "MainActivityViewModel"
 
@@ -34,7 +38,9 @@ class MainActivityViewModel(context: Context) : ViewModel() {
     init {
         brawlerRepository = BrawlerRepository(context)
         webRepository = WebRepository()
+
     }
+
 
     // LiveData per mantenere l'elenco dei Brawler aggiornato nell'UI
     val brawlers: MutableLiveData<List<BrawlerModel>> by lazy {

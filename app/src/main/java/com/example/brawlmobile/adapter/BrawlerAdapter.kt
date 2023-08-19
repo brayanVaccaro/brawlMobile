@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +21,12 @@ class BrawlerAdapter(
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txtBrawlerName: TextView
         val imageView: ImageView
-        val clickableLayout: LinearLayout
+        val clickableSpriteHeart: ImageView
 
         init {
             txtBrawlerName = view.findViewById(R.id.txtBrawlerName)
-            imageView = view.findViewById(R.id.brawlerSprite)
-            clickableLayout = view.findViewById(R.id.clickableLayout)
+            imageView = view.findViewById(R.id.clickableBrawlerSprite)
+            clickableSpriteHeart = view.findViewById(R.id.imgFavorite)
         }
     }
 
@@ -37,7 +36,8 @@ class BrawlerAdapter(
         notifyDataSetChanged()
     }
     interface OnClickListener {
-        fun onLayoutClick(brawlerModel: BrawlerModel){}
+        fun onClickViewInfo(brawlerModel: BrawlerModel){}
+        fun onClickAddToFavourite(brawlerModel: BrawlerModel){}
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -53,8 +53,11 @@ class BrawlerAdapter(
         val brawlerModel = brawlers[position]
         Glide.with(context).load(brawlerModel.spriteUrl).into(holder.imageView)
         holder.txtBrawlerName.text = brawlerModel.name
-        holder.clickableLayout.setOnClickListener {
-            onClickListener.onLayoutClick(brawlerModel)
+        holder.imageView.setOnClickListener {
+            onClickListener.onClickViewInfo(brawlerModel)
+        }
+        holder.clickableSpriteHeart.setOnClickListener {
+            onClickListener.onClickAddToFavourite(brawlerModel)
         }
     }
 

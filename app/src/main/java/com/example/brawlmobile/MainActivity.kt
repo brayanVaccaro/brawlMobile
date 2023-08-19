@@ -10,8 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.adapter.BrawlerAdapter
+import com.example.brawlmobile.data.dao.FavouriteBrawlerDao
+import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 import com.example.brawlmobile.models.brawler.BrawlerModel
+import com.example.brawlmobile.repository.favourite.FavouriteRepository
+import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
 import com.example.brawlmobile.viewmodel.MainActivityViewModel
+import com.example.brawlmobile.viewmodel.factory.FavouriteActivityViewModelFactory
 import com.example.brawlmobile.viewmodel.factory.MainActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -20,6 +25,11 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: BrawlerAdapter
 
+    private lateinit var favouriteViewModel: FavouriteActivityViewModel
+
+    private lateinit var favouriteBrawlerDao: FavouriteBrawlerDao
+    private lateinit var favouriteRepository: FavouriteRepository
+
     private var TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +37,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
-            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+            findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener() { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
@@ -37,9 +47,19 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
                 R.id.menu_player -> {
                     Intent(this, PlayerActivity::class.java).also {
                         startActivity(it)
-                        finish()
+
                     }
 
+                    true
+                }
+                R.id.menu_favourite -> {
+                    Log.d(TAG, "ho cliccato favourites")
+                    Intent(this, FavouriteActivity::class.java)
+                        .also {
+                            Log.d(TAG, "faccio partire la activity")
+                            startActivity(it)
+
+                        }
                     true
                 }
                 else -> {
@@ -53,6 +73,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
             this,
             MainActivityViewModelFactory(applicationContext)
         )[MainActivityViewModel::class.java]
+        favouriteViewModel = ViewModelProvider(this, FavouriteActivityViewModelFactory(applicationContext))[FavouriteActivityViewModel::class.java]
 
         adapter = BrawlerAdapter(this, this)
 
@@ -66,9 +87,11 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
 
         viewModel.getBrawlers()
 
+
     }
 
-    override fun onLayoutClick(brawlerModel: BrawlerModel) {
+
+    override fun onClickViewInfo(brawlerModel: BrawlerModel) {
 
         if (brawlerModel.name == "El-Primo") {
             brawlerModel.name = "El_Primo"
@@ -94,5 +117,18 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
         // Creo un Toast in cui visualizzare il nome del Brawler
         Toast.makeText(this, "Brawler: ${brawlerModel.name}", Toast.LENGTH_SHORT)
             .show()
+    }
+
+    override fun onClickAddToFavourite(brawlerModel: BrawlerModel) {
+
+        Log.d(TAG, "aggiungo ai favoriti")
+        val favouriteBrawler = FavouriteBrawlerEntity(
+            id = brawlerModel.id.toString(),
+            name = brawlerModel.name,
+            spriteUrl = brawlerModel.spriteUrl
+        )
+
+        favouriteViewModel.insertFavouriteBrawler(favouriteBrawler)
+
     }
 }

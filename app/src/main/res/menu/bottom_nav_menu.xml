@@ -13,4 +13,10 @@
         android:icon="@drawable/ic_player"
         android:title="Player"
         />
+    <item
+        android:id="@+id/menu_favourite"
+
+        android:icon="@drawable/ic_heart_outline"
+        android:title="Favourites"
+        />
 </menu>

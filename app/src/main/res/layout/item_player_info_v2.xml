@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!--    Titolo -->
+    <TextView
+        android:id="@+id/playerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile Information"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/infoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playerTitle">
+
+        <TextView
+            android:id="@+id/headerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Name:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            app:layout_constraintBottom_toBottomOf="@+id/headerName"
+            app:layout_constraintStart_toEndOf="@+id/headerName"
+            app:layout_constraintTop_toTopOf="@+id/headerName" />
+
+        <TextView
+            android:id="@+id/headerTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Tag:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerName" />
+
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerTag"
+            app:layout_constraintStart_toEndOf="@+id/headerTag"
+            app:layout_constraintTop_toTopOf="@+id/headerTag" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/headerTrophies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trophies"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/trophiesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerTrophies">
+
+
+        <TextView
+            android:id="@+id/headerHighestTrophies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Highest:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/hightestTrophies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerHighestTrophies"
+            app:layout_constraintStart_toEndOf="@+id/headerHighestTrophies"
+            app:layout_constraintTop_toTopOf="@+id/headerHighestTrophies" />
+
+        <TextView
+            android:id="@+id/headerTotalTrophies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Total:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerHighestTrophies" />
+
+        <TextView
+            android:id="@+id/trophies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerTotalTrophies"
+            app:layout_constraintStart_toEndOf="@+id/headerTotalTrophies"
+            app:layout_constraintTop_toTopOf="@+id/headerTotalTrophies" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/headerExp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exp"
+        android:textSize="20sp"
+        app:layout_constraintDimensionRatio=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/trophiesLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/expLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerExp">
+
+        <TextView
+            android:id="@+id/headerExpLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Exp Level:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/expLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerExpLevel"
+            app:layout_constraintStart_toEndOf="@+id/headerExpLevel"
+            app:layout_constraintTop_toTopOf="@+id/headerExpLevel" />
+
+        <TextView
+            android:id="@+id/headerExpPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Exp Points:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerExpLevel" />
+
+        <TextView
+            android:id="@+id/expPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerExpPoints"
+            app:layout_constraintStart_toEndOf="@+id/headerExpPoints"
+            app:layout_constraintTop_toTopOf="@+id/headerExpPoints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/headerVictories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Victories"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/victoriesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerVictories">
+
+        <TextView
+            android:id="@+id/headerSoloVictories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Solo:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/soloVictories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="TXT"
+            app:layout_constraintBottom_toBottomOf="@+id/headerSoloVictories"
+            app:layout_constraintStart_toEndOf="@+id/headerSoloVictories"
+            app:layout_constraintTop_toTopOf="@+id/headerSoloVictories" />
+
+        <TextView
+            android:id="@+id/headerThreeVsThreeVictories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="3v3:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerSoloVictories" />
+
+        <TextView
+            android:id="@+id/ThreeVsThreeVictories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerThreeVsThreeVictories"
+            app:layout_constraintStart_toEndOf="@id/headerThreeVsThreeVictories"
+            app:layout_constraintTop_toTopOf="@+id/headerThreeVsThreeVictories" />
+
+        <TextView
+            android:id="@+id/headerDuoVictories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Duo:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerThreeVsThreeVictories" />
+
+        <TextView
+            android:id="@+id/duoVictories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerDuoVictories"
+            app:layout_constraintStart_toEndOf="@+id/headerDuoVictories"
+            app:layout_constraintTop_toTopOf="@+id/headerDuoVictories" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/headerExtras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extra"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/victoriesLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/extrasLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerExtras">
+
+        <TextView
+            android:id="@+id/headerBestRoboRumbleTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Best Robo Rumble Time:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bestRoboRumbleTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerBestRoboRumbleTime"
+            app:layout_constraintStart_toEndOf="@+id/headerBestRoboRumbleTime"
+            app:layout_constraintTop_toTopOf="@+id/headerBestRoboRumbleTime" />
+
+        <TextView
+            android:id="@+id/headerIsQualifiedFromChampChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Qualified From Championship:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerBestRoboRumbleTime" />
+
+        <TextView
+            android:id="@+id/isQualifiedFromChampChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerIsQualifiedFromChampChallenge"
+            app:layout_constraintStart_toEndOf="@+id/headerIsQualifiedFromChampChallenge"
+            app:layout_constraintTop_toTopOf="@+id/headerIsQualifiedFromChampChallenge" />
+
+        <TextView
+            android:id="@+id/headerBestTimeAsBigBrawler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Best Time As Big Brawler:"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerIsQualifiedFromChampChallenge" />
+
+        <TextView
+            android:id="@+id/bestTimeAsBigBrawler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXT"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/headerBestTimeAsBigBrawler"
+            app:layout_constraintStart_toEndOf="@+id/headerBestTimeAsBigBrawler"
+            app:layout_constraintTop_toTopOf="@+id/headerBestTimeAsBigBrawler" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

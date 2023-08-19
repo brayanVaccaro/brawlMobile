@@ -26,32 +26,40 @@ class PlayerRepository(
      */
 
     override suspend fun fetchPlayerInfo(tag: String): Flow<PlayerInfoResponse> = flow {
-        Log.d(TAG,"Prendo le info del player")
-        while (true){
-            val resultInfoPlayer = remoteApi.brawlerApiService.getPlayerInfo(tag)
+        Log.d(TAG, "Prendo le info del player")
+        while (true) {
+            try {
 
-            // Mappa per trasformare i nomi di alcuni brawler (necessario successivamente per ottenere le immagini giuste)
-            val nameMap = mapOf(
-                "El primo" to "El-Primo",
-                "8-bit" to "8-Bit",
-                "Mr. p" to "Mr.P",
-                "R-t" to "R-T"
-            )
-            // Trasformazione dei nomi dei Brawler ottenuti, in base alla mappa di trasformazione
-            resultInfoPlayer.brawlers.map { brawlerUnlocked ->
-                // Tutti i nomi dei brawler devono essere formattati
-                // Trasformo il nome rendendo la prima lettera maiuscola e le restanti minuscole
-                val transformedName = brawlerUnlocked.name.lowercase().replaceFirstChar { it.uppercase() }
-                // Aggiorno il nome del brawler o con il nome trasformato dalla mappa, se presente, o lascia il nome trasformato
-                brawlerUnlocked.name = nameMap[transformedName] ?: transformedName
+
+                val resultInfoPlayer = remoteApi.brawlerApiService.getPlayerInfo(tag)
+
+                // Mappa per trasformare i nomi di alcuni brawler (necessario successivamente per ottenere le immagini giuste)
+                val nameMap = mapOf(
+                    "El primo" to "El-Primo",
+                    "8-bit" to "8-Bit",
+                    "Mr. p" to "Mr.P",
+                    "R-t" to "R-T"
+                )
+                // Trasformazione dei nomi dei Brawler ottenuti, in base alla mappa di trasformazione
+                resultInfoPlayer.brawlers.map { brawlerUnlocked ->
+                    // Tutti i nomi dei brawler devono essere formattati
+                    // Trasformo il nome rendendo la prima lettera maiuscola e le restanti minuscole
+                    val transformedName =
+                        brawlerUnlocked.name.lowercase().replaceFirstChar { it.uppercase() }
+                    // Aggiorno il nome del brawler o con il nome trasformato dalla mappa, se presente, o lascia il nome trasformato
+                    brawlerUnlocked.name = nameMap[transformedName] ?: transformedName
+                }
+                // Emetto l'oggetto resultInfoPlayer nel Flow
+                emit(resultInfoPlayer)
+                // Aggiorna il valore del Flow ogni 5 secondi
+                delay(5000)
+
+
+                delay(5000)
             }
-            // Emetto l'oggetto resultInfoPlayer nel Flow
-            emit(resultInfoPlayer)
-            // Aggiorna il valore del Flow ogni 5 secondi
-            delay(5000)
-
-
-            delay(5000)
+            catch (e: Error) {
+                emit()
+            }
         }
 
     }

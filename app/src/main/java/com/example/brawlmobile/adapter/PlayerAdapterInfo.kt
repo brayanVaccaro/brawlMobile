@@ -46,7 +46,7 @@ class PlayerAdapterInfo(
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_player_info, parent, false)
+            .inflate(R.layout.item_player_info_v2, parent, false)
         return ViewHolder(view)
 
     }
