@@ -14,7 +14,7 @@ class WebRepository : WebRepositoryInterface {
 
     override suspend fun getTextFromWebFlow(name: String): Flow<List<String>> = flow {
         while (true) {
-            Log.d(TAG,"prendo il testo da web, name vale $name")
+//            Log.d(TAG,"prendo il testo da web, name vale $name")
             val response = Remote.webService.getTextFromWeb(name)
             if (response.isSuccessful) {
                 val htmlBody = response.body()?.string() ?: ""
@@ -97,7 +97,7 @@ class WebRepository : WebRepositoryInterface {
             // Pulisco l'url e aggiungo alla lista
             imageUrls.add(cleanUrls(src))
         }
-        Log.d(TAG,"imageUrls vale $imageUrls")
+//        Log.d(TAG,"imageUrls vale $imageUrls")
 
         return imageUrls
     }

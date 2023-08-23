@@ -25,7 +25,7 @@ class TextAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        Log.d(TAG, "viewType vale = $viewType")
+//        Log.d(TAG, "viewType vale = $viewType")
         val view = inflater.inflate(viewType, parent, false)
         val textViewIds = getTextViewIdsForLayout(viewType)
         val imageViewIds = getImageViewIdsForLayout(viewType)
@@ -155,14 +155,14 @@ class TextAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d(TAG, "layoutResId = ${text?.layoutResId}")
+//        Log.d(TAG, "layoutResId = ${text?.layoutResId}")
         return text?.layoutResId ?: 0
     }
 
     fun setData(data_text: TextModel, data_headers: HeaderModel) {
         Log.d(TAG, "sono in setdata, setto text e headers")
-        Log.d(TAG, "text vale = $data_text")
-        Log.d(TAG, "headers vale = $data_headers")
+//        Log.d(TAG, "text vale = $data_text")
+//        Log.d(TAG, "headers vale = $data_headers")
         text = data_text
         headers = data_headers
         notifyDataSetChanged()
@@ -171,7 +171,7 @@ class TextAdapter(
     fun setImages(data_urls: ImagesModel) {
 
         Log.d(TAG, "sono in setImages, setto gli urls")
-        Log.d(TAG, "urls vale = $data_urls")
+//        Log.d(TAG, "urls vale = $data_urls")
         urls = data_urls
         notifyDataSetChanged()
 

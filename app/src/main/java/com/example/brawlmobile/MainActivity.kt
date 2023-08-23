@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.adapter.BrawlerAdapter
 import com.example.brawlmobile.data.dao.FavouriteBrawlerDao
 import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
+import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.models.brawler.BrawlerModel
 import com.example.brawlmobile.repository.favourite.FavouriteRepository
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
@@ -31,9 +34,12 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
     private lateinit var favouriteRepository: FavouriteRepository
 
     private var TAG = "MainActivity"
+
+    //    private lateinit var txtErrorInfo: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_v2)
+
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
@@ -73,7 +79,10 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
             this,
             MainActivityViewModelFactory(applicationContext)
         )[MainActivityViewModel::class.java]
-        favouriteViewModel = ViewModelProvider(this, FavouriteActivityViewModelFactory(applicationContext))[FavouriteActivityViewModel::class.java]
+        favouriteViewModel = ViewModelProvider(
+            this,
+            FavouriteActivityViewModelFactory(applicationContext)
+        )[FavouriteActivityViewModel::class.java]
 
         adapter = BrawlerAdapter(this, this)
 
@@ -84,10 +93,27 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
         viewModel.brawlers.observe(this, Observer { brawlers ->
             adapter.setBrawlers(brawlers)
         })
+        viewModel.errorLiveData.observe(this, Observer { errorMessagge ->
+            if (!errorMessagge.isNullOrEmpty()) {
+                Toast.makeText(this, errorMessagge, Toast.LENGTH_LONG).show()
+                viewModel.clearErrorMessage()
+                startErrorFragment(errorMessagge)
+                bottomNavigationView.visibility = View.GONE
+            }
+        })
 
         viewModel.getBrawlers()
+    }
 
+    private fun startErrorFragment(errorMessage: String) {
+        val errorFragment = ErrorFragment.newInstance(errorMessage)
+//        val txtErrorInfo = errorFragment.view?.findViewById<TextView>(R.id.txtErrorInfo)
+//        txtErrorInfo?.text = errorMessage
 
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, errorFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 
@@ -105,7 +131,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
         bundle.putString("EXTRA_STARPOWER_1_NAME", brawlerModel.starPowers[0].name)
         bundle.putString("EXTRA_STARPOWER_2_NAME", brawlerModel.starPowers[1].name)
 
-        Log.d(TAG, "bundle vale = $bundle")
+//        Log.d(TAG, "bundle vale = $bundle")
         // Creo l'intento in cui passo il bundle e faccio partire la DetailsActivity
         Intent(this, DetailsActivity::class.java)
             .also {
@@ -129,6 +155,8 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
         )
 
         favouriteViewModel.insertFavouriteBrawler(favouriteBrawler)
+        Toast.makeText(this, "${favouriteBrawler.name} added to favourites", Toast.LENGTH_SHORT)
+            .show()
 
     }
 }

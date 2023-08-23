@@ -40,7 +40,7 @@ class DetailsActivity : AppCompatActivity() {
             secondStarPower = secondStarPower
         )
 
-        Log.d(TAG, "headers vale = $headers")
+//        Log.d(TAG, "headers vale = $headers")
 
         viewModel = ViewModelProvider(
             this,

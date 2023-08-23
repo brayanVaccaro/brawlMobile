@@ -56,30 +56,37 @@ class MainActivityViewModel(context: Context) : ViewModel() {
     val webUrls: MutableLiveData<ImagesModel> by lazy {
         MutableLiveData<ImagesModel>()
     }
+    val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     // Metodo per ottenere i Brawler dall'API remota
     fun getBrawlers() {
         viewModelScope.launch(Dispatchers.IO) {
             Log.d(TAG, "recupero il primo flow dal BrawlerRepo")
 
-            // Ottengo un FLow di BrawlerApiResponse da BrawlerRepository
-            val brawlerFlow = brawlerRepository.fetchBrawlersFlow()
+            try {
 
-            // Raccolgo i dati ottenuti dal flusso
-            brawlerFlow.collect { brawlersFromRepo ->
-                // Trasformo i dati dell'API remota nel modello BrawlerModel dell'UI
-                val uiBrawlers = brawlersFromRepo.items.map {
-                    BrawlerModel(
-                        id = it.id,
-                        name = it.name,
-                        starPowers = it.starPowers,
-                        gadgets = it.gadgets,
-                        spriteUrl = "${spriteUrl}${it.name}.png"
-                    )
+
+                // Ottengo un FLow di BrawlerApiResponse da BrawlerRepository
+                val brawlerFlow = brawlerRepository.fetchBrawlersFlow()
+
+                // Raccolgo i dati ottenuti dal flusso
+                brawlerFlow.collect { brawlersFromRepo ->
+                    // Trasformo i dati dell'API remota nel modello BrawlerModel dell'UI
+                    val uiBrawlers = brawlersFromRepo.items.map {
+                        BrawlerModel(
+                            id = it.id,
+                            name = it.name,
+                            starPowers = it.starPowers,
+                            gadgets = it.gadgets,
+                            spriteUrl = "${spriteUrl}${it.name}.png"
+                        )
+                    }
+
+                    // Aggiorno il LiveData dei Brawler con i dati ottenuti
+                    brawlers.postValue(uiBrawlers)
                 }
-
-                // Aggiorno il LiveData dei Brawler con i dati ottenuti
-                brawlers.postValue(uiBrawlers)
+            } catch (e: Exception) {
+                errorLiveData.postValue("${e.message}")
             }
         }
     }
@@ -90,7 +97,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
             Log.d(TAG, "recupero il secondo flow dal WebRepo")
 
             val textFlow = webRepository.getTextFromWebFlow(name)
-            Log.d(TAG, "textFlow vale = $textFlow")
+//            Log.d(TAG, "textFlow vale = $textFlow")
             textFlow.collect {
 
                 var uiText: TextModel? = null
@@ -198,5 +205,9 @@ class MainActivityViewModel(context: Context) : ViewModel() {
             }
 
         }
+    }
+
+    fun clearErrorMessage() {
+        errorLiveData.postValue(null)
     }
 }

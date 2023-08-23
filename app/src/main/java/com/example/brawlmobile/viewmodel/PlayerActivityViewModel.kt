@@ -58,7 +58,7 @@ class PlayerActivityViewModel(
                         brawlersUnlocked = it.brawlers
                     )
                     val uiPlayerBrawlersUnlocked = uiPlayerInfo.brawlersUnlocked
-                    Log.d(TAG, "uiPlayerBrawlerUnlocked vale = $uiPlayerBrawlersUnlocked")
+//                    Log.d(TAG, "uiPlayerBrawlerUnlocked vale = $uiPlayerBrawlersUnlocked")
 
                     playerInfo.postValue(uiPlayerInfo)
                     playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
