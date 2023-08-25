@@ -1,22 +1,32 @@
 package com.example.brawlmobile.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
 import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 
-class FavouriteAdapter : RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {
+class FavouriteAdapter(
+    private val context: Context,
+    private val onClick: OnClick
+) : RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {
 
     private var favouriteBrawlers: List<FavouriteBrawlerEntity> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val txtProvaNameFavourite: TextView
+        val txtNameFavourite: TextView
+        val imgFavourite: ImageView
+        val deleteButton: ImageView
 
         init {
-            txtProvaNameFavourite = view.findViewById(R.id.provaNameFavourite)
+            txtNameFavourite = view.findViewById(R.id.itemName)
+            imgFavourite = view.findViewById(R.id.img)
+            deleteButton = view.findViewById(R.id.itemDelete)
         }
     }
 
@@ -30,9 +40,18 @@ class FavouriteAdapter : RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {
         return favouriteBrawlers.size
     }
 
+    interface OnClick {
+        fun deleteFromFavourites(name: String){}
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val favouriteBrawler = favouriteBrawlers[position]
-        holder.txtProvaNameFavourite.text = favouriteBrawler.name
+        holder.txtNameFavourite.text = favouriteBrawler.name
+        Glide.with(context).load(favouriteBrawler.spriteUrl).into(holder.imgFavourite)
+        holder.deleteButton.setOnClickListener{
+            onClick.deleteFromFavourites(favouriteBrawler.name)
+        }
+
     }
 
     fun setData(data: List<FavouriteBrawlerEntity>) {

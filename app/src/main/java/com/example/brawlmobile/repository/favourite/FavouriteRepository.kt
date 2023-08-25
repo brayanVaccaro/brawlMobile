@@ -6,8 +6,11 @@ import com.example.brawlmobile.data.dao.FavouriteBrawlerDao
 import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 
 class FavouriteRepository(private val favouriteBrawlerDao: FavouriteBrawlerDao) {
-    fun deleteBrawler(): LiveData<List<FavouriteBrawlerEntity>> {
-        return favouriteBrawlerDao.deleteFavouriteBrawler()
+    fun getAllBrawlers(): LiveData<List<FavouriteBrawlerEntity>> {
+        return favouriteBrawlerDao.getAllFavouriteBrawlers()
+    }
+    fun deleteByName(name: String) {
+        return favouriteBrawlerDao.deleteByName(name)
     }
 
     suspend fun insertBrawlers(brawler: FavouriteBrawlerEntity) {

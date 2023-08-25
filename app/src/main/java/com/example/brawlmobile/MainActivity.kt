@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
 
     private lateinit var favouriteViewModel: FavouriteActivityViewModel
 
-    private lateinit var favouriteBrawlerDao: FavouriteBrawlerDao
-    private lateinit var favouriteRepository: FavouriteRepository
 
     private var TAG = "MainActivity"
 

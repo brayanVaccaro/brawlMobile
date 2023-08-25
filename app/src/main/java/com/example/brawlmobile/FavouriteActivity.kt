@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +18,7 @@ import com.example.brawlmobile.viewmodel.MainActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.FavouriteActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class FavouriteActivity : AppCompatActivity() {
+class FavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: FavouriteActivityViewModel
@@ -29,7 +31,6 @@ class FavouriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favourite)
         Log.d(TAG, "onCreate creo l'activity")
-
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
@@ -66,7 +67,7 @@ class FavouriteActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, FavouriteActivityViewModelFactory(applicationContext))[FavouriteActivityViewModel::class.java]
 
-        adapter = FavouriteAdapter()
+        adapter = FavouriteAdapter(this, this)
         recyclerView = findViewById<RecyclerView?>(R.id.favouriteRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -75,6 +76,15 @@ class FavouriteActivity : AppCompatActivity() {
             adapter.setData(fav)
         })
 
+
+
+    }
+    //Gestisco la eliminazione dai preferiti
+    override fun deleteFromFavourites(name: String) {
+        Log.d(TAG,"elimino dai preferiti")
+        viewModel.deleteBrawler(name)
+        Toast.makeText(this, "$name removed from favourites", Toast.LENGTH_SHORT)
+            .show()
     }
 
 }

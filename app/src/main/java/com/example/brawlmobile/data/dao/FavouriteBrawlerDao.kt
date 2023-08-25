@@ -7,7 +7,10 @@ import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 @Dao
 interface FavouriteBrawlerDao {
     @Query("SELECT * FROM favourite_brawlers")
-    fun deleteFavouriteBrawler(): LiveData<List<FavouriteBrawlerEntity>>
+    fun getAllFavouriteBrawlers(): LiveData<List<FavouriteBrawlerEntity>>
+
+    @Query("DELETE FROM favourite_brawlers WHERE name = :name")
+    fun deleteByName(name: String)
 
     @Upsert
     suspend fun insertFavouriteBrawler(brawler: FavouriteBrawlerEntity)

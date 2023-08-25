@@ -26,7 +26,7 @@ class BrawlerAdapter(
         init {
             txtBrawlerName = view.findViewById(R.id.txtBrawlerName)
             imageView = view.findViewById(R.id.clickableBrawlerSprite)
-            clickableSpriteHeart = view.findViewById(R.id.imgFavorite)
+            clickableSpriteHeart = view.findViewById(R.id.iconFavourite)
         }
     }
 

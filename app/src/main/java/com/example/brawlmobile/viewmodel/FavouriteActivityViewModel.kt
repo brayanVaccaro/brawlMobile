@@ -8,6 +8,7 @@ import com.example.brawlmobile.data.dao.FavouriteBrawlerDao
 import com.example.brawlmobile.data.database.AppDatabase
 import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 import com.example.brawlmobile.repository.favourite.FavouriteRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FavouriteActivityViewModel(
@@ -24,7 +25,7 @@ class FavouriteActivityViewModel(
     }
 
 
-    val allFavouriteBrawlers: LiveData<List<FavouriteBrawlerEntity>> = favouriteRepository.deleteBrawler()
+    val allFavouriteBrawlers: LiveData<List<FavouriteBrawlerEntity>> = favouriteRepository.getAllBrawlers()
 
     // Metodo per inserire il brawler al click del cuore
     fun insertFavouriteBrawler(favouriteBrawler: FavouriteBrawlerEntity) {
@@ -33,9 +34,9 @@ class FavouriteActivityViewModel(
         }
     }
 
-    fun deleteBrawler() {
-        viewModelScope.launch {
-            favouriteRepository.deleteBrawler()
+    fun deleteBrawler(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            favouriteRepository.deleteByName(name)
         }
     }
 }
