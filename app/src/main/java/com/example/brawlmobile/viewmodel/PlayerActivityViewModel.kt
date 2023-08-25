@@ -11,6 +11,7 @@ import com.example.brawlmobile.remote.model.BrawlersUnlocked
 import com.example.brawlmobile.repository.player.PlayerRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PlayerActivityViewModel(
     context: Context
@@ -60,11 +61,16 @@ class PlayerActivityViewModel(
                     val uiPlayerBrawlersUnlocked = uiPlayerInfo.brawlersUnlocked
 //                    Log.d(TAG, "uiPlayerBrawlerUnlocked vale = $uiPlayerBrawlersUnlocked")
 
-                    playerInfo.postValue(uiPlayerInfo)
-                    playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
+                    withContext(Dispatchers.Main) {
+                        playerInfo.postValue(uiPlayerInfo)
+                        playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
+                        errorLiveData.postValue("yes")
+                    }
                 }
             } catch (e: Exception) {
-                errorLiveData.postValue("${e.message}")
+                withContext(Dispatchers.Main) {
+                    errorLiveData.postValue("${e.message}")
+                }
             }
         }
 

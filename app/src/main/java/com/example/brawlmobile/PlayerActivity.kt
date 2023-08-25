@@ -3,14 +3,17 @@ package com.example.brawlmobile
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.adapter.PlayerAdapterBrawlersUnlocked
 import com.example.brawlmobile.adapter.PlayerAdapterInfo
+import com.example.brawlmobile.fragment.InputFragment
 import com.example.brawlmobile.viewmodel.PlayerActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.PlayerActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,7 +28,10 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var adapterBrawlersUnlocked: PlayerAdapterBrawlersUnlocked
 
     private var TAG = "PlayerActivity"
-    private lateinit var playerTag: String
+    private lateinit var expandPlayerInfo: LinearLayout
+    private lateinit var expandUnlocked: LinearLayout
+    private val inputFragment = InputFragment()
+//    private lateinit var playerTag: String
 
     //    tag personale: #PRGG0V09G
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +43,13 @@ class PlayerActivity : AppCompatActivity() {
             PlayerActivityViewModelFactory(this)
         )[PlayerActivityViewModel::class.java]
 
-        val arrowIconEdit: ImageView = findViewById(R.id.arrowIconEdit)
+        startInputFragment()
+
+        val arrowIconPlayerInfo: ImageView = findViewById(R.id.arrowIconPlayerInfo)
+        expandPlayerInfo = findViewById(R.id.expandPlayerInfo)
+
         val arrowIconUnlocked: ImageView = findViewById(R.id.arrowIconUnlocked)
-        val expandible: LinearLayout = findViewById(R.id.expandibleLayout)
-        val expandEdit: LinearLayout = findViewById(R.id.expandEdit)
+        expandUnlocked = findViewById(R.id.expandUnlocked)
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
@@ -59,7 +68,7 @@ class PlayerActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_favourite -> {
-                    Intent(this,FavouriteActivity::class.java)
+                    Intent(this, FavouriteActivity::class.java)
                         .also {
                             startActivity(it)
 
@@ -79,10 +88,11 @@ class PlayerActivity : AppCompatActivity() {
         recyclerViewInfo = findViewById(R.id.playerRecyclerViewInfo)
         recyclerViewInfo.layoutManager = LinearLayoutManager(this)
         recyclerViewInfo.adapter = adapterInfo
+        recyclerViewInfo.visibility = View.GONE
 
 
         recyclerViewBrawlers = findViewById(R.id.playerRecyclerViewBrawlers)
-        recyclerViewBrawlers.layoutManager = LinearLayoutManager(this)
+        recyclerViewBrawlers.layoutManager = GridLayoutManager(this, 3)
         recyclerViewBrawlers.adapter = adapterBrawlersUnlocked
         recyclerViewBrawlers.visibility = View.GONE
 
@@ -92,27 +102,28 @@ class PlayerActivity : AppCompatActivity() {
         viewModel.playerBrawlersUnlocked.observe(this, Observer { data ->
             adapterBrawlersUnlocked.setBrawlersUnlocked(data)
         })
-        viewModel.errorLiveData.observe(this, Observer { errorMessagge ->
-            if (!errorMessagge.isNullOrEmpty()) {
-                Toast.makeText(this, errorMessagge, Toast.LENGTH_LONG).show()
+        viewModel.errorLiveData.observe(this, Observer { errorMessage ->
+            if (errorMessage != "yes") {
+//                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
                 viewModel.clearErrorMessage()
+                inputFragment.showTagError()
+//                val inputFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as? InputFragment
+//                inputFragment?.hideTagError()
+            }
+            else {
+                Log.d(TAG,"sono nell'else")
+                val fragment = supportFragmentManager.beginTransaction()
+                fragment.remove(inputFragment)
+                fragment.commit()
+                expandPlayerInfo.visibility = View.VISIBLE
+                expandUnlocked.visibility = View.VISIBLE
             }
         })
 
-        // Gestiamo il submit del tag
-        val editTextLayout: LinearLayout = findViewById(R.id.editLayout)
-        val editText: EditText = findViewById(R.id.editText)
-        val submitButton: Button = findViewById(R.id.submitTag)
-        submitButton.setOnClickListener {
-            playerTag = editText.text.toString()
-            viewModel.getPlayerInfo(playerTag)
-            expandible.visibility = View.VISIBLE
-        }
 
-        //Gestiamo l'header a scendere dei brawler sbloccati
-        val headerText: TextView = findViewById(R.id.headerText)
-        expandible.visibility = View.GONE
-        expandible.setOnClickListener {
+        //Gestiamo l'apertura della recycler dei brawler sbloccati dal player
+        expandUnlocked.visibility = View.GONE
+        expandUnlocked.setOnClickListener {
             if (recyclerViewBrawlers.visibility == View.GONE) {
                 recyclerViewBrawlers.visibility = View.VISIBLE
                 arrowIconUnlocked.setImageResource(R.drawable.ic_arrow_down)
@@ -123,19 +134,35 @@ class PlayerActivity : AppCompatActivity() {
             }
         }
 
-        //Gestiamo l'header a scendere dell'editText
-        editTextLayout.visibility = View.GONE
-        expandEdit.setOnClickListener {
-            if (editTextLayout.visibility == View.GONE) {
-                editTextLayout.visibility = View.VISIBLE
-                arrowIconEdit.setImageResource(R.drawable.ic_arrow_down)
+        //Gestiamo l'apertura della recycler delle info del player
+        expandPlayerInfo.visibility = View.GONE
+        expandPlayerInfo.setOnClickListener {
+            if (recyclerViewInfo.visibility == View.GONE) {
+                recyclerViewInfo.visibility = View.VISIBLE
+                arrowIconPlayerInfo.setImageResource(R.drawable.ic_arrow_down)
 
 
             } else {
-                editTextLayout.visibility = View.GONE
-                arrowIconEdit.setImageResource(R.drawable.ic_arrow_forward)
+                recyclerViewInfo.visibility = View.GONE
+                arrowIconPlayerInfo.setImageResource(R.drawable.ic_arrow_forward)
             }
         }
+
+
+        //
+        inputFragment.onTagSubmitted = { playerTag ->
+            viewModel.getPlayerInfo(playerTag)
+
+        }
+    }
+
+    private fun startInputFragment() {
+
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, inputFragment)
+        transaction.commit()
+
+
     }
 
 

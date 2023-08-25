@@ -44,7 +44,7 @@ class PlayerAdapterBrawlersUnlocked() : RecyclerView.Adapter<PlayerAdapterBrawle
     }
 
     fun setBrawlersUnlocked(data: List<BrawlersUnlocked>) {
-//        playerBrawlersUnlocked.clear()
+        playerBrawlersUnlocked.clear()
         playerBrawlersUnlocked.addAll(data)
         notifyDataSetChanged()
     }
