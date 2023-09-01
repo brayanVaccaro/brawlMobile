@@ -1,15 +1,19 @@
 package com.example.brawlmobile.adapter
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
+import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.models.brawler.BrawlerModel
 
 class HomeAdapter(
@@ -22,11 +26,15 @@ class HomeAdapter(
         val txtBrawlerName: TextView
         val imageView: ImageView
         val clickableSpriteHeart: ImageView
+        val progressBar: ProgressBar
+        val glideRequestListener: RequestListener<Drawable>
 
         init {
             txtBrawlerName = view.findViewById(R.id.txtBrawlerName)
             imageView = view.findViewById(R.id.clickableBrawlerSprite)
             clickableSpriteHeart = view.findViewById(R.id.iconFavourite)
+            progressBar = view.findViewById(R.id.progressBar)
+            glideRequestListener = GlideRequestListener(progressBar)
         }
     }
 
@@ -51,7 +59,11 @@ class HomeAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val brawlerModel = brawlers[position]
-        Glide.with(context).load(brawlerModel.spriteUrl).into(holder.imageView)
+        holder.progressBar.visibility = View.VISIBLE
+        Glide.with(context)
+            .load(brawlerModel.spriteUrl)
+            .listener(holder.glideRequestListener)
+            .into(holder.imageView)
         holder.txtBrawlerName.text = brawlerModel.name
         holder.imageView.setOnClickListener {
             onClickListener.onClickViewInfo(brawlerModel)
