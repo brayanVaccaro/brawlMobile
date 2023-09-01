@@ -6,23 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.brawlmobile.R
-import com.example.brawlmobile.data.database.AppDatabase
-import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 import com.example.brawlmobile.models.brawler.BrawlerModel
 import com.example.brawlmobile.models.web.ImagesModel
 import com.example.brawlmobile.models.web.TextModel
-import com.example.brawlmobile.repository.brawler.BrawlerRepository
-import com.example.brawlmobile.repository.brawler.BrawlerRepositoryInterface
-import com.example.brawlmobile.repository.favourite.FavouriteRepository
+import com.example.brawlmobile.repository.home.HomeRepository
+import com.example.brawlmobile.repository.home.HomeRepositoryInterface
 import com.example.brawlmobile.repository.web.WebRepository
 import com.example.brawlmobile.repository.web.WebRepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel(context: Context) : ViewModel() {
+class HomeActivityViewModel(context: Context) : ViewModel() {
 
     // Repository per accedere ai dati dei Brawler da una API remota
-    private val brawlerRepository: BrawlerRepositoryInterface
+    private val brawlerRepository: HomeRepositoryInterface
 
     // Repository per prelevare dati da web
     private val webRepository: WebRepositoryInterface
@@ -36,11 +33,10 @@ class MainActivityViewModel(context: Context) : ViewModel() {
 
     // Inizializzazione dei repository nel costruttore
     init {
-        brawlerRepository = BrawlerRepository(context)
+        brawlerRepository = HomeRepository(context)
         webRepository = WebRepository()
 
     }
-
 
     // LiveData per mantenere l'elenco dei Brawler aggiornato nell'UI
     val brawlers: MutableLiveData<List<BrawlerModel>> by lazy {
@@ -64,8 +60,6 @@ class MainActivityViewModel(context: Context) : ViewModel() {
             Log.d(TAG, "recupero il primo flow dal BrawlerRepo")
 
             try {
-
-
                 // Ottengo un FLow di BrawlerApiResponse da BrawlerRepository
                 val brawlerFlow = brawlerRepository.fetchBrawlersFlow()
 
@@ -81,7 +75,6 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                             spriteUrl = "${spriteUrl}${it.name}.png"
                         )
                     }
-
                     // Aggiorno il LiveData dei Brawler con i dati ottenuti
                     brawlers.postValue(uiBrawlers)
                 }
@@ -119,7 +112,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                             secondStarPower = it[6],
                             layoutResId = R.layout.item_text_size7
                         )
-                        Log.d(TAG, "uiText_size7 vale $uiText")
+//                        Log.d(TAG, "uiText_size7 vale $uiText")
 
                     }
                     8 -> {
@@ -137,7 +130,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                             secondStarPower = it[7],
                             layoutResId = R.layout.item_text_size8
                         )
-                        Log.d(TAG, "uiText_size8 vale $uiText")
+//                        Log.d(TAG, "uiText_size8 vale $uiText")
                     }
                     9 -> {
                         Log.d(TAG, "sono in size 9")
@@ -154,7 +147,7 @@ class MainActivityViewModel(context: Context) : ViewModel() {
                             secondStarPower = it[8],
                             layoutResId = R.layout.item_text_size9
                         )
-                        Log.d(TAG, "uiText_size9 vale $uiText")
+//                        Log.d(TAG, "uiText_size9 vale $uiText")
                     }
 
                 }

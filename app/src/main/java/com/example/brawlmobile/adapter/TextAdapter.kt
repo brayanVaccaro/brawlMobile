@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.example.brawlmobile.R
 import com.example.brawlmobile.models.brawler.HeaderModel
 import com.example.brawlmobile.models.web.ImagesModel
@@ -25,12 +26,13 @@ class TextAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
+        val glide = Glide.with(context)
 //        Log.d(TAG, "viewType vale = $viewType")
         val view = inflater.inflate(viewType, parent, false)
         val textViewIds = getTextViewIdsForLayout(viewType)
         val imageViewIds = getImageViewIdsForLayout(viewType)
         Log.d(TAG, "onCreateViewHolder")
-        return ViewHolder(view, textViewIds, imageViewIds, context)
+        return ViewHolder(view, textViewIds, imageViewIds, context, glide)
     }
 
     private fun getImageViewIdsForLayout(layoutId: Int): List<Int> {
@@ -57,7 +59,7 @@ class TextAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder")
 
-        text?.let {it ->
+        text?.let { it ->
             headers?.let { it1 ->
                 urls?.let { it2 -> holder.bindData(it, it1, it2) }
 
@@ -69,7 +71,8 @@ class TextAdapter(
         view: View,
         textViewIds: List<Int>,
         imageViewIds: List<Int>,
-        private val context: Context
+        private val context: Context,
+        private val glide: RequestManager
 
     ) : RecyclerView.ViewHolder(view) {
 
@@ -98,10 +101,6 @@ class TextAdapter(
                     textViews[6].text = headers.secondGadget
                     textViews[7].text = text.secondGadget
                     textViews[8].text = headers.firstStarPower
-                    Log.d(
-                        "TextAdapter",
-                        "setto i dati della firstStarPower: ${text.firstStarPower}"
-                    )
                     textViews[9].text = text.firstStarPower
                     textViews[10].text = headers.secondStarPower
                     textViews[11].text = text.secondStarPower
@@ -142,11 +141,11 @@ class TextAdapter(
                     textViews[13].text = text.secondStarPower
                 }
             }
-            Glide.with(context).load(urls.defaultSkin).into(imageViews[0])
-            Glide.with(context).load(urls.firstGadgetUrl).into(imageViews[1])
-            Glide.with(context).load(urls.secondGadgetUrl).into(imageViews[2])
-            Glide.with(context).load(urls.firstStarPowerUrl).into(imageViews[3])
-            Glide.with(context).load(urls.secondStarPowerUrl).into(imageViews[4])
+            glide.load(urls.defaultSkin).into(imageViews[0])
+            glide.load(urls.firstGadgetUrl).into(imageViews[1])
+            glide.load(urls.secondGadgetUrl).into(imageViews[2])
+            glide.load(urls.firstStarPowerUrl).into(imageViews[3])
+            glide.load(urls.secondStarPowerUrl).into(imageViews[4])
         }
     }
 

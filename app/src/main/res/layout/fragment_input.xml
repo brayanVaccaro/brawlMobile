@@ -36,6 +36,8 @@
         android:layout_height="wrap_content"
         android:text="TAG non corretto o inesistente"
 
+        android:textAlignment="center"
+        android:textColor="#FF0000"
         app:layout_constraintEnd_toEndOf="@+id/editText"
         app:layout_constraintStart_toStartOf="@+id/editText"
         app:layout_constraintTop_toBottomOf="@+id/editText" />

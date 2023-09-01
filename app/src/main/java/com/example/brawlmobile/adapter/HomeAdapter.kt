@@ -12,10 +12,10 @@ import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
 import com.example.brawlmobile.models.brawler.BrawlerModel
 
-class BrawlerAdapter(
+class HomeAdapter(
     private val context: Context,
     private val onClickListener: OnClickListener
-): RecyclerView.Adapter<BrawlerAdapter.ViewHolder>() {
+): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     private var brawlers: MutableList<BrawlerModel> = mutableListOf()
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -41,7 +41,7 @@ class BrawlerAdapter(
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_brawler, parent, false)
+            .inflate(R.layout.item_home, parent, false)
         return ViewHolder(view)
     }
 

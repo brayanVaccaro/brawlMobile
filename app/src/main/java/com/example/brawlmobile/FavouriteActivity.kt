@@ -4,17 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brawlmobile.adapter.BrawlerAdapter
 import com.example.brawlmobile.adapter.FavouriteAdapter
-import com.example.brawlmobile.data.database.AppDatabase
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
-import com.example.brawlmobile.viewmodel.MainActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.FavouriteActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -38,7 +34,7 @@ class FavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
         bottomNavigationView.setOnItemSelectedListener() { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
-                    Intent(this, MainActivity::class.java)
+                    Intent(this, HomeActivity::class.java)
                         .also {
                             startActivity(it)
                             finish()

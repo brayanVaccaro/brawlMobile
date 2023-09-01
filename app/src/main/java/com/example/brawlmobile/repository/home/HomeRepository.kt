@@ -1,4 +1,4 @@
-package com.example.brawlmobile.repository.brawler
+package com.example.brawlmobile.repository.home
 
 import android.content.Context
 import android.util.Log
@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.flow
 /**
  * Il compito di questo repository è ottenere e modificare i dati dei Brawler da una API remota utilizzando RemoteApi
  */
-class BrawlerRepository(
+class HomeRepository(
     context: Context
-) : BrawlerRepositoryInterface {
+) : HomeRepositoryInterface {
 
     private val TAG = "BrawlerRepository"
 

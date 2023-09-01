@@ -11,22 +11,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brawlmobile.adapter.BrawlerAdapter
-import com.example.brawlmobile.data.dao.FavouriteBrawlerDao
+import com.example.brawlmobile.adapter.HomeAdapter
 import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.models.brawler.BrawlerModel
-import com.example.brawlmobile.repository.favourite.FavouriteRepository
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
-import com.example.brawlmobile.viewmodel.MainActivityViewModel
+import com.example.brawlmobile.viewmodel.HomeActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.FavouriteActivityViewModelFactory
-import com.example.brawlmobile.viewmodel.factory.MainActivityViewModelFactory
+import com.example.brawlmobile.viewmodel.factory.HomeActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
+class HomeActivity : AppCompatActivity(), HomeAdapter.OnClickListener {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: MainActivityViewModel
-    private lateinit var adapter: BrawlerAdapter
+    private lateinit var viewModel: HomeActivityViewModel
+    private lateinit var adapter: HomeAdapter
 
     private lateinit var favouriteViewModel: FavouriteActivityViewModel
 
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
     //    private lateinit var txtErrorInfo: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_v2)
+        setContentView(R.layout.activity_home_v2)
 
 
         // Gestiamo la bottomNavigationView
@@ -75,14 +73,14 @@ class MainActivity : AppCompatActivity(), BrawlerAdapter.OnClickListener {
 
         viewModel = ViewModelProvider(
             this,
-            MainActivityViewModelFactory(applicationContext)
-        )[MainActivityViewModel::class.java]
+            HomeActivityViewModelFactory(applicationContext)
+        )[HomeActivityViewModel::class.java]
         favouriteViewModel = ViewModelProvider(
             this,
             FavouriteActivityViewModelFactory(applicationContext)
         )[FavouriteActivityViewModel::class.java]
 
-        adapter = BrawlerAdapter(this, this)
+        adapter = HomeAdapter(this, this)
 
         recyclerView = findViewById(R.id.mainRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)

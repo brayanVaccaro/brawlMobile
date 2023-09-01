@@ -57,7 +57,7 @@ class PlayerActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener() { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
-                    Intent(this, MainActivity::class.java).also {
+                    Intent(this, HomeActivity::class.java).also {
                         startActivity(it)
 
                     }

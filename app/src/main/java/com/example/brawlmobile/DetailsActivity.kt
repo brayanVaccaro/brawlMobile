@@ -7,16 +7,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.brawlmobile.adapter.BrawlerAdapter
 import com.example.brawlmobile.adapter.TextAdapter
 import com.example.brawlmobile.models.brawler.HeaderModel
-import com.example.brawlmobile.viewmodel.MainActivityViewModel
-import com.example.brawlmobile.viewmodel.factory.MainActivityViewModelFactory
+import com.example.brawlmobile.viewmodel.HomeActivityViewModel
+import com.example.brawlmobile.viewmodel.factory.HomeActivityViewModelFactory
 
 class DetailsActivity : AppCompatActivity() {
 
     private val TAG = "DetailsActivity"
-    private lateinit var viewModel: MainActivityViewModel
+    private lateinit var viewModel: HomeActivityViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TextAdapter
 
@@ -44,8 +43,8 @@ class DetailsActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(
             this,
-            MainActivityViewModelFactory(applicationContext)
-        )[MainActivityViewModel::class.java]
+            HomeActivityViewModelFactory(applicationContext)
+        )[HomeActivityViewModel::class.java]
 
         adapter = TextAdapter(this)
 
@@ -58,7 +57,7 @@ class DetailsActivity : AppCompatActivity() {
             adapter.setData(text, headers)
         })
         viewModel.webUrls.observe(this, Observer { urls ->
-            Log.d(TAG,"sto invocando setImages, url vale $urls")
+//            Log.d(TAG,"sto invocando setImages, url vale $urls")
             adapter.setImages(urls)
         })
 

@@ -1,8 +1,8 @@
-package com.example.brawlmobile.repository.brawler
+package com.example.brawlmobile.repository.home
 
 import com.example.brawlmobile.remote.model.BrawlerApiResponse
 import kotlinx.coroutines.flow.Flow
 
-interface BrawlerRepositoryInterface {
+interface HomeRepositoryInterface {
     suspend fun fetchBrawlersFlow(): Flow<BrawlerApiResponse>
 }

@@ -64,7 +64,6 @@ class PlayerActivityViewModel(
                     withContext(Dispatchers.Main) {
                         playerInfo.postValue(uiPlayerInfo)
                         playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
-                        errorLiveData.postValue("yes")
                     }
                 }
             } catch (e: Exception) {
