@@ -1,5 +1,6 @@
 package com.example.brawlmobile.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ class PlayerAdapterInfo(
 ): RecyclerView.Adapter<PlayerAdapterInfo.ViewHolder>() {
 
     private var infoPlayer: MutableList<PlayerInfoModel> = mutableListOf()
+    private val TAG = "PlayerAdapterInfo"
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txtPlayerTag: TextView
@@ -47,6 +49,7 @@ class PlayerAdapterInfo(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_player_info_v2, parent, false)
+        Log.d(TAG,"onCreate")
         return ViewHolder(view)
 
     }

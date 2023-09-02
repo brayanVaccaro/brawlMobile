@@ -34,6 +34,7 @@ class PlayerActivity : AppCompatActivity() {
 //    private lateinit var playerTag: String
 
     //    tag personale: #PRGG0V09G
+    // secondo tag personale: #29G8QYCYG
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
@@ -103,15 +104,16 @@ class PlayerActivity : AppCompatActivity() {
             adapterBrawlersUnlocked.setBrawlersUnlocked(data)
         })
         viewModel.errorLiveData.observe(this, Observer { errorMessage ->
-            if (errorMessage != "yes") {
+            if (errorMessage.isNotEmpty()) {
 //                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
-                viewModel.clearErrorMessage()
+//                viewModel.clearErrorMessage()
+                Log.d(TAG,"sono nell'else, c'è errore")
                 inputFragment.showTagError()
 //                val inputFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as? InputFragment
 //                inputFragment?.hideTagError()
             }
             else {
-                Log.d(TAG,"sono nell'else")
+                Log.d(TAG,"sono nell'else, non c'è errore")
                 val fragment = supportFragmentManager.beginTransaction()
                 fragment.remove(inputFragment)
                 fragment.commit()

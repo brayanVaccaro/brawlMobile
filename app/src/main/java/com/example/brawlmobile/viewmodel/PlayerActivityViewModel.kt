@@ -61,9 +61,11 @@ class PlayerActivityViewModel(
                     val uiPlayerBrawlersUnlocked = uiPlayerInfo.brawlersUnlocked
 //                    Log.d(TAG, "uiPlayerBrawlerUnlocked vale = $uiPlayerBrawlersUnlocked")
 
-                    withContext(Dispatchers.Main) {
+                    withContext(Dispatchers.IO) {
+                        Log.d(TAG,"sto facendo postvalue")
                         playerInfo.postValue(uiPlayerInfo)
                         playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
+                        errorLiveData.postValue("")
                     }
                 }
             } catch (e: Exception) {

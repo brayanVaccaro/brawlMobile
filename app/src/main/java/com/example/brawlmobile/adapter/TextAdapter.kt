@@ -140,7 +140,6 @@ class TextAdapter(
             glide
                 .load(urls.defaultSkin)
                 .listener(glideRequestListenerDefaultSkin)
-                .centerInside()
                 .into(imageViews[0])
             glide
                 .load(urls.firstGadgetUrl)
