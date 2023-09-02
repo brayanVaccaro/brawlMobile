@@ -10,11 +10,13 @@
         android:id="@+id/HeaderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="Name"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal" />
 
     <TextView
         android:id="@+id/HeaderDescription"
@@ -23,17 +25,18 @@
         android:text="Brawler Description"
         app:layout_constraintBottom_toTopOf="@+id/txtDescription"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/HeaderName" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2" />
 
     <TextView
         android:id="@+id/txtDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:text="txtDescription"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/HeaderAttacks"
-        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderDescription" />
 
@@ -50,11 +53,12 @@
         android:id="@+id/txtFirstAttack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:text="txtFirstAttack"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/txtSecondAttack"
-        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderAttacks" />
 
@@ -62,11 +66,12 @@
         android:id="@+id/txtSecondAttack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:text="txtSecondAttack"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/HeaderSupers"
-        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFirstAttack" />
 
@@ -83,11 +88,12 @@
         android:id="@+id/txtFirstSuper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:text="txtFirstSuper"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/txtSecondSuper"
-        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderSupers" />
 
@@ -95,11 +101,12 @@
         android:id="@+id/txtSecondSuper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:text="txtSecondSuper"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/HeaderGadgets"
-        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFirstSuper" />
 
@@ -108,9 +115,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="GADGETS"
+        app:layout_constraintBottom_toTopOf="@+id/placeholder_G1"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSecondSuper" />
 
     <TextView
         android:id="@+id/placeholder_G1"
@@ -119,7 +127,7 @@
         android:text="placeholder_G1"
         app:layout_constraintBottom_toTopOf="@+id/txtFirstGadget"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/HeaderGadgets" />
+        app:layout_constraintTop_toBottomOf="@+id/HeaderGadgets" />
 
     <TextView
         android:id="@+id/txtFirstGadget"
@@ -127,9 +135,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:text="txtFirstGadget"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/placeholder_G2"
         app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_G1" />
 
@@ -148,9 +156,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:text="txtSecondGadget"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/HeaderStarPowers"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_G2" />
 
@@ -159,11 +167,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="STAR POWERS"
+        app:layout_constraintBottom_toTopOf="@+id/placeholder_S1"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal3"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSecondGadget" />
 
     <TextView
         android:id="@+id/placeholder_S1"
@@ -172,14 +179,17 @@
         android:text="placeholder_S1"
         app:layout_constraintBottom_toTopOf="@+id/txtFirstStarPower"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/HeaderStarPowers" />
+        app:layout_constraintTop_toBottomOf="@+id/HeaderStarPowers" />
 
     <TextView
         android:id="@+id/txtSecondStarPower"
-        android:layout_width="324dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="txtSecondStarPower"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_S2" />
 
@@ -194,10 +204,13 @@
 
     <TextView
         android:id="@+id/txtFirstStarPower"
-        android:layout_width="324dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="txtFirstStarPower"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/placeholder_S2"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_S1" />
 
@@ -213,31 +226,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHorizontal3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <ImageView
         android:id="@+id/imgDefaultSkin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="411dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guidelineVertical"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -246,7 +252,7 @@
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/txtFirstGadget"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtFirstGadget"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
         app:layout_constraintTop_toTopOf="@+id/txtFirstGadget" />
 
     <ImageView
@@ -255,7 +261,7 @@
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="@id/txtSecondGadget"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtSecondGadget"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
         app:layout_constraintTop_toTopOf="@id/txtSecondGadget" />
 
     <ImageView
@@ -264,7 +270,7 @@
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="@id/txtFirstStarPower"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/txtFirstStarPower"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
         app:layout_constraintTop_toTopOf="@id/txtFirstStarPower" />
 
     <ImageView
@@ -273,7 +279,62 @@
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="@id/txtSecondStarPower"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/txtSecondStarPower"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
         app:layout_constraintTop_toTopOf="@id/txtSecondStarPower" />
+
+    <ProgressBar
+        android:id="@+id/detailsProgressBarDefaultSkin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imgDefaultSkin"
+        app:layout_constraintEnd_toEndOf="@id/imgDefaultSkin"
+        app:layout_constraintStart_toStartOf="@id/imgDefaultSkin"
+        app:layout_constraintTop_toTopOf="@id/imgDefaultSkin" />
+
+    <ProgressBar
+        android:id="@+id/detailsProgressBarFirstGadget"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imgFirstGadget"
+        app:layout_constraintEnd_toEndOf="@+id/imgFirstGadget"
+        app:layout_constraintStart_toStartOf="@+id/imgFirstGadget"
+        app:layout_constraintTop_toTopOf="@+id/imgFirstGadget" />
+
+    <ProgressBar
+        android:id="@+id/detailsProgressBarSecondGadget"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imgSecondGadget"
+        app:layout_constraintEnd_toEndOf="@id/imgSecondGadget"
+        app:layout_constraintStart_toStartOf="@id/imgSecondGadget"
+        app:layout_constraintTop_toTopOf="@id/imgSecondGadget" />
+
+    <ProgressBar
+        android:id="@+id/detailsProgressBarFirstStarPower"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imgFirstStarPower"
+        app:layout_constraintEnd_toEndOf="@id/imgFirstStarPower"
+        app:layout_constraintStart_toStartOf="@id/imgFirstStarPower"
+        app:layout_constraintTop_toTopOf="@id/imgFirstStarPower" />
+
+    <ProgressBar
+        android:id="@+id/detailsProgressBarSecondStarPower"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imgSecondStarPower"
+        app:layout_constraintEnd_toEndOf="@id/imgSecondStarPower"
+        app:layout_constraintStart_toStartOf="@id/imgSecondStarPower"
+        app:layout_constraintTop_toTopOf="@id/imgSecondStarPower" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

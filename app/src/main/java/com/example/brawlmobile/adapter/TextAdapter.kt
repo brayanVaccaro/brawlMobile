@@ -1,16 +1,20 @@
 package com.example.brawlmobile.adapter
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
+import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.models.brawler.HeaderModel
 import com.example.brawlmobile.models.web.ImagesModel
 import com.example.brawlmobile.models.web.TextModel
@@ -24,49 +28,6 @@ class TextAdapter(
     private var urls: ImagesModel? = null
     private var TAG = "TextAdapter"
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val glide = Glide.with(context)
-//        Log.d(TAG, "viewType vale = $viewType")
-        val view = inflater.inflate(viewType, parent, false)
-        val textViewIds = getTextViewIdsForLayout(viewType)
-        val imageViewIds = getImageViewIdsForLayout(viewType)
-        Log.d(TAG, "onCreateViewHolder")
-        return ViewHolder(view, textViewIds, imageViewIds, context, glide)
-    }
-
-    private fun getImageViewIdsForLayout(layoutId: Int): List<Int> {
-        Log.d(TAG, "Sto recuperando gli id delle ImageView")
-
-        return when (layoutId) {
-            R.layout.item_text_size7,
-            R.layout.item_text_size9,
-            R.layout.item_text_size8 -> {
-                Log.d(TAG, "Sono in size 7/8/9")
-                listOf(
-                    R.id.imgDefaultSkin,
-                    R.id.imgFirstGadget,
-                    R.id.imgSecondGadget,
-                    R.id.imgFirstStarPower,
-                    R.id.imgSecondStarPower
-
-                )
-            }
-            else -> emptyList()
-        }
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder")
-
-        text?.let { it ->
-            headers?.let { it1 ->
-                urls?.let { it2 -> holder.bindData(it, it1, it2) }
-
-            }
-        }
-    }
-
     class ViewHolder(
         view: View,
         textViewIds: List<Int>,
@@ -79,6 +40,37 @@ class TextAdapter(
 
         private val textViews: List<TextView> = textViewIds.map { view.findViewById(it) }
         private val imageViews: List<ImageView> = imageViewIds.map { view.findViewById(it) }
+        val progressBarDefaultSkin: ProgressBar
+        val glideRequestListenerDefaultSkin: RequestListener<Drawable>
+
+        val progressBarFirstGadget: ProgressBar
+        val glideRequestListenerFirstGadget: RequestListener<Drawable>
+
+        val progressBarSecondGadget: ProgressBar
+        val glideRequestListenerSecondGadget: RequestListener<Drawable>
+
+        val progressBarFirstStarPower: ProgressBar
+        val glideRequestListenerFirstStarPower: RequestListener<Drawable>
+
+        val progressBarSecondStarPower: ProgressBar
+        val glideRequestListenerSecondStarPower: RequestListener<Drawable>
+        init {
+            progressBarDefaultSkin = view.findViewById(R.id.detailsProgressBarDefaultSkin)
+            glideRequestListenerDefaultSkin = GlideRequestListener(progressBarDefaultSkin)
+
+            progressBarFirstGadget = view.findViewById(R.id.detailsProgressBarFirstGadget)
+            glideRequestListenerFirstGadget = GlideRequestListener(progressBarFirstGadget)
+
+            progressBarSecondGadget = view.findViewById(R.id.detailsProgressBarSecondGadget)
+            glideRequestListenerSecondGadget = GlideRequestListener(progressBarSecondGadget)
+
+            progressBarFirstStarPower = view.findViewById(R.id.detailsProgressBarFirstStarPower)
+            glideRequestListenerFirstStarPower = GlideRequestListener(progressBarFirstStarPower)
+
+            progressBarSecondStarPower = view.findViewById(R.id.detailsProgressBarSecondStarPower)
+            glideRequestListenerSecondStarPower = GlideRequestListener(progressBarSecondStarPower)
+        }
+
 
         fun bindData(
             text: TextModel,
@@ -87,7 +79,11 @@ class TextAdapter(
 
         ) {
             Log.d("TextAdapter", "Sono in bindData()")
-
+            progressBarDefaultSkin.visibility = View.VISIBLE
+            progressBarFirstGadget.visibility = View.VISIBLE
+            progressBarSecondGadget.visibility = View.VISIBLE
+            progressBarFirstStarPower.visibility = View.VISIBLE
+            progressBarSecondStarPower.visibility = View.VISIBLE
             when (textViews.size) {
                 12 -> {
                     Log.d("TextAdapter", "Sono in size 12")
@@ -141,21 +137,55 @@ class TextAdapter(
                     textViews[13].text = text.secondStarPower
                 }
             }
-            glide.load(urls.defaultSkin).into(imageViews[0])
-            glide.load(urls.firstGadgetUrl).into(imageViews[1])
-            glide.load(urls.secondGadgetUrl).into(imageViews[2])
-            glide.load(urls.firstStarPowerUrl).into(imageViews[3])
-            glide.load(urls.secondStarPowerUrl).into(imageViews[4])
+            glide
+                .load(urls.defaultSkin)
+                .listener(glideRequestListenerDefaultSkin)
+                .centerInside()
+                .into(imageViews[0])
+            glide
+                .load(urls.firstGadgetUrl)
+                .listener(glideRequestListenerFirstGadget)
+                .into(imageViews[1])
+            glide
+                .load(urls.secondGadgetUrl)
+                .listener(glideRequestListenerSecondGadget)
+                .into(imageViews[2])
+            glide
+                .load(urls.firstStarPowerUrl)
+                .listener(glideRequestListenerFirstStarPower)
+                .into(imageViews[3])
+            glide
+                .load(urls.secondStarPowerUrl)
+                .listener(glideRequestListenerSecondStarPower)
+                .into(imageViews[4])
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+
+        val glide = Glide.with(context)
+//        Log.d(TAG, "viewType vale = $viewType")
+        val view = inflater.inflate(viewType, parent, false)
+        val textViewIds = getTextViewIdsForLayout(viewType)
+        val imageViewIds = getImageViewIdsForLayout(viewType)
+        Log.d(TAG, "onCreateViewHolder")
+        return ViewHolder(view, textViewIds, imageViewIds, context, glide)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d(TAG, "onBindViewHolder")
+
+        text?.let { it ->
+            headers?.let { it1 ->
+                urls?.let { it2 -> holder.bindData(it, it1, it2) }
+
+            }
         }
     }
 
     override fun getItemCount(): Int {
         return if (text != null) 1 else 0
-    }
-
-    override fun getItemViewType(position: Int): Int {
-//        Log.d(TAG, "layoutResId = ${text?.layoutResId}")
-        return text?.layoutResId ?: 0
     }
 
     fun setData(data_text: TextModel, data_headers: HeaderModel) {
@@ -176,6 +206,30 @@ class TextAdapter(
 
     }
 
+    override fun getItemViewType(position: Int): Int {
+//        Log.d(TAG, "layoutResId = ${text?.layoutResId}")
+        return text?.layoutResId ?: 0
+    }
+
+    private fun getImageViewIdsForLayout(layoutId: Int): List<Int> {
+        Log.d(TAG, "Sto recuperando gli id delle ImageView")
+
+        return when (layoutId) {
+            R.layout.item_text_size7,
+            R.layout.item_text_size9,
+            R.layout.item_text_size8 -> {
+                Log.d(TAG, "Sono in size 7/8/9")
+                listOf(
+                    R.id.imgDefaultSkin,
+                    R.id.imgFirstGadget,
+                    R.id.imgSecondGadget,
+                    R.id.imgFirstStarPower,
+                    R.id.imgSecondStarPower
+                )
+            }
+            else -> emptyList()
+        }
+    }
 
     private fun getTextViewIdsForLayout(layoutId: Int): List<Int> {
         Log.d(TAG, "Sto recuperando gli id delle TextView")

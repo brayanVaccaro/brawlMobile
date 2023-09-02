@@ -33,7 +33,7 @@ class HomeAdapter(
             txtBrawlerName = view.findViewById(R.id.txtBrawlerName)
             imageView = view.findViewById(R.id.clickableBrawlerSprite)
             clickableSpriteHeart = view.findViewById(R.id.iconFavourite)
-            progressBar = view.findViewById(R.id.progressBar)
+            progressBar = view.findViewById(R.id.homeProgressBar)
             glideRequestListener = GlideRequestListener(progressBar)
         }
     }

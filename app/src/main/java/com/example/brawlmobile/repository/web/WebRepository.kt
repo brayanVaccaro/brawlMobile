@@ -86,7 +86,7 @@ class WebRepository : WebRepositoryInterface {
         // Mi salvo solo l'url presente nell'attributo src
         val srcImageProfile = imageProfile.attr("src")
         // Aggiungo alla lista
-        imageUrls.add(cleanUrls(srcImageProfile))
+        imageUrls.add(srcImageProfile)
 
         // Seleziono le restanti immagini del sito
         val images = document.select(".mw-parser-output > div[style*='float: right;'] > img")
@@ -95,7 +95,7 @@ class WebRepository : WebRepositoryInterface {
             // Mi salvo il testo dell'attributo data-src
             val src = element.attr("data-src")
             // Pulisco l'url e aggiungo alla lista
-            imageUrls.add(cleanUrls(src))
+            imageUrls.add(src)
         }
 //        Log.d(TAG,"imageUrls vale $imageUrls")
 
