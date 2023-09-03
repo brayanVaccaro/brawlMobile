@@ -25,19 +25,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".clashRoyale.PlayerActivity"
+            android:name=".activity.clashRoyale.ClashHomeActivity"
             android:exported="true" />
         <activity
-            android:name=".brawlStar.FavouriteActivity"
+            android:name=".activity.brawlStars.FavouriteActivity"
             android:exported="false" />
         <activity
-            android:name=".brawlStar.PlayerActivity"
+            android:name=".activity.brawlStars.PlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".brawlStar.DetailsActivity"
+            android:name=".activity.brawlStars.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".brawlStar.HomeActivity"
+            android:name=".activity.brawlStars.BrawlHomeActivity"
             android:exported="true">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
