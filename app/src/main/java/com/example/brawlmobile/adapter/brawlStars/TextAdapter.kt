@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
-import com.example.brawlmobile.adapter.brawlStars.listener.GlideRequestListener
+import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.model.brawlStar.brawler.HeaderModel
 import com.example.brawlmobile.model.brawlStar.web.ImagesModel
 import com.example.brawlmobile.model.brawlStar.web.TextModel

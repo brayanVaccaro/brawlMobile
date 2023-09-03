@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
-import com.example.brawlmobile.adapter.brawlStars.listener.GlideRequestListener
+import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 
 class HomeAdapter(

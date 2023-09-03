@@ -1,4 +1,4 @@
-package com.example.brawlmobile.adapter.brawlStars.listener
+package com.example.brawlmobile.adapter.listener
 
 import android.graphics.drawable.Drawable
 import android.view.View
