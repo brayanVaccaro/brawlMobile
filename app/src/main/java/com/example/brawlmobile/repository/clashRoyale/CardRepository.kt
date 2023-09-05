@@ -31,7 +31,7 @@ class CardRepository(context: Context) {
          }
 
         emit(resultCard)
-        delay(1000)
+        delay(5000)
 
     }
 }

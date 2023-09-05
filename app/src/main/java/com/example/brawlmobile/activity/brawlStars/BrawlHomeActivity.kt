@@ -117,11 +117,10 @@ class BrawlHomeActivity : AppCompatActivity(), OnClickListener {
 
     private fun startErrorFragment(errorMessage: String) {
         val errorFragment = ErrorFragment.newInstance(errorMessage)
-//        val txtErrorInfo = errorFragment.view?.findViewById<TextView>(R.id.txtErrorInfo)
-//        txtErrorInfo?.text = errorMessage
+
 
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, errorFragment)
+        transaction.replace(R.id.brawlFragmentContainer, errorFragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }

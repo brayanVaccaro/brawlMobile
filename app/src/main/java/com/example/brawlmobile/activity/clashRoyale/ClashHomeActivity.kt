@@ -1,19 +1,21 @@
 package com.example.brawlmobile.activity.clashRoyale
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
-import com.example.brawlmobile.activity.brawlStars.DetailsActivity
 import com.example.brawlmobile.adapter.OnClickListener
 import com.example.brawlmobile.adapter.clashRoyale.HomeAdapter
 import com.example.brawlmobile.fragment.DetailsDialogFragment
+import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.clashRoyale.CardModel
 import com.example.brawlmobile.viewmodel.clashRoyale.HomeActivityViewModel
 import com.example.brawlmobile.viewmodel.clashRoyale.factory.HomeActivityViewModelFactory
@@ -43,6 +45,14 @@ class ClashHomeActivity : AppCompatActivity(), OnClickListener {
         viewModel.cards.observe(this) { cards ->
             adapter.setCard(cards)
         }
+        viewModel.errorLiveData.observe(this, Observer { errorMessagge ->
+            if (!errorMessagge.isNullOrEmpty()) {
+                Toast.makeText(this, errorMessagge, Toast.LENGTH_LONG).show()
+                viewModel.clearErrorMessage()
+                startErrorFragment(errorMessagge)
+
+            }
+        })
 
         viewModel.getCards()
 
@@ -71,5 +81,16 @@ class ClashHomeActivity : AppCompatActivity(), OnClickListener {
         // Creo un Toast in cui visualizzare il nome del Brawler
         Toast.makeText(this, "Brawler: ${cardModel.name}", Toast.LENGTH_SHORT)
             .show()
+    }
+
+    private fun startErrorFragment(errorMessage: String) {
+        val errorFragment = ErrorFragment.newInstance(errorMessage)
+//        val txtErrorInfo = errorFragment.view?.findViewById<TextView>(R.id.txtErrorInfo)
+//        txtErrorInfo?.text = errorMessage
+
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.clashFragmentContainer, errorFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
