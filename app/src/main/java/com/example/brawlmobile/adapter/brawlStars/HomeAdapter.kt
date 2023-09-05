@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
+import com.example.brawlmobile.adapter.OnClickListener
 import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 
@@ -43,10 +44,10 @@ class HomeAdapter(
         brawlers.addAll(data)
         notifyDataSetChanged()
     }
-    interface OnClickListener {
+    /*interface OnClickListener {
         fun onClickViewInfo(brawlerModel: BrawlerModel){}
         fun onClickAddToFavourite(brawlerModel: BrawlerModel){}
-    }
+    }*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_home_brawl, parent, false)

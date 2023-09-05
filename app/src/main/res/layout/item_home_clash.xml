@@ -7,7 +7,7 @@
     android:layout_marginBottom="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clashHomeConstraint"
+        android:id="@+id/clickableClashHomeConstraint"
         android:layout_width="130dp"
         android:layout_height="170dp"
         app:layout_constraintBottom_toBottomOf="parent"

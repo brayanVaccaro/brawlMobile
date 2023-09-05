@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
+import com.example.brawlmobile.adapter.OnClickListener
 import com.example.brawlmobile.adapter.brawlStars.HomeAdapter
 import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 import com.example.brawlmobile.fragment.ErrorFragment
@@ -23,7 +24,7 @@ import com.example.brawlmobile.viewmodel.brawlStars.factory.FavouriteActivityVie
 import com.example.brawlmobile.viewmodel.brawlStars.factory.HomeActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class BrawlHomeActivity : AppCompatActivity(), HomeAdapter.OnClickListener {
+class BrawlHomeActivity : AppCompatActivity(), OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: HomeActivityViewModel
     private lateinit var adapter: HomeAdapter
@@ -126,7 +127,9 @@ class BrawlHomeActivity : AppCompatActivity(), HomeAdapter.OnClickListener {
     }
 
 
-    override fun onClickViewInfo(brawlerModel: BrawlerModel) {
+    override fun onClickViewInfo(model: Any) {
+
+        val brawlerModel = model as BrawlerModel
 
         if (brawlerModel.name == "El-Primo") {
             brawlerModel.name = "El_Primo"
@@ -154,7 +157,8 @@ class BrawlHomeActivity : AppCompatActivity(), HomeAdapter.OnClickListener {
             .show()
     }
 
-    override fun onClickAddToFavourite(brawlerModel: BrawlerModel) {
+    override fun onClickAddToFavourite(model: Any) {
+        val brawlerModel = model as BrawlerModel
 
         Log.d(TAG, "aggiungo ai favoriti")
         val favouriteBrawler = FavouriteBrawlerEntity(
