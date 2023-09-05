@@ -1,4 +1,4 @@
-package com.example.brawlmobile.viewmodel.brawlStars
+package com.example.brawlmobile.viewmodel
 
 import android.content.Context
 import android.util.Log
@@ -6,14 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
-import com.example.brawlmobile.R
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
-import com.example.brawlmobile.model.brawlStar.web.ImagesModel
-import com.example.brawlmobile.model.brawlStar.web.TextModel
 import com.example.brawlmobile.model.clashRoyale.CardModel
 import com.example.brawlmobile.repository.brawlStars.home.HomeRepository
-import com.example.brawlmobile.repository.brawlStars.details.UrlRepository
-import com.example.brawlmobile.repository.brawlStars.details.TextRepository
 import com.example.brawlmobile.repository.clashRoyale.CardRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,8 +18,6 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     // Repository per accedere ai dati dei Brawler da una API remota
     private val brawlerRepository: HomeRepository
     private val cardRepository: CardRepository
-
-
 
     // TAG per il logging
     private val TAG = "MainActivityViewModel"
@@ -47,13 +40,11 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
         MutableLiveData<List<BrawlerModel>>()
     }
 
-
     val cards: MutableLiveData<List<CardModel>> by lazy {
         MutableLiveData<List<CardModel>>()
     }
 
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
-
 
     // Metodo per ottenere i Brawler dall'API remota
     fun getBrawlers() {
@@ -137,8 +128,6 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
             Log.d(TAG, "ho finito il preload")
         }
     }
-
-
 
     fun clearErrorMessage() {
         errorLiveData.postValue(null)

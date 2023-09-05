@@ -1,8 +1,8 @@
 package com.example.brawlmobile.activity.brawlStars
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,19 +10,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.adapter.brawlStars.TextAdapter
 import com.example.brawlmobile.model.brawlStar.brawler.HeaderModel
-import com.example.brawlmobile.viewmodel.brawlStars.HomeActivityViewModel
-import com.example.brawlmobile.viewmodel.brawlStars.factory.HomeActivityViewModelFactory
+import com.example.brawlmobile.viewmodel.brawlStars.DetailsActivityViewModel
+import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 
-class DetailsActivity : AppCompatActivity() {
+
+class BrawlDetailsActivity : AppCompatActivity() {
 
     private val TAG = "DetailsActivity"
-    private lateinit var viewModel: HomeActivityViewModel
+    private lateinit var viewModel: DetailsActivityViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TextAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+        setContentView(R.layout.activity_brawl_details)
 
         val bundle = intent.extras
 
@@ -44,8 +45,8 @@ class DetailsActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(
             this,
-            HomeActivityViewModelFactory(applicationContext)
-        )[HomeActivityViewModel::class.java]
+            MyCustomViewModelFactory(this,this::class.java)
+        )[DetailsActivityViewModel::class.java]
 
         adapter = TextAdapter(this)
 

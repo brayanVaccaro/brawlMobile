@@ -2,7 +2,6 @@ package com.example.brawlmobile.adapter.clashRoyale
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
-import com.example.brawlmobile.adapter.OnClickListener
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.listener.GlideRequestListener
-import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 import com.example.brawlmobile.model.clashRoyale.CardModel
 
 //import com.example.brawlmobile.clashRoyale.adapter.listener.GlideRequestListener
 
 class HomeAdapter(
     private val context: Context,
-    private val onClickListener: OnClickListener
+    private val clickListener: ClickListener
 ) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
 
@@ -66,7 +64,7 @@ class HomeAdapter(
         holder.cardName.text = cardModel.name
 //        holder.maxLevel.text = cardModel.maxLevel.toString()
         holder.clickableConstraint.setOnClickListener {
-            onClickListener.onClickViewInfo(cardModel)
+            clickListener.onClickViewInfo(cardModel)
         }
 //        Log.d("clashRoyale.HomeAdapter","loading image named ${cardModel.urlNormal}")
         holder.clashProgressBar.visibility = View.VISIBLE

@@ -1,11 +1,11 @@
 package com.example.brawlmobile.activity.brawlStars
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,20 +13,22 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
-import com.example.brawlmobile.adapter.OnClickListener
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.brawlStars.HomeAdapter
 import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
-import com.example.brawlmobile.viewmodel.brawlStars.FavouriteActivityViewModel
-import com.example.brawlmobile.viewmodel.brawlStars.HomeActivityViewModel
-import com.example.brawlmobile.viewmodel.brawlStars.factory.FavouriteActivityViewModelFactory
-import com.example.brawlmobile.viewmodel.brawlStars.factory.HomeActivityViewModelFactory
+import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
+import com.example.brawlmobile.viewmodel.HomeActivityViewModel
+
+import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class BrawlHomeActivity : AppCompatActivity(), OnClickListener {
-    private lateinit var recyclerView: RecyclerView
+class BrawlHomeActivity : AppCompatActivity(), ClickListener {
     private lateinit var viewModel: HomeActivityViewModel
+
+    //    private lateinit var viewModelFactory: MyCustomViewModelFactory
+    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HomeAdapter
 
     private lateinit var favouriteViewModel: FavouriteActivityViewModel
@@ -37,12 +39,48 @@ class BrawlHomeActivity : AppCompatActivity(), OnClickListener {
     //    private lateinit var txtErrorInfo: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home_v2)
+        setContentView(R.layout.activity_brawl_home)
 
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
             findViewById(R.id.bottomNavigationView)
+
+
+        viewModel = ViewModelProvider(
+            this,
+            MyCustomViewModelFactory(this, this::class.java)
+        )[HomeActivityViewModel::class.java]
+
+        favouriteViewModel = ViewModelProvider(
+            this,
+            MyCustomViewModelFactory(this, this::class.java)
+        )[FavouriteActivityViewModel::class.java]
+
+        adapter = HomeAdapter(this, this)
+
+        recyclerView = findViewById(R.id.mainRecyclerView)
+        recyclerView.layoutManager = GridLayoutManager(this, 3)
+        recyclerView.adapter = adapter
+
+        viewModel.brawlers.observe(this, Observer { brawlers ->
+            adapter.setBrawlers(brawlers)
+        })
+        viewModel.errorLiveData.observe(this, Observer { errorMessagge ->
+            if (!errorMessagge.isNullOrEmpty()) {
+                Log.e(TAG, "AVVIO ERROR FRAGMENT")
+                Toast.makeText(this, errorMessagge, Toast.LENGTH_LONG).show()
+                viewModel.clearErrorMessage()
+                startErrorFragment(errorMessagge)
+                bottomNavigationView.visibility = View.GONE
+            }
+        })
+
+
+        viewModel.getBrawlers()
+
+
+
         bottomNavigationView.setOnItemSelectedListener() { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
@@ -59,7 +97,7 @@ class BrawlHomeActivity : AppCompatActivity(), OnClickListener {
                 }
                 R.id.menu_favourite -> {
                     Log.d(TAG, "ho cliccato favourites")
-                    Intent(this, FavouriteActivity::class.java)
+                    Intent(this, BrawlFavouriteActivity::class.java)
                         .also {
                             Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
@@ -74,45 +112,13 @@ class BrawlHomeActivity : AppCompatActivity(), OnClickListener {
                             Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
 
+
                         }
                     true
                 }
             }
         }
         bottomNavigationView.selectedItemId = R.id.menu_home
-
-        viewModel = ViewModelProvider(
-            this,
-            HomeActivityViewModelFactory(this)
-        )[HomeActivityViewModel::class.java]
-
-        favouriteViewModel = ViewModelProvider(
-            this,
-            FavouriteActivityViewModelFactory(this)
-        )[FavouriteActivityViewModel::class.java]
-
-        adapter = HomeAdapter(this, this)
-
-        recyclerView = findViewById(R.id.mainRecyclerView)
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
-        recyclerView.adapter = adapter
-
-        viewModel.brawlers.observe(this, Observer { brawlers ->
-            adapter.setBrawlers(brawlers)
-        })
-        viewModel.errorLiveData.observe(this, Observer { errorMessagge ->
-            if (!errorMessagge.isNullOrEmpty()) {
-                Toast.makeText(this, errorMessagge, Toast.LENGTH_LONG).show()
-                viewModel.clearErrorMessage()
-                startErrorFragment(errorMessagge)
-                bottomNavigationView.visibility = View.GONE
-            }
-        })
-
-
-        viewModel.getBrawlers(this)
-
-//        viewModel.preloadImages(this)
     }
 
     private fun startErrorFragment(errorMessage: String) {
@@ -144,7 +150,7 @@ class BrawlHomeActivity : AppCompatActivity(), OnClickListener {
 
 //        Log.d(TAG, "bundle vale = $bundle")
         // Creo l'intento in cui passo il bundle e faccio partire la DetailsActivity
-        Intent(this, DetailsActivity::class.java)
+        Intent(this, BrawlDetailsActivity::class.java)
             .also {
                 it.putExtras(bundle)
 

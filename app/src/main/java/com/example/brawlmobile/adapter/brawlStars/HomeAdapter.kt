@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
-import com.example.brawlmobile.adapter.OnClickListener
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 
 class HomeAdapter(
     private val context: Context,
-    private val onClickListener: OnClickListener
+    private val clickListener: ClickListener
 ): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     private var brawlers: MutableList<BrawlerModel> = mutableListOf()
@@ -67,10 +67,10 @@ class HomeAdapter(
             .into(holder.imageView)
         holder.txtBrawlerName.text = brawlerModel.name
         holder.imageView.setOnClickListener {
-            onClickListener.onClickViewInfo(brawlerModel)
+            clickListener.onClickViewInfo(brawlerModel)
         }
         holder.clickableSpriteHeart.setOnClickListener {
-            onClickListener.onClickAddToFavourite(brawlerModel)
+            clickListener.onClickAddToFavourite(brawlerModel)
         }
     }
 

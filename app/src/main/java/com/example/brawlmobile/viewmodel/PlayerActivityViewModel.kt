@@ -1,4 +1,4 @@
-package com.example.brawlmobile.viewmodel.brawlStars
+package com.example.brawlmobile.viewmodel
 
 import android.content.Context
 import android.util.Log
@@ -31,7 +31,7 @@ class PlayerActivityViewModel(
     val brawlPlayerInfo: MutableLiveData<PlayerInfoModel> by lazy {
         MutableLiveData<PlayerInfoModel>()
     }
-    val clahsPlayerInfo: MutableLiveData<ClashPlayerInfoModel> by lazy {
+    val clashPlayerInfo: MutableLiveData<ClashPlayerInfoModel> by lazy {
         MutableLiveData<ClashPlayerInfoModel>()
     }
     val playerBrawlersUnlocked: MutableLiveData<List<BrawlersUnlocked>> by lazy {
@@ -138,7 +138,7 @@ class PlayerActivityViewModel(
 
                     withContext(Dispatchers.IO) {
                         Log.d(TAG, "sto facendo postvalue")
-                        clahsPlayerInfo.postValue(uiPlayerInfo)
+                        clashPlayerInfo.postValue(uiPlayerInfo)
                         playerCardsUnlocked.postValue(uiPlayerCardsUnlocked)
                         playerBadgesUnlocked.postValue(uiPlayerBadgesUnlocked)
 

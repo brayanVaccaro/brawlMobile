@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.flow
  */
 class HomeRepository(
     context: Context
-) : HomeRepositoryInterface {
+) {
 
     private val TAG = "BrawlerRepository"
 
@@ -24,9 +24,10 @@ class HomeRepository(
      * dei dati ottenuti dalla API.
      * Continua ad emettere risultati ogni 5 secondi.
      */
-    override suspend fun fetchBrawlersFlow(): Flow<BrawlerApiResponse> = flow {
-        Log.d(TAG, "prendo i dati")
-
+    suspend fun fetchBrawlersFlow(): Flow<BrawlerApiResponse> = flow {
+        Log.d(TAG, "fetchBrawlersFlow()")
+        while (true) {
+        Log.d(TAG, "fetchBrawlersFlow(), prendo i dati")
             val resultBrawler = remoteApi.brawlerApiService.getAllBrawlers()
             // Mappa per trasformare i nomi di alcuni brawler (necessario successivamente per ottenere le immagini giuste)
             val nameMap = mapOf(
@@ -45,8 +46,9 @@ class HomeRepository(
             }
             // Emetto l'oggetto resultBrawler nel Flow
             emit(resultBrawler)
-            // Aggiorna il valore del Flow ogni 15 secondi
-            delay(150000)
+            // Aggiorna il valore del Flow ogni 5 secondi
+            delay(5000)
+        }
 
     }
 }

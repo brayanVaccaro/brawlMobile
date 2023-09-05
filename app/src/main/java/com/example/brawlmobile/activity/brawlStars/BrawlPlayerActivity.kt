@@ -1,26 +1,29 @@
 package com.example.brawlmobile.activity.brawlStars
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
+import com.example.brawlmobile.StartActivity
 import com.example.brawlmobile.adapter.brawlStars.PlayerAdapterBrawlersUnlocked
 import com.example.brawlmobile.adapter.brawlStars.PlayerAdapterInfo
 import com.example.brawlmobile.fragment.InputFragment
-import com.example.brawlmobile.viewmodel.brawlStars.PlayerActivityViewModel
-import com.example.brawlmobile.viewmodel.brawlStars.factory.PlayerActivityViewModelFactory
+import com.example.brawlmobile.viewmodel.PlayerActivityViewModel
+import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BrawlPlayerActivity : AppCompatActivity() {
     private lateinit var viewModel: PlayerActivityViewModel
+//    private lateinit var viewModelFactory: MyCustomViewModelFactory
 
     private lateinit var recyclerViewInfo: RecyclerView
     private lateinit var recyclerViewBrawlers: RecyclerView
@@ -38,11 +41,11 @@ class BrawlPlayerActivity : AppCompatActivity() {
     // secondo tag personale: #29G8QYCYG
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player)
+        setContentView(R.layout.activity_brawl_player)
 
         viewModel = ViewModelProvider(
             this,
-            PlayerActivityViewModelFactory(this)
+            MyCustomViewModelFactory(this, this::class.java)
         )[PlayerActivityViewModel::class.java]
 
         startInputFragment()
@@ -70,7 +73,7 @@ class BrawlPlayerActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_favourite -> {
-                    Intent(this, FavouriteActivity::class.java)
+                    Intent(this, BrawlFavouriteActivity::class.java)
                         .also {
                             startActivity(it)
 
@@ -78,7 +81,15 @@ class BrawlPlayerActivity : AppCompatActivity() {
                     true
                 }
                 else -> {
-                    false
+                    Log.d(TAG, "ho cliccato EXIT")
+                    Intent(this, StartActivity::class.java)
+                        .also {
+                            Log.d(TAG, "faccio partire la activity")
+                            startActivity(it)
+
+
+                        }
+                    true
                 }
             }
         }
@@ -108,13 +119,12 @@ class BrawlPlayerActivity : AppCompatActivity() {
             if (errorMessage.isNotEmpty()) {
 //                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
 //                viewModel.clearErrorMessage()
-                Log.d(TAG,"sono nell'else, c'è errore")
+                Log.d(TAG, "sono nell'else, c'è errore")
                 inputFragment.showTagError()
 //                val inputFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as? InputFragment
 //                inputFragment?.hideTagError()
-            }
-            else {
-                Log.d(TAG,"sono nell'else, non c'è errore")
+            } else {
+                Log.d(TAG, "sono nell'else, non c'è errore")
                 val fragment = supportFragmentManager.beginTransaction()
                 fragment.remove(inputFragment)
                 fragment.commit()

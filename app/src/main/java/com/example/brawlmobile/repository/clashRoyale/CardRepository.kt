@@ -17,21 +17,23 @@ class CardRepository(context: Context) {
     suspend fun getAllCardFlow(): Flow<CardResponse> = flow {
         Log.d(TAG, "getAllCard()")
 
-        val resultCard = clashRemoteApi.clashService.getAllCards()
+        while (true) {
+            val resultCard = clashRemoteApi.clashService.getAllCards()
 
-        val nameMap = mapOf(
-            "p.e.k.k.a" to "pekka",
-            "mini-p.e.k.k.a" to "mini-pekka"
-        )
+            val nameMap = mapOf(
+                "p.e.k.k.a" to "pekka",
+                "mini-p.e.k.k.a" to "mini-pekka"
+            )
 
-         resultCard.items.map { card ->
-             val tranformedName = card.name.lowercase().replace(" ","-")
+            resultCard.items.map { card ->
+                val tranformedName = card.name.lowercase().replace(" ", "-")
 
-             card.transformedName = nameMap[tranformedName] ?: tranformedName
-         }
+                card.transformedName = nameMap[tranformedName] ?: tranformedName
+            }
 
-        emit(resultCard)
-        delay(5000)
+            emit(resultCard)
+            delay(5000)
 
+        }
     }
 }

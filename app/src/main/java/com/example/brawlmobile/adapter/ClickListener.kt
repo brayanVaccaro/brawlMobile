@@ -1,6 +1,6 @@
 package com.example.brawlmobile.adapter
 
-interface OnClickListener {
+interface ClickListener {
     fun onClickViewInfo(model: Any){}
     fun onClickAddToFavourite(model: Any){}
 }

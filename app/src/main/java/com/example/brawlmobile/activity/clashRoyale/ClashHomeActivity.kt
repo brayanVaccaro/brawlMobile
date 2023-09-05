@@ -14,18 +14,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
-import com.example.brawlmobile.activity.brawlStars.FavouriteActivity
-import com.example.brawlmobile.activity.brawlStars.BrawlPlayerActivity
-import com.example.brawlmobile.adapter.OnClickListener
+import com.example.brawlmobile.activity.brawlStars.BrawlFavouriteActivity
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.clashRoyale.HomeAdapter
 import com.example.brawlmobile.fragment.DetailsDialogFragment
 import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.clashRoyale.CardModel
-import com.example.brawlmobile.viewmodel.clashRoyale.HomeActivityViewModel
-import com.example.brawlmobile.viewmodel.clashRoyale.factory.HomeActivityViewModelFactory
+import com.example.brawlmobile.viewmodel.HomeActivityViewModel
+import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ClashHomeActivity : AppCompatActivity(), OnClickListener {
+class ClashHomeActivity : AppCompatActivity(), ClickListener {
 
     private var TAG = "ClashHomeActivity"
 
@@ -34,14 +33,14 @@ class ClashHomeActivity : AppCompatActivity(), OnClickListener {
     private lateinit var adapter: HomeAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home_clash)
+        setContentView(R.layout.activity_clash_home)
 
         val bottomNavigationView: BottomNavigationView =
             findViewById(R.id.bottomNavigationView)
 
         viewModel = ViewModelProvider(
             this,
-            HomeActivityViewModelFactory(this)
+            MyCustomViewModelFactory(this, this::class.java)
         )[HomeActivityViewModel::class.java]
 
         adapter = HomeAdapter(this, this)
@@ -82,7 +81,7 @@ class ClashHomeActivity : AppCompatActivity(), OnClickListener {
                 }
                 R.id.menu_favourite -> {
                     Log.d(TAG, "ho cliccato favourites")
-                    Intent(this, FavouriteActivity::class.java)
+                    Intent(this, ClashFavouriteActivity::class.java)
                         .also {
                             Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
