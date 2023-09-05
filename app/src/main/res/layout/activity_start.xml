@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/brawl_bg" />
+        app:srcCompat="@drawable/brawl_bg_v3" />
 
     <Button
         android:id="@+id/brawlStars"
@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@drawable/clashroyale_bg" />
+        app:srcCompat="@drawable/clashroyale_bg_v3" />
 
     <Button
         android:id="@+id/clashRoyale"

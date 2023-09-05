@@ -38,6 +38,7 @@ class HomeActivityViewModel(context: Context): ViewModel() {
                             transformedName = it.transformedName ?: "",
                             maxLevel = it.maxLevel,
                             maxEvolutionLevel = it.maxEvolutionLevel,
+//                            urlNormal = it.iconUrls.medium,
                             urlNormal = "${imageUrl}${it.transformedName}.png",
                             urlEvolution = it.iconUrls.evolutionMedium ?: ""
                         )
