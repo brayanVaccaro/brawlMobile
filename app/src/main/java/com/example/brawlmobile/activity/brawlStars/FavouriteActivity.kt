@@ -44,7 +44,7 @@ class FavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
                     true
                 }
                 R.id.menu_player -> {
-                    Intent(this, PlayerActivity::class.java).also {
+                    Intent(this, BrawlPlayerActivity::class.java).also {
                         startActivity(it)
                         finish()
                     }

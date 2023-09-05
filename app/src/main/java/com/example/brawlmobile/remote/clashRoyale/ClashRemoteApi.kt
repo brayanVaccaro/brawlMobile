@@ -13,7 +13,7 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
-class RemoteApi(
+class ClashRemoteApi(
     private val context: Context
 ) {
 
@@ -21,8 +21,8 @@ class RemoteApi(
 
     companion object {
         // Metodo di factory per creare una istanza di RemoteApi
-        fun create(context: Context): RemoteApi {
-            return RemoteApi(context)
+        fun create(context: Context): ClashRemoteApi {
+            return ClashRemoteApi(context)
         }
     }
 
