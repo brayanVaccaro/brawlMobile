@@ -59,9 +59,6 @@ class ClashPlayerAdapterInfo: RecyclerView.Adapter<ClashPlayerAdapterInfo.ViewHo
         notifyDataSetChanged()
     }
 
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_player_info_clash, parent, false)

@@ -1,26 +1,26 @@
 package com.example.brawlmobile.activity.clashRoyale
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
-import com.example.brawlmobile.activity.brawlStars.FavouriteActivity
+import com.example.brawlmobile.activity.brawlStars.BrawlFavouriteActivity
 import com.example.brawlmobile.adapter.clashRoyale.ClashPlayerAdapterBadgeUnlocked
-
-import com.example.brawlmobile.adapter.clashRoyale.ClashPlayerAdapterInfo
 import com.example.brawlmobile.adapter.clashRoyale.ClashPlayerAdapterCardUnlocked
+import com.example.brawlmobile.adapter.clashRoyale.ClashPlayerAdapterInfo
 import com.example.brawlmobile.fragment.InputFragment
-import com.example.brawlmobile.viewmodel.brawlStars.PlayerActivityViewModel
-import com.example.brawlmobile.viewmodel.brawlStars.factory.PlayerActivityViewModelFactory
+import com.example.brawlmobile.viewmodel.PlayerActivityViewModel
+import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ClashPlayerActivity : AppCompatActivity() {
@@ -46,11 +46,11 @@ class ClashPlayerActivity : AppCompatActivity() {
     // secondo tag personale: #JL8RPC0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player_clash)
+        setContentView(R.layout.activity_clash_player)
 
         viewModel = ViewModelProvider(
             this,
-            PlayerActivityViewModelFactory(this)
+            MyCustomViewModelFactory(this, this::class.java)
         )[PlayerActivityViewModel::class.java]
 
         startInputFragment()
@@ -83,7 +83,7 @@ class ClashPlayerActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_favourite -> {
-                    Intent(this, FavouriteActivity::class.java)
+                    Intent(this, ClashFavouriteActivity::class.java)
                         .also {
                             startActivity(it)
 
@@ -117,7 +117,7 @@ class ClashPlayerActivity : AppCompatActivity() {
         recyclerViewBadges.adapter = adapterBadgeUnlocked
         recyclerViewBadges.visibility = View.GONE
 
-        viewModel.clahsPlayerInfo.observe(this, Observer { info ->
+        viewModel.clashPlayerInfo.observe(this, Observer { info ->
             adapter.setInfo(info)
         })
         viewModel.playerCardsUnlocked.observe(this, Observer {card ->

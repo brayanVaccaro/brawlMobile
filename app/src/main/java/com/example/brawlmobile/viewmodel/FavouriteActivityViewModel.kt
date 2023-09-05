@@ -1,4 +1,4 @@
-package com.example.brawlmobile.viewmodel.brawlStars
+package com.example.brawlmobile.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData

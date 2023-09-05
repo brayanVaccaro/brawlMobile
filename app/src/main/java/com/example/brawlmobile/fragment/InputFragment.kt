@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.brawlmobile.R
-import com.example.brawlmobile.viewmodel.brawlStars.PlayerActivityViewModel
+import com.example.brawlmobile.viewmodel.PlayerActivityViewModel
 
 
 class InputFragment : Fragment() {
