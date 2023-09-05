@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
+import com.example.brawlmobile.StartActivity
 import com.example.brawlmobile.adapter.brawlStars.HomeAdapter
 import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
 import com.example.brawlmobile.fragment.ErrorFragment
@@ -66,7 +67,14 @@ class BrawlHomeActivity : AppCompatActivity(), HomeAdapter.OnClickListener {
                     true
                 }
                 else -> {
-                    false
+                    Log.d(TAG, "ho cliccato EXIT")
+                    Intent(this, StartActivity::class.java)
+                        .also {
+                            Log.d(TAG, "faccio partire la activity")
+                            startActivity(it)
+
+                        }
+                    true
                 }
             }
         }

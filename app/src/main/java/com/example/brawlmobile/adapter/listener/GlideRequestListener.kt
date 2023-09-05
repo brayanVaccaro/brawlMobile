@@ -1,6 +1,7 @@
 package com.example.brawlmobile.adapter.listener
 
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import com.bumptech.glide.load.DataSource
@@ -19,6 +20,7 @@ class GlideRequestListener(private val progressBar: ProgressBar) :
         isFirstResource: Boolean
     ): Boolean {
         // Nascondi il ProgressBar in caso di errore
+        Log.d("RequestListener","on LoadFailed")
         progressBar.visibility = View.GONE
         return false
     }
@@ -31,6 +33,7 @@ class GlideRequestListener(private val progressBar: ProgressBar) :
         isFirstResource: Boolean
     ): Boolean {
         // Nascondi il ProgressBar quando l'immagine è stata caricata con successo
+        Log.d("RequestListener","onResourceReady")
         progressBar.visibility = View.GONE
         return false
     }

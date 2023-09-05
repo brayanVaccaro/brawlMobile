@@ -12,8 +12,8 @@ import com.example.brawlmobile.model.brawlStar.web.ImagesModel
 import com.example.brawlmobile.model.brawlStar.web.TextModel
 import com.example.brawlmobile.repository.brawlStars.home.HomeRepository
 import com.example.brawlmobile.repository.brawlStars.home.HomeRepositoryInterface
-import com.example.brawlmobile.repository.brawlStars.web.WebRepository
-import com.example.brawlmobile.repository.brawlStars.web.WebRepositoryInterface
+import com.example.brawlmobile.repository.brawlStars.details.UrlRepository
+import com.example.brawlmobile.repository.brawlStars.details.TextRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -23,8 +23,9 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     private val brawlerRepository: HomeRepositoryInterface
 
     // Repository per prelevare dati da web
-    private val webRepository: WebRepositoryInterface
+    private val textRepository: TextRepository
 
+    private val urlRepository: UrlRepository
 
     // TAG per il logging
     private val TAG = "MainActivityViewModel"
@@ -38,8 +39,8 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     // Inizializzazione dei repository nel costruttore
     init {
         brawlerRepository = HomeRepository(context)
-        webRepository = WebRepository()
-
+        textRepository = TextRepository()
+        urlRepository = UrlRepository()
     }
 
     // LiveData per mantenere l'elenco dei Brawler aggiornato nell'UI
@@ -63,7 +64,7 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     fun getBrawlers(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             Log.d(TAG, "recupero il primo flow dal BrawlerRepo")
-            imgUrlsToPreload = mutableListOf()
+            imgUrlsToPreload.clear()
             Log.d(TAG, "PRIMA imgUrlsToPreload size vale ${imgUrlsToPreload.size}")
 
             try {
@@ -121,7 +122,7 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             Log.d(TAG, "recupero il secondo flow dal WebRepo")
 
-            val textFlow = webRepository.getTextFromWebFlow(name)
+            val textFlow = textRepository.getTextFromWebFlow(name)
 //            Log.d(TAG, "textFlow vale = $textFlow")
             textFlow.collect {
 
@@ -192,7 +193,7 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     // Metodo per ottenere gli urls delle immagini
     fun getWebUrls(name: String) {
         viewModelScope.launch {
-            val urlsFlow = webRepository.getUrlsFromWebFlow(name)
+            val urlsFlow = urlRepository.getUrlsFromWebFlow(name)
             var uiUrls: ImagesModel? = null
             urlsFlow.collect {
                 Log.d(TAG, "size della Lista degli urls vale = ${it.size}")
