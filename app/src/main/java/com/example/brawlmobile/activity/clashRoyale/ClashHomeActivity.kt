@@ -1,5 +1,6 @@
 package com.example.brawlmobile.activity.clashRoyale
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
+import com.example.brawlmobile.StartActivity
+import com.example.brawlmobile.activity.brawlStars.FavouriteActivity
+import com.example.brawlmobile.activity.brawlStars.PlayerActivity
 import com.example.brawlmobile.adapter.OnClickListener
 import com.example.brawlmobile.adapter.clashRoyale.HomeAdapter
 import com.example.brawlmobile.fragment.DetailsDialogFragment
@@ -19,6 +23,7 @@ import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.clashRoyale.CardModel
 import com.example.brawlmobile.viewmodel.clashRoyale.HomeActivityViewModel
 import com.example.brawlmobile.viewmodel.clashRoyale.factory.HomeActivityViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ClashHomeActivity : AppCompatActivity(), OnClickListener {
 
@@ -30,6 +35,9 @@ class ClashHomeActivity : AppCompatActivity(), OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player_clash)
+
+        val bottomNavigationView: BottomNavigationView =
+            findViewById(R.id.bottomNavigationView)
 
         viewModel = ViewModelProvider(
             this,
@@ -50,11 +58,51 @@ class ClashHomeActivity : AppCompatActivity(), OnClickListener {
                 Toast.makeText(this, errorMessagge, Toast.LENGTH_LONG).show()
                 viewModel.clearErrorMessage()
                 startErrorFragment(errorMessagge)
+                bottomNavigationView.visibility = View.GONE
 
             }
         })
 
         viewModel.getCards()
+
+        // Gestiamo la bottomNavigationView
+        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_home -> {
+
+                    true
+                }
+                R.id.menu_player -> {
+                    Intent(this, PlayerActivity::class.java).also {
+                        startActivity(it)
+
+                    }
+
+                    true
+                }
+                R.id.menu_favourite -> {
+                    Log.d(TAG, "ho cliccato favourites")
+                    Intent(this, FavouriteActivity::class.java)
+                        .also {
+                            Log.d(TAG, "faccio partire la activity")
+                            startActivity(it)
+
+                        }
+                    true
+                }
+                else -> {
+                    Log.d(TAG, "ho cliccato EXIT")
+                    Intent(this, StartActivity::class.java)
+                        .also {
+                            Log.d(TAG, "faccio partire la activity")
+                            startActivity(it)
+
+                        }
+                    true
+                }
+            }
+        }
+        bottomNavigationView.selectedItemId = R.id.menu_home
 
     }
 
