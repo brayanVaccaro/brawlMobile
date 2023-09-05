@@ -2,6 +2,7 @@ package com.example.brawlmobile.adapter.clashRoyale
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ class HomeAdapter(
         val cardName: TextView
         val cardImageMedium: ImageView
         val clashProgressBar: ProgressBar
+//        val maxLevel: TextView
 //        val cardImageEvolutionMedium: ImageView
         val glideRequestListener: RequestListener<Drawable>
 
@@ -37,6 +39,7 @@ class HomeAdapter(
             cardImageMedium = view.findViewById(R.id.cardImageMedium)
             clashProgressBar = view.findViewById(R.id.clashHomeProgressBar)
             glideRequestListener = GlideRequestListener(clashProgressBar)
+//            maxLevel = view.findViewById(R.id.maxLevel)
         }
     }
 
@@ -53,8 +56,10 @@ class HomeAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cardModel = cards[position]
         holder.cardName.text = cardModel.name
+//        holder.maxLevel.text = cardModel.maxLevel.toString()
+        Log.d("clashRoyale.HomeAdapter","loading image named ${cardModel.imageUrl}")
         Glide.with(context)
-            .load(cardModel.iconUrls.medium)
+            .load(cardModel.imageUrl)
             .listener(holder.glideRequestListener)
             .into(holder.cardImageMedium)
 //        if (!cardModel.iconUrls.evolutionMedium.isNullOrEmpty()) {

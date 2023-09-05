@@ -16,6 +16,8 @@ class HomeActivityViewModel(context: Context): ViewModel() {
 
     private val TAG: String
 
+    private val imageUrl = "https://cdn.royaleapi.com/static/img/cards-150/"
+
     init {
         cardRepository = CardRepository(context)
         TAG = "HomeActivityViewModel"
@@ -36,7 +38,9 @@ class HomeActivityViewModel(context: Context): ViewModel() {
                             id = it.id,
                             maxLevel = it.maxLevel,
                             maxEvolutionLevel = it.maxEvolutionLevel,
-                            iconUrls = it.iconUrls
+                            iconUrls = null,
+                            imageUrl = "${imageUrl}${it.transformedName}.png",
+                            transformedName = null
                         )
                     }
                     cards.postValue(uiCard)

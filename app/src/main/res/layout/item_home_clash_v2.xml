@@ -2,14 +2,32 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp">
+    android:layout_width="120dp"
+    android:layout_height="160dp">
+
+    <ImageView
+        android:id="@+id/iconFavourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="like"
+        android:src="@drawable/ic_heart_outline"
+        app:layout_constraintBottom_toBottomOf="@+id/clashHomeConstraint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clashHomeConstraint" />
+
+    <TextView
+        android:id="@+id/maxLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/clashHomeConstraint" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clashHomeConstraint"
-        android:layout_width="130dp"
-        android:layout_height="170dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -17,10 +35,9 @@
 
         <ImageView
             android:id="@+id/cardImageMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
             android:contentDescription="img"
-            app:layout_constraintBottom_toTopOf="@+id/cardName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +48,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iconFavourite"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar
@@ -44,17 +61,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iconFavourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="like"
-            android:src="@drawable/ic_heart_outline"
-            app:layout_constraintBottom_toBottomOf="@+id/cardName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cardName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -15,10 +15,23 @@ class CardRepository(context: Context) {
     private val remoteApi: RemoteApi = RemoteApi.create(context)
 
     suspend fun getAllCardFlow(): Flow<CardResponse> = flow {
-        Log.d(TAG,"getAllCard()")
+        Log.d(TAG, "getAllCard()")
+
         val resultCard = remoteApi.clashService.getAllCards()
 
+        val nameMap = mapOf(
+            "p.e.k.k.a" to "pekka",
+            "mini-p.e.k.k.a" to "mini-pekka"
+        )
+
+         resultCard.items.map { card ->
+             val tranformedName = card.name.lowercase().replace(" ","-")
+
+             card.transformedName = nameMap[tranformedName] ?: tranformedName
+         }
+
         emit(resultCard)
-        delay(5000)
+        delay(1000)
+
     }
 }
