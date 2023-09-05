@@ -96,7 +96,7 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
                     brawlers.postValue(uiBrawlers)
                 }
             } catch (e: Exception) {
-                errorLiveData.postValue("${e.message}")
+                errorLiveData.postValue(e.message)
             }
         }
     }

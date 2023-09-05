@@ -10,7 +10,7 @@ import com.example.brawlmobile.repository.clashRoyale.CardRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeActivityViewModel(context: Context): ViewModel() {
+class HomeActivityViewModel(context: Context) : ViewModel() {
 
     private val cardRepository: CardRepository
 
@@ -26,12 +26,15 @@ class HomeActivityViewModel(context: Context): ViewModel() {
     val cards: MutableLiveData<List<CardModel>> by lazy {
         MutableLiveData<List<CardModel>>()
     }
+    val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     fun getCards() {
-    viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            try {
 
                 val cardFlow = cardRepository.getAllCardFlow()
-                cardFlow.collect {cardFromRepo ->
+                cardFlow.collect { cardFromRepo ->
                     val uiCard = cardFromRepo.items.map {
                         CardModel(
                             name = it.name,
@@ -45,7 +48,14 @@ class HomeActivityViewModel(context: Context): ViewModel() {
                     }
                     cards.postValue(uiCard)
                 }
+            } catch (e: Exception) {
+                errorLiveData.postValue(e.message)
+            }
 
         }
+    }
+
+    fun clearErrorMessage() {
+        errorLiveData.postValue(null)
     }
 }

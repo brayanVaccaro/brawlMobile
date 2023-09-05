@@ -162,7 +162,7 @@ class PlayerActivity : AppCompatActivity() {
     private fun startInputFragment() {
 
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, inputFragment)
+        transaction.replace(R.id.brawlFragmentContainer, inputFragment)
         transaction.commit()
 
 
