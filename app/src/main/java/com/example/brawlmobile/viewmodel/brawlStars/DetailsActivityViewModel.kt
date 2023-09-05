@@ -5,116 +5,33 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
-import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 import com.example.brawlmobile.model.brawlStar.web.ImagesModel
 import com.example.brawlmobile.model.brawlStar.web.TextModel
-import com.example.brawlmobile.repository.brawlStars.home.HomeRepository
-import com.example.brawlmobile.repository.brawlStars.home.HomeRepositoryInterface
-import com.example.brawlmobile.repository.brawlStars.details.UrlRepository
 import com.example.brawlmobile.repository.brawlStars.details.TextRepository
+import com.example.brawlmobile.repository.brawlStars.details.UrlRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeActivityViewModel(context: Context) : ViewModel() {
-
-    // Repository per accedere ai dati dei Brawler da una API remota
-    private val brawlerRepository: HomeRepositoryInterface
+class DetailsActivityViewModel(context: Context): ViewModel() {
 
     // Repository per prelevare dati da web
     private val textRepository: TextRepository
 
     private val urlRepository: UrlRepository
 
-    // TAG per il logging
-    private val TAG = "MainActivityViewModel"
-
-    // Url da cui prendere le immagini dei brawler, i nomi dei brawler saranno gli endpoint
-    private val spriteUrl = "https://cdn-old.brawlify.com/brawler-bs/"
-
-    // Lista per salvare gli url per cui fare il preload
-    private var imgUrlsToPreload: MutableList<String> = mutableListOf()
-
-    // Inizializzazione dei repository nel costruttore
+    private val TAG = "DetailsActivityViewModel"
     init {
-        brawlerRepository = HomeRepository(context)
         textRepository = TextRepository()
         urlRepository = UrlRepository()
     }
-
-    // LiveData per mantenere l'elenco dei Brawler aggiornato nell'UI
-    val brawlers: MutableLiveData<List<BrawlerModel>> by lazy {
-        MutableLiveData<List<BrawlerModel>>()
-    }
-
-    // LiveData per mantenere l'elenco dei testi aggiornato nell'UI
-    val webText: MutableLiveData<TextModel> by lazy {
-        MutableLiveData<TextModel>()
-    }
-
     // LiveData per mantenere l'elenco degli url delle immagini aggiornato nell'UI
     val webUrls: MutableLiveData<ImagesModel> by lazy {
         MutableLiveData<ImagesModel>()
     }
-    val errorLiveData: MutableLiveData<String> = MutableLiveData()
-
-
-    // Metodo per ottenere i Brawler dall'API remota
-    fun getBrawlers(context: Context) {
-        viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "recupero il primo flow dal BrawlerRepo")
-            imgUrlsToPreload.clear()
-            Log.d(TAG, "PRIMA imgUrlsToPreload size vale ${imgUrlsToPreload.size}")
-
-            try {
-                // Ottengo un FLow di BrawlerApiResponse da BrawlerRepository
-                val brawlerFlow = brawlerRepository.fetchBrawlersFlow()
-
-                // Raccolgo i dati ottenuti dal flusso
-                brawlerFlow.collect { brawlersFromRepo ->
-                    // Trasformo i dati dell'API remota nel modello BrawlerModel dell'UI
-                    val uiBrawlers = brawlersFromRepo.items.map {
-                        BrawlerModel(
-                            id = it.id,
-                            name = it.name,
-                            starPowers = it.starPowers,
-                            gadgets = it.gadgets,
-                            spriteUrl = "${spriteUrl}${it.name}.png"
-                        )
-                    }
-                    // Aggiungo alla lista degli url da precaricare
-                    imgUrlsToPreload.addAll(uiBrawlers.mapNotNull { it.spriteUrl })
-                    Log.d(TAG, "DOPO imgUrlsToPreload size vale ${imgUrlsToPreload.size}")
-//                    preloadImages(context,imgUrlsToPreload)
-                    // Preload delle immagini
-                    preloadImages(context, imgUrlsToPreload)
-//                    imgUrlsToPreload.removeAll(imgUrlsToPreload)
-//                    uiBrawlers.mapNotNull { it.spriteUrl }.let { imgUrlsToPreload.addAll(it) }
-                    // Aggiorno il LiveData dei Brawler con i dati ottenuti
-                    Log.d(TAG, "sto facendo il postvalue")
-                    brawlers.postValue(uiBrawlers)
-                }
-            } catch (e: Exception) {
-                errorLiveData.postValue(e.message)
-            }
-        }
-    }
-
-    // Metodo per fare il preload di tutte le immagini
-    private fun preloadImages(context: Context, urls: List<String>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            //
-            Log.d(TAG, "sto facendo il preload")
-
-            for (imageUrl in urls) {
-//                Log.d(TAG, "imageUrl vale $imageUrl")
-                Glide.with(context)
-                    .load(imageUrl)
-                    .preload()
-            }
-            Log.d(TAG, "ho finito il preload")
-        }
+    // LiveData per mantenere l'elenco dei testi aggiornato nell'UI
+    val webText: MutableLiveData<TextModel> by lazy {
+        MutableLiveData<TextModel>()
     }
 
     // Metodo per ottenere i testi dal sito web
@@ -233,7 +150,5 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
         }
     }
 
-    fun clearErrorMessage() {
-        errorLiveData.postValue(null)
-    }
+
 }
