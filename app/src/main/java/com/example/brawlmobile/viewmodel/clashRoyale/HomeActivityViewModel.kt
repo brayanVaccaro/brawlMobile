@@ -35,12 +35,11 @@ class HomeActivityViewModel(context: Context): ViewModel() {
                     val uiCard = cardFromRepo.items.map {
                         CardModel(
                             name = it.name,
-                            id = it.id,
+                            transformedName = it.transformedName ?: "",
                             maxLevel = it.maxLevel,
                             maxEvolutionLevel = it.maxEvolutionLevel,
-                            iconUrls = null,
-                            imageUrl = "${imageUrl}${it.transformedName}.png",
-                            transformedName = null
+                            urlNormal = "${imageUrl}${it.transformedName}.png",
+                            urlEvolution = it.iconUrls.evolutionMedium ?: ""
                         )
                     }
                     cards.postValue(uiCard)

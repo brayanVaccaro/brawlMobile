@@ -9,18 +9,24 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
+import com.example.brawlmobile.adapter.OnClickListener
 import com.example.brawlmobile.adapter.listener.GlideRequestListener
+import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 import com.example.brawlmobile.model.clashRoyale.CardModel
 
 //import com.example.brawlmobile.clashRoyale.adapter.listener.GlideRequestListener
 
 class HomeAdapter(
-    private val context: Context
+    private val context: Context,
+    private val onClickListener: OnClickListener
 ) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
+
 
     private var cards: MutableList<CardModel> = mutableListOf()
 
@@ -29,6 +35,7 @@ class HomeAdapter(
         val cardName: TextView
         val cardImageMedium: ImageView
         val clashProgressBar: ProgressBar
+        val clickableConstraint: ConstraintLayout
 //        val maxLevel: TextView
 //        val cardImageEvolutionMedium: ImageView
         val glideRequestListener: RequestListener<Drawable>
@@ -39,6 +46,7 @@ class HomeAdapter(
             cardImageMedium = view.findViewById(R.id.cardImageMedium)
             clashProgressBar = view.findViewById(R.id.clashHomeProgressBar)
             glideRequestListener = GlideRequestListener(clashProgressBar)
+            clickableConstraint = view.findViewById(R.id.clickableClashHomeConstraint)
 //            maxLevel = view.findViewById(R.id.maxLevel)
         }
     }
@@ -57,16 +65,16 @@ class HomeAdapter(
         val cardModel = cards[position]
         holder.cardName.text = cardModel.name
 //        holder.maxLevel.text = cardModel.maxLevel.toString()
-        Log.d("clashRoyale.HomeAdapter","loading image named ${cardModel.imageUrl}")
+        holder.clickableConstraint.setOnClickListener {
+            onClickListener.onClickViewInfo(cardModel)
+        }
+//        Log.d("clashRoyale.HomeAdapter","loading image named ${cardModel.urlNormal}")
+        holder.clashProgressBar.visibility = View.VISIBLE
         Glide.with(context)
-            .load(cardModel.imageUrl)
+            .load(cardModel.urlNormal)
             .listener(holder.glideRequestListener)
             .into(holder.cardImageMedium)
-//        if (!cardModel.iconUrls.evolutionMedium.isNullOrEmpty()) {
-//            Glide.with(context)
-//                .load(cardModel.iconUrls.medium)
-//                .into(holder.cardImageEvolutionMedium)
-//        }
+
     }
 
     fun setCard(data: List<CardModel>) {
