@@ -16,6 +16,9 @@
         android:theme="@style/Theme.BrawlMobile"
         tools:targetApi="31">
         <activity
+            android:name=".activity.clashRoyale.ClashPlayerActivity"
+            android:exported="false" />
+        <activity
             android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
@@ -31,7 +34,7 @@
             android:name=".activity.brawlStars.FavouriteActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.brawlStars.PlayerActivity"
+            android:name=".activity.brawlStars.BrawlPlayerActivity"
             android:exported="false" />
         <activity
             android:name=".activity.brawlStars.DetailsActivity"
@@ -39,11 +42,7 @@
         <activity
             android:name=".activity.brawlStars.BrawlHomeActivity"
             android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
         </activity>
     </application>
 

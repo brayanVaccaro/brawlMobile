@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
 import com.example.brawlmobile.activity.brawlStars.FavouriteActivity
-import com.example.brawlmobile.activity.brawlStars.PlayerActivity
+import com.example.brawlmobile.activity.brawlStars.BrawlPlayerActivity
 import com.example.brawlmobile.adapter.OnClickListener
 import com.example.brawlmobile.adapter.clashRoyale.HomeAdapter
 import com.example.brawlmobile.fragment.DetailsDialogFragment
@@ -34,7 +34,7 @@ class ClashHomeActivity : AppCompatActivity(), OnClickListener {
     private lateinit var adapter: HomeAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player_clash)
+        setContentView(R.layout.activity_home_clash)
 
         val bottomNavigationView: BottomNavigationView =
             findViewById(R.id.bottomNavigationView)
@@ -73,7 +73,7 @@ class ClashHomeActivity : AppCompatActivity(), OnClickListener {
                     true
                 }
                 R.id.menu_player -> {
-                    Intent(this, PlayerActivity::class.java).also {
+                    Intent(this, ClashPlayerActivity::class.java).also {
                         startActivity(it)
 
                     }

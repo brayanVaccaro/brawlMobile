@@ -19,7 +19,7 @@ import com.example.brawlmobile.viewmodel.brawlStars.PlayerActivityViewModel
 import com.example.brawlmobile.viewmodel.brawlStars.factory.PlayerActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class PlayerActivity : AppCompatActivity() {
+class BrawlPlayerActivity : AppCompatActivity() {
     private lateinit var viewModel: PlayerActivityViewModel
 
     private lateinit var recyclerViewInfo: RecyclerView
@@ -98,7 +98,7 @@ class PlayerActivity : AppCompatActivity() {
         recyclerViewBrawlers.adapter = adapterBrawlersUnlocked
         recyclerViewBrawlers.visibility = View.GONE
 
-        viewModel.playerInfo.observe(this, Observer { info ->
+        viewModel.brawlPlayerInfo.observe(this, Observer { info ->
             adapterInfo.setInfo(info)
         })
         viewModel.playerBrawlersUnlocked.observe(this, Observer { data ->
@@ -154,7 +154,7 @@ class PlayerActivity : AppCompatActivity() {
 
         //
         inputFragment.onTagSubmitted = { playerTag ->
-            viewModel.getPlayerInfo(playerTag)
+            viewModel.getBrawlPlayerInfo(playerTag)
 
         }
     }
