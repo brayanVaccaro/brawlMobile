@@ -38,7 +38,7 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     init {
         brawlerRepository = BrawlerRepository(context)
         cardRepository = CardRepository(context)
-        getBrawlers()
+
     }
 
     // LiveData per mantenere l'elenco dei Brawler
@@ -54,7 +54,7 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     // Metodo per ottenere i Brawler dall'API remota
-    private fun getBrawlers() {
+    fun getBrawlers() {
         viewModelScope.launch(Dispatchers.IO) {
 
             try {
