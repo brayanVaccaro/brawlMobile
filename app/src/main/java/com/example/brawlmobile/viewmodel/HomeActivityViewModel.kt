@@ -2,13 +2,14 @@ package com.example.brawlmobile.viewmodel
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 import com.example.brawlmobile.model.clashRoyale.CardModel
-import com.example.brawlmobile.repository.brawlStars.home.HomeRepository
+import com.example.brawlmobile.repository.brawlStars.home.BrawlerRepository
 import com.example.brawlmobile.repository.clashRoyale.CardRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 class HomeActivityViewModel(context: Context) : ViewModel() {
 
     // Repository per accedere ai dati dei Brawler da una API remota
-    private val brawlerRepository: HomeRepository
+    private val brawlerRepository: BrawlerRepository
     private val cardRepository: CardRepository
 
     // TAG per il logging
@@ -29,16 +30,22 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     // Lista per salvare gli url per cui fare il preload
     private var imgUrlsToPreload: MutableList<String> = mutableListOf()
 
+    private var maxSize = 72
+    private var totalLoaded = 0
+
+
     // Inizializzazione dei repository nel costruttore
     init {
-        brawlerRepository = HomeRepository(context)
+        brawlerRepository = BrawlerRepository(context)
         cardRepository = CardRepository(context)
+        getBrawlers()
     }
 
-    // LiveData per mantenere l'elenco dei Brawler aggiornato nell'UI
-    val brawlers: MutableLiveData<List<BrawlerModel>> by lazy {
-        MutableLiveData<List<BrawlerModel>>()
-    }
+    // LiveData per mantenere l'elenco dei Brawler
+    private val _brawlers = MutableLiveData<List<BrawlerModel>>()
+    // LiveData per esporre l'elenco dei Brawler alla activity
+    val brawlers: LiveData<List<BrawlerModel>> = _brawlers
+
 
     val cards: MutableLiveData<List<CardModel>> by lazy {
         MutableLiveData<List<CardModel>>()
@@ -47,20 +54,14 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     // Metodo per ottenere i Brawler dall'API remota
-    fun getBrawlers() {
+    private fun getBrawlers() {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "recupero il primo flow dal BrawlerRepo")
-            imgUrlsToPreload.clear()
-            Log.d(TAG, "PRIMA imgUrlsToPreload size vale ${imgUrlsToPreload.size}")
 
             try {
-                // Ottengo un FLow di BrawlerApiResponse da BrawlerRepository
-                val brawlerFlow = brawlerRepository.fetchBrawlersFlow()
+                do {
+                    val brawlerResponse = brawlerRepository.fetchBrawlers()
 
-                // Raccolgo i dati ottenuti dal flusso
-                brawlerFlow.collect { brawlersFromRepo ->
-                    // Trasformo i dati dell'API remota nel modello BrawlerModel dell'UI
-                    val uiBrawlers = brawlersFromRepo.items.map {
+                    val uiBrawlers = brawlerResponse.items.map {
                         BrawlerModel(
                             id = it.id,
                             name = it.name,
@@ -69,17 +70,12 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
                             spriteUrl = "${brawlerImagesUrl}${it.name}.png"
                         )
                     }
-                    Log.d(TAG, "sto facendo il postvalue")
-                    // Aggiorno il LiveData dei Brawler con i dati ottenuti
-                    brawlers.postValue(uiBrawlers)
-                    // Aggiungo alla lista degli url da precaricare
-//                    imgUrlsToPreload.addAll(uiBrawlers.mapNotNull { it.spriteUrl })
-//                    Log.d(TAG, "DOPO imgUrlsToPreload size vale ${imgUrlsToPreload.size}")
-//
-//                    // Preload delle immagini
-//                    preloadImages(context, imgUrlsToPreload)
 
-                }
+                    totalLoaded += uiBrawlers.size
+
+                    _brawlers.postValue(uiBrawlers)
+                } while (totalLoaded < maxSize)
+
             } catch (e: Exception) {
                 errorLiveData.postValue(e.message)
             }

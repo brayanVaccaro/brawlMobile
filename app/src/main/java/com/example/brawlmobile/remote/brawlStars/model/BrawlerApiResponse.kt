@@ -12,5 +12,6 @@ data class Paging(
 )
 
 data class Cursors(
-    val name: String?
+    val after: String?,
+    val before: String?
 )

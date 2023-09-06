@@ -23,11 +23,12 @@ import com.example.brawlmobile.viewmodel.HomeActivityViewModel
 
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlin.math.log
 
 class BrawlHomeActivity : AppCompatActivity(), ClickListener {
     private lateinit var viewModel: HomeActivityViewModel
 
-    //    private lateinit var viewModelFactory: MyCustomViewModelFactory
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HomeAdapter
 
@@ -35,6 +36,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
 
 
     private var TAG = "MainActivity"
+    private var brawlerList: MutableList<BrawlerModel> = mutableListOf()
 
     //    private lateinit var txtErrorInfo: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,14 +59,15 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
             MyCustomViewModelFactory(this, this::class.java)
         )[FavouriteActivityViewModel::class.java]
 
-        adapter = HomeAdapter(this, this)
+        adapter = HomeAdapter(brawlerList, this, this)
 
         recyclerView = findViewById(R.id.mainRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
         recyclerView.adapter = adapter
 
         viewModel.brawlers.observe(this, Observer { brawlers ->
-            adapter.setBrawlers(brawlers)
+            brawlerList.addAll(brawlers)
+            adapter.setBrawlers(brawlerList)
         })
         viewModel.errorLiveData.observe(this, Observer { errorMessagge ->
             if (!errorMessagge.isNullOrEmpty()) {
@@ -77,7 +80,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
         })
 
 
-        viewModel.getBrawlers()
+//        viewModel.getBrawlers()
 
 
 
