@@ -31,9 +31,10 @@ class HomeAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardName: TextView
-        val cardImageMedium: ImageView
+        val clickableCardImageMedium: ImageView
+        val clickableSpriteHeart: ImageView
         val clashProgressBar: ProgressBar
-        val clickableConstraint: ConstraintLayout
+
 //        val maxLevel: TextView
 //        val cardImageEvolutionMedium: ImageView
         val glideRequestListener: RequestListener<Drawable>
@@ -41,10 +42,11 @@ class HomeAdapter(
 
         init {
             cardName = view.findViewById(R.id.cardName)
-            cardImageMedium = view.findViewById(R.id.cardImageMedium)
+            clickableCardImageMedium = view.findViewById(R.id.clickableCardImageMedium)
+            clickableSpriteHeart = view.findViewById(R.id.iconFavourite)
             clashProgressBar = view.findViewById(R.id.clashHomeProgressBar)
+
             glideRequestListener = GlideRequestListener(clashProgressBar)
-            clickableConstraint = view.findViewById(R.id.clickableClashHomeConstraint)
 //            maxLevel = view.findViewById(R.id.maxLevel)
         }
     }
@@ -63,15 +65,18 @@ class HomeAdapter(
         val cardModel = cards[position]
         holder.cardName.text = cardModel.name
 //        holder.maxLevel.text = cardModel.maxLevel.toString()
-        holder.clickableConstraint.setOnClickListener {
+        holder.clickableCardImageMedium.setOnClickListener {
             clickListener.onClickViewInfo(cardModel)
+        }
+        holder.clickableSpriteHeart.setOnClickListener {
+            clickListener.onClickAddToFavourite(cardModel)
         }
 //        Log.d("clashRoyale.HomeAdapter","loading image named ${cardModel.urlNormal}")
         holder.clashProgressBar.visibility = View.VISIBLE
         Glide.with(context)
             .load(cardModel.urlNormal)
             .listener(holder.glideRequestListener)
-            .into(holder.cardImageMedium)
+            .into(holder.clickableCardImageMedium)
 
     }
 

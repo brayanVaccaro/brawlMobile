@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.brawlmobile.data.dao.FavouriteBrawlerDao
-import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
+import com.example.brawlmobile.data.dao.BrawlerDao
+import com.example.brawlmobile.data.dao.CardDao
+import com.example.brawlmobile.data.entities.BrawlerEntity
+import com.example.brawlmobile.data.entities.CardEntity
 
-@Database(entities = [FavouriteBrawlerEntity::class], version = 1)
+@Database(entities = [BrawlerEntity::class, CardEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun favouriteBrawlerDao(): FavouriteBrawlerDao
+    abstract fun favouriteBrawlerDao(): BrawlerDao
+    abstract fun favouriteCardDao(): CardDao
 
     companion object {
         @Volatile
@@ -20,7 +23,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "brawler_database"
-                ).build()
+                )
+                    .build()
                 INSTANCE = instance
                 instance
             }

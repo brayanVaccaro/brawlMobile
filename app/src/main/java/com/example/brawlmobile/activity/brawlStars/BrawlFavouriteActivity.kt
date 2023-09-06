@@ -80,7 +80,7 @@ class BrawlFavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
         recyclerView.adapter = adapter
 
         viewModel.allFavouriteBrawlers.observe(this, Observer { fav ->
-            adapter.setData(fav)
+            adapter.setFavouriteItem(fav)
         })
 
 

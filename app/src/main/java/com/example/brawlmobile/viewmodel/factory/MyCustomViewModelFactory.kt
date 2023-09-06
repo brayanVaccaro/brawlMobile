@@ -21,7 +21,7 @@ class MyCustomViewModelFactory(private val context: Context, private val activit
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (activityType) {
-            BrawlHomeActivity::class.java -> {
+            BrawlHomeActivity::class.java, ClashHomeActivity::class.java-> {
                 if (modelClass.isAssignableFrom(HomeActivityViewModel::class.java)) {
                     HomeActivityViewModel(context) as T
                 } else if (modelClass.isAssignableFrom(FavouriteActivityViewModel::class.java)) {
@@ -39,7 +39,7 @@ class MyCustomViewModelFactory(private val context: Context, private val activit
                 }
             }
 
-            BrawlFavouriteActivity::class.java,  -> {
+            BrawlFavouriteActivity::class.java, ClashFavouriteActivity::class.java  -> {
                 if (modelClass.isAssignableFrom(FavouriteActivityViewModel::class.java)) {
                     FavouriteActivityViewModel(context) as T
                 } else {
@@ -47,7 +47,7 @@ class MyCustomViewModelFactory(private val context: Context, private val activit
                 }
             }
 
-            BrawlDetailsActivity::class.java, ClashFavouriteActivity::class.java -> {
+            BrawlDetailsActivity::class.java,  -> {
                 if (modelClass.isAssignableFrom(DetailsActivityViewModel::class.java)) {
                     DetailsActivityViewModel(context) as T
                 } else {
@@ -55,13 +55,13 @@ class MyCustomViewModelFactory(private val context: Context, private val activit
                 }
             }
 
-            ClashHomeActivity::class.java -> {
-                if (modelClass.isAssignableFrom(HomeActivityViewModel::class.java)) {
-                    HomeActivityViewModel(context) as T
-                } else {
-                    throw IllegalArgumentException("Unknown ViewModel class")
-                }
-            }
+//            ClashHomeActivity::class.java -> {
+//                if (modelClass.isAssignableFrom(HomeActivityViewModel::class.java)) {
+//                    HomeActivityViewModel(context) as T
+//                } else {
+//                    throw IllegalArgumentException("Unknown ViewModel class")
+//                }
+//            }
 //            ClashFavouriteActivity::class.java -> {
 //                if (modelClass.isAssignableFrom(HomeActivityViewModel::class.java)) {
 //                    HomeActivityViewModel(context) as T

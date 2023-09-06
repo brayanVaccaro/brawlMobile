@@ -17,9 +17,11 @@ import com.example.brawlmobile.StartActivity
 import com.example.brawlmobile.activity.brawlStars.BrawlFavouriteActivity
 import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.clashRoyale.HomeAdapter
+import com.example.brawlmobile.data.entities.CardEntity
 import com.example.brawlmobile.fragment.DetailsDialogFragment
 import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.clashRoyale.CardModel
+import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
 import com.example.brawlmobile.viewmodel.HomeActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,6 +32,7 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: HomeActivityViewModel
+    private lateinit var favouriteViewModel: FavouriteActivityViewModel
     private lateinit var adapter: HomeAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,11 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
             this,
             MyCustomViewModelFactory(this, this::class.java)
         )[HomeActivityViewModel::class.java]
+
+        favouriteViewModel = ViewModelProvider(
+            this,
+            MyCustomViewModelFactory(this, this::class.java)
+        )[FavouriteActivityViewModel::class.java]
 
         adapter = HomeAdapter(this, this)
 
@@ -105,6 +113,17 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
 
     }
 
+    private fun startErrorFragment(errorMessage: String) {
+        val errorFragment = ErrorFragment.newInstance(errorMessage)
+//        val txtErrorInfo = errorFragment.view?.findViewById<TextView>(R.id.txtErrorInfo)
+//        txtErrorInfo?.text = errorMessage
+
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.clashFragmentContainer, errorFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
     override fun onClickViewInfo(model: Any) {
         val cardModel = model as CardModel
         // Creo il bundle con i relativi dati da passare alla DetailsActivity
@@ -130,14 +149,19 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
             .show()
     }
 
-    private fun startErrorFragment(errorMessage: String) {
-        val errorFragment = ErrorFragment.newInstance(errorMessage)
-//        val txtErrorInfo = errorFragment.view?.findViewById<TextView>(R.id.txtErrorInfo)
-//        txtErrorInfo?.text = errorMessage
+    override fun onClickAddToFavourite(model: Any) {
+        val cardModel = model as CardModel
+        Log.d(TAG, "aggiungo ai favoriti")
 
-        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.clashFragmentContainer, errorFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        val favouriteCard = CardEntity(
+            id = cardModel.id.toString(),
+            name = cardModel.name,
+            spriteUrl = cardModel.urlNormal
+        )
+        favouriteViewModel.insertFavouriteCard(favouriteCard)
+        Toast.makeText(this, "${favouriteCard.name} added to favourites", Toast.LENGTH_SHORT)
+            .show()
     }
+
+
 }
