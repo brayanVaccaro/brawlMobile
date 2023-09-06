@@ -95,6 +95,7 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
                 cardFlow.collect { cardFromRepo ->
                     val uiCard = cardFromRepo.items.map {
                         CardModel(
+                            id = it.id,
                             name = it.name,
                             transformedName = it.transformedName ?: "",
                             maxLevel = it.maxLevel,

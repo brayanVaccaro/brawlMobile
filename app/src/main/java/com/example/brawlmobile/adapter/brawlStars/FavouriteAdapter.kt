@@ -9,23 +9,27 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
-import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
+import com.example.brawlmobile.data.entities.BrawlerEntity
+import com.example.brawlmobile.data.entities.CardEntity
 
 class FavouriteAdapter(
     private val context: Context,
     private val onClick: OnClick
 ) : RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {
 
-    private var favouriteBrawlers: List<FavouriteBrawlerEntity> = mutableListOf()
+//    private var favouriteBrawlers: List<BrawlerEntity>? = mutableListOf()
+//    private var favouriteCards: List<CardEntity>? = mutableListOf()
+    private var favouriteItem: List<Any> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val txtNameFavourite: TextView
+
         val imgFavourite: ImageView
+        val txtNameFavourite: TextView
         val deleteButton: ImageView
 
         init {
-            txtNameFavourite = view.findViewById(R.id.itemName)
             imgFavourite = view.findViewById(R.id.img)
+            txtNameFavourite = view.findViewById(R.id.itemName)
             deleteButton = view.findViewById(R.id.itemDelete)
         }
     }
@@ -37,7 +41,7 @@ class FavouriteAdapter(
     }
 
     override fun getItemCount(): Int {
-        return favouriteBrawlers.size
+        return favouriteItem.size
     }
 
     interface OnClick {
@@ -45,17 +49,37 @@ class FavouriteAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val favouriteBrawler = favouriteBrawlers[position]
-        holder.txtNameFavourite.text = favouriteBrawler.name
-        Glide.with(context).load(favouriteBrawler.spriteUrl).into(holder.imgFavourite)
-        holder.deleteButton.setOnClickListener{
-            onClick.deleteFromFavourites(favouriteBrawler.name)
+
+        val item = favouriteItem[position]
+        if (item is BrawlerEntity) {
+            // È un oggetto BrawlerEntity
+            Glide.with(context).load(item.spriteUrl).into(holder.imgFavourite)
+            holder.txtNameFavourite.text = item.name
+            holder.deleteButton.setOnClickListener {
+                onClick.deleteFromFavourites(item.name)
+            }
+        } else if (item is CardEntity) {
+            // È un oggetto CardEntity
+            Glide.with(context).load(item.spriteUrl).into(holder.imgFavourite)
+            holder.txtNameFavourite.text = item.name
+            holder.deleteButton.setOnClickListener {
+                onClick.deleteFromFavourites(item.name)
+            }
         }
 
+
     }
 
-    fun setData(data: List<FavouriteBrawlerEntity>) {
-        favouriteBrawlers = data
+    fun setFavouriteItem(item: List<Any>) {
+        favouriteItem = item
         notifyDataSetChanged()
     }
+//    fun setFavouriteBrawler(data: List<BrawlerEntity>) {
+//        favouriteBrawlers = data
+//        notifyDataSetChanged()
+//    }
+//    fun setFavouriteCard(data: List<CardEntity>) {
+//        favouriteCards = data
+//        notifyDataSetChanged()
+//    }
 }

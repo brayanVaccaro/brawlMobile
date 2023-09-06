@@ -15,7 +15,7 @@ import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
 import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.brawlStars.HomeAdapter
-import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
+import com.example.brawlmobile.data.entities.BrawlerEntity
 import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
@@ -166,7 +166,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
         val brawlerModel = model as BrawlerModel
 
         Log.d(TAG, "aggiungo ai favoriti")
-        val favouriteBrawler = FavouriteBrawlerEntity(
+        val favouriteBrawler = BrawlerEntity(
             id = brawlerModel.id.toString(),
             name = brawlerModel.name,
             spriteUrl = brawlerModel.spriteUrl

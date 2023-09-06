@@ -2,16 +2,16 @@ package com.example.brawlmobile.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.brawlmobile.data.entities.FavouriteBrawlerEntity
+import com.example.brawlmobile.data.entities.BrawlerEntity
 
 @Dao
-interface FavouriteBrawlerDao {
+interface BrawlerDao {
     @Query("SELECT * FROM favourite_brawlers")
-    fun getAllFavouriteBrawlers(): LiveData<List<FavouriteBrawlerEntity>>
+    fun getAllBrawlers(): LiveData<List<BrawlerEntity>>
 
     @Query("DELETE FROM favourite_brawlers WHERE name = :name")
     fun deleteByName(name: String)
 
     @Upsert
-    suspend fun insertFavouriteBrawler(brawler: FavouriteBrawlerEntity)
+    suspend fun insertBrawler(brawler: BrawlerEntity)
 }

@@ -7,7 +7,7 @@
     tools:context=".activity.brawlStars.BrawlFavouriteActivity">
 
     <TextView
-        android:id="@+id/proviamo"
+        android:id="@+id/brawlFavouriteHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Favourite Brawlers"
@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/proviamo" />
+        app:layout_constraintTop_toBottomOf="@id/brawlFavouriteHeader" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
