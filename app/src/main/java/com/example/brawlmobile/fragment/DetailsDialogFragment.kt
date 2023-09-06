@@ -1,7 +1,6 @@
 package com.example.brawlmobile.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
-import org.w3c.dom.Text
 
 class DetailsDialogFragment : DialogFragment() {
 
@@ -27,7 +25,7 @@ class DetailsDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_details_clash, container, false)
+        val view = inflater.inflate(R.layout.fragment_clash_details, container, false)
 
         val cardName = view.findViewById<TextView>(R.id.cardName)
         val maxLevel = view.findViewById<TextView>(R.id.maxLevel)

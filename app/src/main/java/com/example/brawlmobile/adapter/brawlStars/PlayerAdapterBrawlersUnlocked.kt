@@ -18,7 +18,7 @@ class PlayerAdapterBrawlersUnlocked() : RecyclerView.Adapter<PlayerAdapterBrawle
 
 
         init {
-            txtProvaName = view.findViewById(R.id.provaName)
+            txtProvaName = view.findViewById(R.id.brawlerUnlockedName)
 //            txtProvaId = view.findViewById(R.id.provaId)
         }
 
@@ -26,7 +26,7 @@ class PlayerAdapterBrawlersUnlocked() : RecyclerView.Adapter<PlayerAdapterBrawle
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_player_brawler, parent, false)
+            .inflate(R.layout.item_player_brawl_brawler, parent, false)
         return ViewHolder(view)
 
     }

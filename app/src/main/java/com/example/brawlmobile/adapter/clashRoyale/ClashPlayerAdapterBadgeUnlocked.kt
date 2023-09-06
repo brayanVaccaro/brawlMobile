@@ -23,7 +23,7 @@ class ClashPlayerAdapterBadgeUnlocked: RecyclerView.Adapter<ClashPlayerAdapterBa
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_player_badge_clash, parent, false)
+            .inflate(R.layout.item_player_clash_badge, parent, false)
         return ViewHolder(view)
     }
 

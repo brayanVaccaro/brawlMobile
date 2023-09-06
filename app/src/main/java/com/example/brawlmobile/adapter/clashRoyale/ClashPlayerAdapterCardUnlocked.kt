@@ -25,7 +25,7 @@ class ClashPlayerAdapterCardUnlocked: RecyclerView.Adapter<ClashPlayerAdapterCar
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_player_card_clash, parent, false)
+            .inflate(R.layout.item_player_clash_card, parent, false)
         return ViewHolder(view)
     }
 

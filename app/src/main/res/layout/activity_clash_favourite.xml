@@ -10,7 +10,7 @@
         android:id="@+id/clashFavouriteHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Favourite Cards"
+        android:text="@string/favourite_cards"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

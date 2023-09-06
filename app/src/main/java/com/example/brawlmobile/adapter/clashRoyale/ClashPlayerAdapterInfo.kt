@@ -61,7 +61,7 @@ class ClashPlayerAdapterInfo: RecyclerView.Adapter<ClashPlayerAdapterInfo.ViewHo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_player_info_clash, parent, false)
+            .inflate(R.layout.item_player_clash_info, parent, false)
         return ViewHolder(view)
     }
 
