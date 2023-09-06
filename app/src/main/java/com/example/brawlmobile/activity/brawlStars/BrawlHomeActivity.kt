@@ -80,7 +80,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
         })
 
 
-//        viewModel.getBrawlers()
+        viewModel.getBrawlers()
 
 
 

@@ -23,7 +23,7 @@ class UrlRepository {
 
             emit(resultUrl)
         } else {
-            Log.d(TAG, "Errore nella risposta dal sito Web: ${response.code()}")
+            Log.e(TAG, "Errore nella risposta dal sito Web: ${response.code()}")
         }
 
     }
