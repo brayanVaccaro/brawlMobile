@@ -13,18 +13,19 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:hint="Insert Your Personal Tag"
+        android:hint="@string/insert_your_personal_tag"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="tag" />
 
     <Button
         android:id="@+id/submitTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SUBMIT"
+        android:text="@string/submit_tag"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,7 @@
         android:id="@+id/notValidPlayerTag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TAG non corretto o inesistente"
+        android:text="@string/not_valid_player_tag"
 
         android:textAlignment="center"
         android:textColor="#FF0000"

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +9,6 @@
         android:id="@+id/HeaderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal2"
@@ -22,7 +20,7 @@
         android:id="@+id/HeaderDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Brawler Description"
+        android:text="@string/brawler_description"
         app:layout_constraintBottom_toTopOf="@+id/txtDescription"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2" />
@@ -33,7 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:text="txtDescription"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/HeaderAttacks"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +41,7 @@
         android:id="@+id/HeaderAttacks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Brawler Attacks"
+        android:text="@string/brawler_attacks"
         app:layout_constraintBottom_toTopOf="@+id/txtFirstAttack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
@@ -55,7 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:text="txtFirstAttack"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/txtSecondAttack"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:text="txtSecondAttack"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/HeaderSupers"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +74,7 @@
         android:id="@+id/HeaderSupers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Brawler Supers"
+        android:text="@string/brawler_supers"
         app:layout_constraintBottom_toTopOf="@+id/txtFirstSuper"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSecondAttack" />
@@ -90,7 +85,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:text="txtFirstSuper"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/txtSecondSuper"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +97,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:text="txtSecondSuper"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/HeaderGadgets"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +107,7 @@
         android:id="@+id/HeaderGadgets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GADGETS"
+        android:text="@string/brawler_gadgets"
         app:layout_constraintBottom_toTopOf="@+id/placeholder_G1"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +117,7 @@
         android:id="@+id/placeholder_G1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="placeholder_G1"
+        android:text="@string/placeholder_G1"
         app:layout_constraintBottom_toTopOf="@+id/txtFirstGadget"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderGadgets" />
@@ -134,7 +127,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="txtFirstGadget"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/placeholder_G2"
         app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
@@ -145,7 +137,7 @@
         android:id="@+id/placeholder_G2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="placeholder_G2"
+        android:text="@string/placeholder_G2"
         app:layout_constraintBottom_toTopOf="@+id/txtSecondGadget"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFirstGadget" />
@@ -155,7 +147,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="txtSecondGadget"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/HeaderStarPowers"
         app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
@@ -166,7 +157,7 @@
         android:id="@+id/HeaderStarPowers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="STAR POWERS"
+        android:text="@string/brawler_star_powers"
         app:layout_constraintBottom_toTopOf="@+id/placeholder_S1"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,43 +167,41 @@
         android:id="@+id/placeholder_S1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="placeholder_S1"
+        android:text="@string/placeholder_S1"
         app:layout_constraintBottom_toTopOf="@+id/txtFirstStarPower"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeaderStarPowers" />
-
-    <TextView
-        android:id="@+id/txtSecondStarPower"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:text="txtSecondStarPower"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placeholder_S2" />
-
-    <TextView
-        android:id="@+id/placeholder_S2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="placeholder_S2"
-        app:layout_constraintBottom_toTopOf="@+id/txtSecondStarPower"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtFirstStarPower" />
 
     <TextView
         android:id="@+id/txtFirstStarPower"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="txtFirstStarPower"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/placeholder_S2"
         app:layout_constraintEnd_toStartOf="@id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeholder_S1" />
+
+    <TextView
+        android:id="@+id/placeholder_S2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_S2"
+        app:layout_constraintBottom_toTopOf="@+id/txtSecondStarPower"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFirstStarPower" />
+
+    <TextView
+        android:id="@+id/txtSecondStarPower"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder_S2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineVertical"
@@ -237,14 +226,13 @@
 
     <ImageView
         android:id="@+id/imgDefaultSkin"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/img_default_skin" />
 
     <ImageView
         android:id="@+id/imgFirstGadget"
@@ -253,25 +241,28 @@
         app:layout_constraintBottom_toBottomOf="@+id/txtFirstGadget"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintTop_toTopOf="@+id/txtFirstGadget" />
+        app:layout_constraintTop_toTopOf="@+id/txtFirstGadget"
+        android:contentDescription="@string/img_first_gadget" />
 
     <ImageView
         android:id="@+id/imgSecondGadget"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="@id/txtSecondGadget"
+        app:layout_constraintBottom_toBottomOf="@+id/txtSecondGadget"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintTop_toTopOf="@id/txtSecondGadget" />
+        app:layout_constraintTop_toTopOf="@+id/txtSecondGadget"
+        android:contentDescription="@string/img_second_gadget" />
 
     <ImageView
         android:id="@+id/imgFirstStarPower"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="@id/txtFirstStarPower"
+        app:layout_constraintBottom_toBottomOf="@+id/txtFirstStarPower"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintTop_toTopOf="@id/txtFirstStarPower" />
+        app:layout_constraintTop_toTopOf="@+id/txtFirstStarPower"
+        android:contentDescription="@string/img_first_starpower" />
 
     <ImageView
         android:id="@+id/imgSecondStarPower"
@@ -279,8 +270,9 @@
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="@id/txtSecondStarPower"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintTop_toTopOf="@id/txtSecondStarPower" />
+        app:layout_constraintStart_toEndOf="@+id/txtSecondStarPower"
+        app:layout_constraintTop_toTopOf="@+id/txtSecondStarPower"
+        android:contentDescription="@string/img_second_starpower" />
 
     <ProgressBar
         android:id="@+id/detailsProgressBarDefaultSkin"

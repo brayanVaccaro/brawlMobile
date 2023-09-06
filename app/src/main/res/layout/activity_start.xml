@@ -15,13 +15,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/brawl_bg_v3" />
+        app:srcCompat="@drawable/brawl_bg_v3"
+        android:contentDescription="@string/brawl_bg" />
 
     <Button
         android:id="@+id/brawlStars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Brawl Stars"
+        android:text="@string/brawl_stars"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,13 +38,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@drawable/clashroyale_bg_v3" />
+        app:srcCompat="@drawable/clashroyale_bg_v3"
+        android:contentDescription="@string/clash_royale_bg" />
 
     <Button
         android:id="@+id/clashRoyale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clash Royale"
+        android:text="@string/clash_royale"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

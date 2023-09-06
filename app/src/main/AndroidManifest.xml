@@ -44,7 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.brawlStars.BrawlHomeActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

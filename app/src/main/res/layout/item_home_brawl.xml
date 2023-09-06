@@ -15,7 +15,8 @@
         android:layout_height="85dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/brawler_sprite" />
 
     <ProgressBar
         android:id="@+id/homeProgressBar"
@@ -32,7 +33,7 @@
         android:id="@+id/iconFavourite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="like"
+        android:contentDescription="@string/add_to_favourite"
         android:src="@drawable/ic_heart_outline"
         app:layout_constraintBottom_toBottomOf="@+id/txtBrawlerName"
         app:layout_constraintEnd_toEndOf="parent"
