@@ -18,11 +18,12 @@ import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 
 class HomeAdapter(
+    private var brawlerList: List<BrawlerModel>,
     private val context: Context,
     private val clickListener: ClickListener
 ): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    private var brawlers: MutableList<BrawlerModel> = mutableListOf()
+
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txtBrawlerName: TextView
         val imageView: ImageView
@@ -40,14 +41,10 @@ class HomeAdapter(
     }
 
     fun setBrawlers(data: List<BrawlerModel>) {
-        brawlers.clear()
-        brawlers.addAll(data)
+        brawlerList = data
         notifyDataSetChanged()
     }
-    /*interface OnClickListener {
-        fun onClickViewInfo(brawlerModel: BrawlerModel){}
-        fun onClickAddToFavourite(brawlerModel: BrawlerModel){}
-    }*/
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_home_brawl, parent, false)
@@ -55,15 +52,16 @@ class HomeAdapter(
     }
 
     override fun getItemCount(): Int {
-        return brawlers.size
+        return brawlerList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val brawlerModel = brawlers[position]
+        val brawlerModel = brawlerList[position]
         holder.progressBar.visibility = View.VISIBLE
         Glide.with(context)
             .load(brawlerModel.spriteUrl)
             .listener(holder.glideRequestListener)
+            .error(R.drawable.ic_delete)
             .into(holder.imageView)
         holder.txtBrawlerName.text = brawlerModel.name
         holder.imageView.setOnClickListener {
@@ -73,11 +71,4 @@ class HomeAdapter(
             clickListener.onClickAddToFavourite(brawlerModel)
         }
     }
-
-    fun setupGridLayoutManager(recyclerView: RecyclerView) {
-        val gridLayoutManager = GridLayoutManager(context,3)
-        recyclerView.layoutManager = gridLayoutManager
-    }
-
-
 }
