@@ -20,7 +20,7 @@ class GlideRequestListener(private val progressBar: ProgressBar) :
         isFirstResource: Boolean
     ): Boolean {
         // Nascondi il ProgressBar in caso di errore
-        Log.d("RequestListener","on LoadFailed")
+//        Log.d("RequestListener","on LoadFailed")
         progressBar.visibility = View.GONE
         return false
     }
@@ -33,7 +33,7 @@ class GlideRequestListener(private val progressBar: ProgressBar) :
         isFirstResource: Boolean
     ): Boolean {
         // Nascondi il ProgressBar quando l'immagine è stata caricata con successo
-        Log.d("RequestListener","onResourceReady")
+//        Log.d("RequestListener","onResourceReady")
         progressBar.visibility = View.GONE
         return false
     }

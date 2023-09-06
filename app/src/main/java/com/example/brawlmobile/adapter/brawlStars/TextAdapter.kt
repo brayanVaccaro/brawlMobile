@@ -140,22 +140,27 @@ class TextAdapter(
             glide
                 .load(urls.defaultSkin)
                 .listener(glideRequestListenerDefaultSkin)
+                .error(R.drawable.ic_delete)
                 .into(imageViews[0])
             glide
                 .load(urls.firstGadgetUrl)
                 .listener(glideRequestListenerFirstGadget)
+                .error(R.drawable.ic_delete)
                 .into(imageViews[1])
             glide
                 .load(urls.secondGadgetUrl)
                 .listener(glideRequestListenerSecondGadget)
+                .error(R.drawable.ic_delete)
                 .into(imageViews[2])
             glide
                 .load(urls.firstStarPowerUrl)
                 .listener(glideRequestListenerFirstStarPower)
+                .error(R.drawable.ic_delete)
                 .into(imageViews[3])
             glide
                 .load(urls.secondStarPowerUrl)
                 .listener(glideRequestListenerSecondStarPower)
+                .error(R.drawable.ic_delete)
                 .into(imageViews[4])
         }
     }

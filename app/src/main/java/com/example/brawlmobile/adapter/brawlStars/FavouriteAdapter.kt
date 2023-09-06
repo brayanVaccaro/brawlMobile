@@ -53,7 +53,10 @@ class FavouriteAdapter(
         val item = favouriteItem[position]
         if (item is BrawlerEntity) {
             // È un oggetto BrawlerEntity
-            Glide.with(context).load(item.spriteUrl).into(holder.imgFavourite)
+            Glide.with(context)
+                .load(item.spriteUrl)
+                .error(R.drawable.ic_delete)
+                .into(holder.imgFavourite)
             holder.txtNameFavourite.text = item.name
             holder.deleteButton.setOnClickListener {
                 onClick.deleteFromFavourites(item.name)

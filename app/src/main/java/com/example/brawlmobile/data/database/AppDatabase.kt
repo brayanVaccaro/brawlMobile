@@ -9,7 +9,7 @@ import com.example.brawlmobile.data.dao.CardDao
 import com.example.brawlmobile.data.entities.BrawlerEntity
 import com.example.brawlmobile.data.entities.CardEntity
 
-@Database(entities = [BrawlerEntity::class, CardEntity::class], version = 1)
+@Database(entities = [BrawlerEntity::class, CardEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun favouriteBrawlerDao(): BrawlerDao
     abstract fun favouriteCardDao(): CardDao
