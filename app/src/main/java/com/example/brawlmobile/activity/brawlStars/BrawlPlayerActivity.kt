@@ -1,12 +1,15 @@
 package com.example.brawlmobile.activity.brawlStars
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -32,8 +35,11 @@ class BrawlPlayerActivity : AppCompatActivity() {
     private lateinit var adapterBrawlersUnlocked: PlayerAdapterBrawlersUnlocked
 
     private var TAG = "PlayerActivity"
-    private lateinit var expandPlayerInfo: LinearLayout
-    private lateinit var expandUnlocked: LinearLayout
+    private lateinit var expandPlayerInfo: TextView
+    private lateinit var expandUnlocked: TextView
+
+    private lateinit var drawableArrowForward: Drawable
+    private lateinit var drawableArrowDown: Drawable
     private val inputFragment = InputFragment()
 //    private lateinit var playerTag: String
 
@@ -50,50 +56,19 @@ class BrawlPlayerActivity : AppCompatActivity() {
 
         startInputFragment()
 
-        val arrowIconPlayerInfo: ImageView = findViewById(R.id.arrowIconPlayerInfo)
+//        val arrowIconPlayerInfo: ImageView = findViewById(R.id.arrowIconPlayerInfo)
+
+        drawableArrowForward = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_forward, null)!!
+        drawableArrowDown = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_down, null)!!
         expandPlayerInfo = findViewById(R.id.expandPlayerInfo)
 
-        val arrowIconUnlocked: ImageView = findViewById(R.id.arrowIconUnlocked)
-        expandUnlocked = findViewById(R.id.expandUnlocked)
+//        val arrowIconUnlocked: ImageView = findViewById(R.id.arrowIconUnlocked)
+        expandUnlocked = findViewById(R.id.expandUnlockedBrawler)
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
             findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
-            when (menuItem.itemId) {
-                R.id.menu_home -> {
-                    Intent(this, BrawlHomeActivity::class.java).also {
-                        startActivity(it)
 
-                    }
-                    true
-                }
-                R.id.menu_player -> {
-
-                    true
-                }
-                R.id.menu_favourite -> {
-                    Intent(this, BrawlFavouriteActivity::class.java)
-                        .also {
-                            startActivity(it)
-
-                        }
-                    true
-                }
-                else -> {
-                    Log.d(TAG, "ho cliccato EXIT")
-                    Intent(this, StartActivity::class.java)
-                        .also {
-                            Log.d(TAG, "faccio partire la activity")
-                            startActivity(it)
-
-
-                        }
-                    true
-                }
-            }
-        }
-        bottomNavigationView.selectedItemId = R.id.menu_player
 
         adapterInfo = PlayerAdapterInfo()
         adapterBrawlersUnlocked = PlayerAdapterBrawlersUnlocked()
@@ -139,11 +114,11 @@ class BrawlPlayerActivity : AppCompatActivity() {
         expandUnlocked.setOnClickListener {
             if (recyclerViewBrawlers.visibility == View.GONE) {
                 recyclerViewBrawlers.visibility = View.VISIBLE
-                arrowIconUnlocked.setImageResource(R.drawable.ic_arrow_down)
+                expandUnlocked.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableArrowDown,null,null,null)
 
             } else {
                 recyclerViewBrawlers.visibility = View.GONE
-                arrowIconUnlocked.setImageResource(R.drawable.ic_arrow_forward)
+                expandUnlocked.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableArrowForward,null,null,null)
             }
         }
 
@@ -152,14 +127,50 @@ class BrawlPlayerActivity : AppCompatActivity() {
         expandPlayerInfo.setOnClickListener {
             if (recyclerViewInfo.visibility == View.GONE) {
                 recyclerViewInfo.visibility = View.VISIBLE
-                arrowIconPlayerInfo.setImageResource(R.drawable.ic_arrow_down)
+                expandPlayerInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableArrowDown,null,null,null)
 
 
             } else {
                 recyclerViewInfo.visibility = View.GONE
-                arrowIconPlayerInfo.setImageResource(R.drawable.ic_arrow_forward)
+                expandPlayerInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableArrowForward,null,null,null)
             }
         }
+
+        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_home -> {
+                    Intent(this, BrawlHomeActivity::class.java).also {
+                        startActivity(it)
+
+                    }
+                    true
+                }
+                R.id.menu_player -> {
+
+                    true
+                }
+                R.id.menu_favourite -> {
+                    Intent(this, BrawlFavouriteActivity::class.java)
+                        .also {
+                            startActivity(it)
+
+                        }
+                    true
+                }
+                else -> {
+                    Log.d(TAG, "ho cliccato EXIT")
+                    Intent(this, StartActivity::class.java)
+                        .also {
+                            Log.d(TAG, "faccio partire la activity")
+                            startActivity(it)
+
+
+                        }
+                    true
+                }
+            }
+        }
+        bottomNavigationView.selectedItemId = R.id.menu_player
 
 
         //

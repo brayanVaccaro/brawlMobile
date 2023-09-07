@@ -12,7 +12,7 @@
         android:id="@+id/playerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/header_profile_information"
+        android:text="@string/header_player_information"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

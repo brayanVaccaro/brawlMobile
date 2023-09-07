@@ -19,32 +19,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <TextView
                 android:id="@+id/expandPlayerInfo"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-
-                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:text="@string/header_player_information"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_arrow_forward"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/arrowIconPlayerInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_forward" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:text="Player Information"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/playerRecyclerViewInfo"
@@ -56,34 +41,17 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <LinearLayout
-                android:id="@+id/expandUnlocked"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/expandUnlockedBrawler"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:orientation="horizontal"
-
-                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:text="@string/header_unlocked_brawlers"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_arrow_forward"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/playerRecyclerViewInfo">
-
-                <ImageView
-                    android:id="@+id/arrowIconUnlocked"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_forward" />
-
-                <TextView
-                    android:id="@+id/headerText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:text="Unlocked Brawlers"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@id/playerRecyclerViewInfo" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/playerRecyclerViewBrawlers"
@@ -91,7 +59,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/expandUnlocked" />
+                app:layout_constraintTop_toBottomOf="@+id/expandUnlockedBrawler" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,33 +19,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <TextView
                 android:id="@+id/expandPlayerInfo"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-
-                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:text="@string/header_player_information"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_arrow_forward"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/arrowIconPlayerInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_forward" />
-
-                <TextView
-                    android:id="@+id/headerTextPlayerInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:text="Player Information"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/playerRecyclerViewInfo"
@@ -57,34 +41,17 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <LinearLayout
+            <TextView
                 android:id="@+id/expandUnlockedCards"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:orientation="horizontal"
-
-                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:text="@string/header_unlocked_cards"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_arrow_forward"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/playerRecyclerViewInfo">
-
-                <ImageView
-                    android:id="@+id/arrowIconUnlockedCards"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_forward" />
-
-                <TextView
-                    android:id="@+id/headerTextCards"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:text="Unlocked Cards"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@id/playerRecyclerViewInfo" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/playerRecyclerViewCards"
@@ -94,33 +61,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/expandUnlockedCards" />
 
-            <LinearLayout
+            <TextView
                 android:id="@+id/expandUnlockedBadges"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-
-                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:text="@string/header_unlocked_badges"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_arrow_forward"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/playerRecyclerViewCards">
+                app:layout_constraintTop_toBottomOf="@id/playerRecyclerViewCards" />
 
-                <ImageView
-                    android:id="@+id/arrowIconUnlockedBadges"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_forward" />
-
-                <TextView
-                    android:id="@+id/headerTextBadges"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:text="Unlocked Badges"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/playerRecyclerViewBadges"
