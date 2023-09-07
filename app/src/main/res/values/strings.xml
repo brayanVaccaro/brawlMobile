@@ -22,7 +22,7 @@
 
     <!-- BRAWL STARS -->
     <string name="favourite_brawlers">Favourite Brawlers</string>
-    <string name="header_profile_information">Profile Information</string>
+    <string name="header_player_information">Player Information</string>
     <string name="name">Name:</string>
     <string name="tag">Tag:</string>
     <string name="header_trophies">Trophies</string>
@@ -53,11 +53,14 @@
     <string name="placeholder_S2">placeholder_S2</string>
 
     <string name="brawl_stars">Brawl Stars</string>
+    <string name="header_unlocked_brawlers">Unlocked Brawlers</string>
 
     <!-- CLAS ROYALE -->
     <string name="favourite_cards">Favourite Cards</string>
     <string name="clash_royale">Clash Royale</string>
     <string name="card_normal">Normal</string>
     <string name="card_evolution">Evolution</string>
+    <string name="header_unlocked_cards">Unlocked Cards</string>
+    <string name="header_unlocked_badges">Unlocked Badges</string>
 
 </resources>

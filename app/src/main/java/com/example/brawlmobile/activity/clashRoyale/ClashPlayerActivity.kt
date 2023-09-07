@@ -1,12 +1,16 @@
 package com.example.brawlmobile.activity.clashRoyale
 
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,10 +39,12 @@ class ClashPlayerActivity : AppCompatActivity() {
     private lateinit var adapterBadgeUnlocked: ClashPlayerAdapterBadgeUnlocked
 
     private var TAG = "clashRoyale.PlayerActivity"
-    private lateinit var expandPlayerInfo: LinearLayout
-    private lateinit var expandUnlockedCards: LinearLayout
-    private lateinit var expandUnlockedBadges: LinearLayout
+    private lateinit var expandPlayerInfo: TextView
+    private lateinit var expandUnlockedCards: TextView
+    private lateinit var expandUnlockedBadges: TextView
 
+    private lateinit var drawableArrowForward: Drawable
+    private lateinit var drawableArrowDown: Drawable
     private val inputFragment = InputFragment()
 //    private lateinit var playerTag: String
 
@@ -55,16 +61,100 @@ class ClashPlayerActivity : AppCompatActivity() {
 
         startInputFragment()
 
-        val arrowIconPlayerInfo: ImageView = findViewById(R.id.arrowIconPlayerInfo)
+        drawableArrowForward = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_forward, null)!!
+        drawableArrowDown = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_down, null)!!
+//        val arrowIconPlayerInfo: ImageView = findViewById(R.id.arrowIconPlayerInfo)
         expandPlayerInfo = findViewById(R.id.expandPlayerInfo)
 
-        val arrowIconUnlockedCards: ImageView = findViewById(R.id.arrowIconUnlockedCards)
+//        val arrowIconUnlockedCards: ImageView = findViewById(R.id.arrowIconUnlockedCards)
         expandUnlockedCards = findViewById(R.id.expandUnlockedCards)
 
-        val arrowIconUnlockedBadges: ImageView = findViewById(R.id.arrowIconUnlockedBadges)
-        expandUnlockedBadges= findViewById(R.id.expandUnlockedBadges)
+//        val arrowIconUnlockedBadges: ImageView = findViewById(R.id.arrowIconUnlockedBadges)
+        expandUnlockedBadges = findViewById(R.id.expandUnlockedBadges)
 
 
+        adapter = ClashPlayerAdapterInfo()
+        adapterCardUnlocked = ClashPlayerAdapterCardUnlocked()
+        adapterBadgeUnlocked = ClashPlayerAdapterBadgeUnlocked()
+
+        recyclerViewInfo = findViewById(R.id.playerRecyclerViewInfo)
+        recyclerViewInfo.layoutManager = LinearLayoutManager(this)
+        recyclerViewInfo.adapter = adapter
+        recyclerViewInfo.visibility = View.GONE
+
+
+        recyclerViewCards = findViewById(R.id.playerRecyclerViewCards)
+        recyclerViewCards.layoutManager = GridLayoutManager(this, 4)
+        recyclerViewCards.adapter = adapterCardUnlocked
+        recyclerViewCards.visibility = View.GONE
+
+        recyclerViewBadges = findViewById(R.id.playerRecyclerViewBadges)
+        recyclerViewBadges.layoutManager = GridLayoutManager(this, 3)
+        recyclerViewBadges.adapter = adapterBadgeUnlocked
+        recyclerViewBadges.visibility = View.GONE
+
+        viewModel.clashPlayerInfo.observe(this, Observer { info ->
+            adapter.setInfo(info)
+        })
+        viewModel.playerCardsUnlocked.observe(this, Observer { card ->
+            adapterCardUnlocked.setCard(card)
+        })
+        viewModel.playerBadgesUnlocked.observe(this, Observer { badge ->
+            adapterBadgeUnlocked.setBadge(badge)
+        })
+        viewModel.errorLiveData.observe(this, Observer { errorMessage ->
+            if (errorMessage.isNotEmpty()) {
+
+                Log.e(TAG, "c'è errore, $errorMessage")
+                inputFragment.showTagError()
+            } else {
+                Log.d(TAG, "sono nell'else, non c'è errore")
+                val fragment = supportFragmentManager.beginTransaction()
+                fragment.remove(inputFragment)
+                fragment.commit()
+                expandPlayerInfo.visibility = View.VISIBLE
+                expandUnlockedCards.visibility = View.VISIBLE
+                expandUnlockedBadges.visibility = View.VISIBLE
+            }
+        })
+
+        //Gestiamo l'apertura della recycler delle info del player
+        expandPlayerInfo.visibility = View.GONE
+        expandPlayerInfo.setOnClickListener {
+            if (recyclerViewInfo.visibility == View.GONE) {
+                recyclerViewInfo.visibility = View.VISIBLE
+                expandPlayerInfo.setCompoundDrawablesWithIntrinsicBounds(drawableArrowDown, null, null, null)
+
+            } else {
+                recyclerViewInfo.visibility = View.GONE
+                expandPlayerInfo.setCompoundDrawablesWithIntrinsicBounds(drawableArrowForward, null, null, null)
+            }
+        }
+
+        //Gestiamo l'apertura della recycler delle carte sbloccate dal player
+        expandUnlockedCards.visibility = View.GONE
+        expandUnlockedCards.setOnClickListener {
+            if (recyclerViewCards.visibility == View.GONE) {
+                recyclerViewCards.visibility = View.VISIBLE
+                expandUnlockedCards.setCompoundDrawablesWithIntrinsicBounds(drawableArrowDown, null, null, null)
+
+            } else {
+                recyclerViewCards.visibility = View.GONE
+                expandUnlockedCards.setCompoundDrawablesWithIntrinsicBounds(drawableArrowForward, null, null, null)
+            }
+        }
+
+        //Gestiamo l'apertura della recycler dei badge sbloccati
+        expandUnlockedBadges.visibility = View.GONE
+        expandUnlockedBadges.setOnClickListener {
+            if (recyclerViewBadges.visibility == View.GONE) {
+                recyclerViewBadges.visibility = View.VISIBLE
+                expandUnlockedBadges.setCompoundDrawablesWithIntrinsicBounds(drawableArrowDown, null, null, null)
+            } else {
+                recyclerViewBadges.visibility = View.GONE
+                expandUnlockedBadges.setCompoundDrawablesWithIntrinsicBounds(drawableArrowForward, null, null, null)
+            }
+        }
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
@@ -97,89 +187,6 @@ class ClashPlayerActivity : AppCompatActivity() {
         }
         bottomNavigationView.selectedItemId = R.id.menu_player
 
-        adapter = ClashPlayerAdapterInfo()
-        adapterCardUnlocked = ClashPlayerAdapterCardUnlocked()
-        adapterBadgeUnlocked = ClashPlayerAdapterBadgeUnlocked()
-
-        recyclerViewInfo = findViewById(R.id.playerRecyclerViewInfo)
-        recyclerViewInfo.layoutManager = LinearLayoutManager(this)
-        recyclerViewInfo.adapter = adapter
-        recyclerViewInfo.visibility = View.GONE
-
-
-        recyclerViewCards = findViewById(R.id.playerRecyclerViewCards)
-        recyclerViewCards.layoutManager = GridLayoutManager(this, 4)
-        recyclerViewCards.adapter = adapterCardUnlocked
-        recyclerViewCards.visibility = View.GONE
-
-        recyclerViewBadges = findViewById(R.id.playerRecyclerViewBadges)
-        recyclerViewBadges.layoutManager = GridLayoutManager(this, 3)
-        recyclerViewBadges.adapter = adapterBadgeUnlocked
-        recyclerViewBadges.visibility = View.GONE
-
-        viewModel.clashPlayerInfo.observe(this, Observer { info ->
-            adapter.setInfo(info)
-        })
-        viewModel.playerCardsUnlocked.observe(this, Observer {card ->
-            adapterCardUnlocked.setCard(card)
-        })
-        viewModel.playerBadgesUnlocked.observe(this, Observer {badge ->
-            adapterBadgeUnlocked.setBadge(badge)
-        })
-        viewModel.errorLiveData.observe(this, Observer { errorMessage ->
-            if (errorMessage.isNotEmpty()) {
-
-                Log.e(TAG,"c'è errore, $errorMessage")
-                inputFragment.showTagError()
-            }
-            else {
-                Log.d(TAG,"sono nell'else, non c'è errore")
-                val fragment = supportFragmentManager.beginTransaction()
-                fragment.remove(inputFragment)
-                fragment.commit()
-                expandPlayerInfo.visibility = View.VISIBLE
-                expandUnlockedCards.visibility = View.VISIBLE
-                expandUnlockedBadges.visibility = View.VISIBLE
-            }
-        })
-
-        //Gestiamo l'apertura della recycler delle info del player
-        expandPlayerInfo.visibility = View.GONE
-        expandPlayerInfo.setOnClickListener {
-            if (recyclerViewInfo.visibility == View.GONE) {
-                recyclerViewInfo.visibility = View.VISIBLE
-                arrowIconPlayerInfo.setImageResource(R.drawable.ic_arrow_down)
-            } else {
-                recyclerViewInfo.visibility = View.GONE
-                arrowIconPlayerInfo.setImageResource(R.drawable.ic_arrow_forward)
-            }
-        }
-
-        //Gestiamo l'apertura della recycler delle carte sbloccate dal player
-        expandUnlockedCards.visibility = View.GONE
-        expandUnlockedCards.setOnClickListener {
-            if (recyclerViewCards.visibility == View.GONE) {
-                recyclerViewCards.visibility = View.VISIBLE
-                arrowIconUnlockedCards.setImageResource(R.drawable.ic_arrow_down)
-
-            } else {
-                recyclerViewCards.visibility = View.GONE
-                arrowIconUnlockedCards.setImageResource(R.drawable.ic_arrow_forward)
-            }
-        }
-
-        //Gestiamo l'apertura della recycler dei badge sbloccati
-        expandUnlockedBadges.visibility = View.GONE
-        expandUnlockedBadges.setOnClickListener {
-            if (recyclerViewBadges.visibility == View.GONE) {
-                recyclerViewBadges.visibility = View.VISIBLE
-                arrowIconUnlockedBadges.setImageResource(R.drawable.ic_arrow_down)
-            } else {
-                recyclerViewBadges.visibility = View.GONE
-                arrowIconUnlockedBadges.setImageResource(R.drawable.ic_arrow_forward)
-            }
-        }
-
 
         //
         inputFragment.onTagSubmitted = { playerTag ->
@@ -190,7 +197,7 @@ class ClashPlayerActivity : AppCompatActivity() {
 
     private fun startInputFragment() {
 
-        Log.d(TAG,"inizio il fragment di input")
+        Log.d(TAG, "inizio il fragment di input")
 
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.clashInputFragmentContainer, inputFragment)
