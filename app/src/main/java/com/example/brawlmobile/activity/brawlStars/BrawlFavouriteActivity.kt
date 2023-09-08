@@ -11,29 +11,44 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.brawlStars.FavouriteAdapter
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class BrawlFavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
+class BrawlFavouriteActivity : AppCompatActivity(), ClickListener {
 
     private lateinit var viewModel: FavouriteActivityViewModel
-//    private lateinit var viewModelFactory: MyCustomViewModelFactory
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FavouriteAdapter
-    private val TAG = "FavouriteActivity"
 
-//    private lateinit var appDatabase: AppDatabase
+    private val TAG = "FavouriteActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brawl_favourite)
-        Log.d(TAG, "onCreate creo l'activity")
 
-        // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
             findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        viewModel = ViewModelProvider(
+            this,
+            MyCustomViewModelFactory(this, this::class.java)
+        )[FavouriteActivityViewModel::class.java]
+
+        adapter = FavouriteAdapter(this, this)
+
+        recyclerView = findViewById<RecyclerView?>(R.id.favouriteRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
+        viewModel.allFavouriteBrawlers.observe(this, Observer { fav ->
+            adapter.setFavouriteItem(fav)
+        })
+
+        // Gestisco la bottomNavigationView
         bottomNavigationView.setOnItemSelectedListener() { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
@@ -71,18 +86,6 @@ class BrawlFavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
             }
         }
         bottomNavigationView.selectedItemId = R.id.menu_favourite
-
-        viewModel = ViewModelProvider(this, MyCustomViewModelFactory(this, this::class.java))[FavouriteActivityViewModel::class.java]
-
-        adapter = FavouriteAdapter(this, this)
-        recyclerView = findViewById<RecyclerView?>(R.id.favouriteRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
-        viewModel.allFavouriteBrawlers.observe(this, Observer { fav ->
-            adapter.setFavouriteItem(fav)
-        })
-
 
     }
 

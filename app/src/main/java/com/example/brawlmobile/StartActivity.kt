@@ -19,13 +19,12 @@ class StartActivity : AppCompatActivity() {
                 startActivity(it)
             }
         }
+
         val clashRoyale: Button = findViewById(R.id.clashRoyale)
         clashRoyale.setOnClickListener {
             Intent(this, ClashHomeActivity::class.java).also {
                 startActivity(it)
             }
         }
-
-
     }
 }

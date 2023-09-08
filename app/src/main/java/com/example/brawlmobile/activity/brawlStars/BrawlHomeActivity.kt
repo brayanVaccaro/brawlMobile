@@ -26,28 +26,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.log
 
 class BrawlHomeActivity : AppCompatActivity(), ClickListener {
-    private lateinit var viewModel: HomeActivityViewModel
 
+    private lateinit var viewModel: HomeActivityViewModel
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HomeAdapter
 
     private lateinit var favouriteViewModel: FavouriteActivityViewModel
 
-
     private var TAG = "MainActivity"
     private var brawlerList: MutableList<BrawlerModel> = mutableListOf()
 
-    //    private lateinit var txtErrorInfo: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brawl_home)
 
-
-        // Gestiamo la bottomNavigationView
-        val bottomNavigationView: BottomNavigationView =
-            findViewById(R.id.bottomNavigationView)
-
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
         viewModel = ViewModelProvider(
             this,
@@ -69,6 +63,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
             brawlerList.addAll(brawlers)
             adapter.setBrawlers(brawlerList)
         })
+
         viewModel.errorLiveData.observe(this, Observer { errorMessagge ->
             if (!errorMessagge.isNullOrEmpty()) {
                 Log.e(TAG, "AVVIO ERROR FRAGMENT")
@@ -79,11 +74,9 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
             }
         })
 
-
         viewModel.getBrawlers()
 
-
-
+        // Gestisco la bottomNavigationView
         bottomNavigationView.setOnItemSelectedListener() { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
@@ -122,6 +115,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
             }
         }
         bottomNavigationView.selectedItemId = R.id.menu_home
+
     }
 
     private fun startErrorFragment(errorMessage: String) {
@@ -134,9 +128,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
         transaction.commit()
     }
 
-
     override fun onClickViewInfo(model: Any) {
-
         val brawlerModel = model as BrawlerModel
 
         if (brawlerModel.name == "El-Primo") {
@@ -151,7 +143,6 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
         bundle.putString("EXTRA_STARPOWER_1_NAME", brawlerModel.starPowers[0].name)
         bundle.putString("EXTRA_STARPOWER_2_NAME", brawlerModel.starPowers[1].name)
 
-//        Log.d(TAG, "bundle vale = $bundle")
         // Creo l'intento in cui passo il bundle e faccio partire la DetailsActivity
         Intent(this, BrawlDetailsActivity::class.java)
             .also {
@@ -167,17 +158,13 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
 
     override fun onClickAddToFavourite(model: Any) {
         val brawlerModel = model as BrawlerModel
-
-        Log.d(TAG, "aggiungo ai favoriti")
         val favouriteBrawler = BrawlerEntity(
             id = brawlerModel.id.toString(),
             name = brawlerModel.name,
             spriteUrl = brawlerModel.spriteUrl
         )
-
         favouriteViewModel.insertFavouriteBrawler(favouriteBrawler)
         Toast.makeText(this, "${favouriteBrawler.name} added to favourites", Toast.LENGTH_SHORT)
             .show()
-
     }
 }

@@ -1,7 +1,7 @@
-package com.example.brawlmobile.repository.brawlStars.details
+package com.example.brawlmobile.repository.brawlStars
 
 import android.util.Log
-import com.example.brawlmobile.remote.brawlStars.web.Remote
+import com.example.brawlmobile.remote.brawlStars.RetrofitWeb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.jsoup.Jsoup
@@ -13,19 +13,10 @@ class UrlRepository {
 
     suspend fun getUrlsFromWebFlow(name: String): Flow<List<String>> = flow {
 
-        Log.d(TAG, "prendo il testo da web, name vale = $name")
-        val response = Remote.webService.getTextFromWeb(name)
-        if (response.isSuccessful) {
-            val htmlBody = response.body()?.string() ?: ""
-
-            val resultUrl = extractUrls(htmlBody)
-//                Log.d(TAG,"Url da web vale = $resultUrl")
-
-            emit(resultUrl)
-        } else {
-            Log.e(TAG, "Errore nella risposta dal sito Web: ${response.code()}")
-        }
-
+        val response = RetrofitWeb.webService.getTextFromWeb(name)
+        val htmlBody = response.body()?.string() ?: ""
+        val resultUrl = extractUrls(htmlBody)
+        emit(resultUrl)
     }
 
     private fun extractUrls(html: String): List<String> {
@@ -47,10 +38,9 @@ class UrlRepository {
         for (element in images) {
             // Mi salvo il testo dell'attributo data-src
             val src = element.attr("data-src")
-            // Pulisco l'url e aggiungo alla lista
+            // Aggiungo alla lista
             imageUrls.add(src)
         }
-//        Log.d(TAG,"imageUrls vale $imageUrls")
 
         return imageUrls
     }

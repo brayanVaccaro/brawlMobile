@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.brawlStars.FavouriteAdapter
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ClashFavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
+class ClashFavouriteActivity : AppCompatActivity(), ClickListener {
 
     private lateinit var viewModel: FavouriteActivityViewModel
 

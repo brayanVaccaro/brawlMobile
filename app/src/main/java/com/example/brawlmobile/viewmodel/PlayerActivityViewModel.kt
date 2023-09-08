@@ -10,7 +10,7 @@ import com.example.brawlmobile.model.clashRoyale.ClashPlayerInfoModel
 import com.example.brawlmobile.remote.brawlStars.model.BrawlersUnlocked
 import com.example.brawlmobile.remote.clashRoyale.model.Badge
 import com.example.brawlmobile.remote.clashRoyale.model.Card
-import com.example.brawlmobile.repository.brawlStars.player.PlayerRepository
+import com.example.brawlmobile.repository.brawlStars.PlayerRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +25,6 @@ class PlayerActivityViewModel(
 
     init {
         playerRepository = PlayerRepository(context)
-
     }
 
     val brawlPlayerInfo: MutableLiveData<PlayerInfoModel> by lazy {
@@ -47,11 +46,9 @@ class PlayerActivityViewModel(
 
     fun getBrawlPlayerInfo(tag: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "recupero i dati del player, Brawl Stars")
             try {
                 val playerInfoFlow = playerRepository.fetchBrawlPlayerInfo(tag)
                 playerInfoFlow.collect {
-                    Log.d(TAG, "sono nel collect")
                     val uiPlayerInfo = PlayerInfoModel(
                         tag = it.tag,
                         name = it.name,
@@ -60,7 +57,6 @@ class PlayerActivityViewModel(
                         trophies = it.trophies,
                         highestTrophies = it.highestTrophies,
                         expLevel = it.expLevel,
-
                         expPoints = it.expPoints,
                         isQualifiedFromChampionshipChallenge = it.isQualifiedFromChampionshipChallenge,
                         threeVsThreeVictories = it.threeVsThreeVictories,
@@ -71,10 +67,8 @@ class PlayerActivityViewModel(
                         brawlersUnlocked = it.brawlers
                     )
                     val uiPlayerBrawlersUnlocked = uiPlayerInfo.brawlersUnlocked
-//                    Log.d(TAG, "uiPlayerBrawlerUnlocked vale = $uiPlayerBrawlersUnlocked")
 
-                    withContext(Dispatchers.IO) {
-                        Log.d(TAG, "sto facendo postvalue")
+                    withContext(Dispatchers.Main) {
                         brawlPlayerInfo.postValue(uiPlayerInfo)
                         playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
                         errorLiveData.postValue("")
@@ -86,12 +80,10 @@ class PlayerActivityViewModel(
                 }
             }
         }
-
     }
 
     fun getClashPlayerInfo(tag: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "recupero i dati del player, Clash Royale")
             try {
                 val playerInfoFlow = playerRepository.fetchClashPlayerInfo(tag)
                 playerInfoFlow.collect {
@@ -131,11 +123,9 @@ class PlayerActivityViewModel(
                         lastPathOfLegendSeasonResult = it.lastPathOfLegendSeasonResult,
                         bestPathOfLegendSeasonResult = it.bestPathOfLegendSeasonResult,
                         totalExpPoints = it.totalExpPoints
-
                     )
                     val uiPlayerCardsUnlocked = uiPlayerInfo.cards
                     val uiPlayerBadgesUnlocked = uiPlayerInfo.badges
-                    Log.e(TAG,"badges unlocked = $uiPlayerBadgesUnlocked")
 
                     withContext(Dispatchers.IO) {
                         Log.d(TAG, "sto facendo postvalue")
@@ -152,7 +142,6 @@ class PlayerActivityViewModel(
                 }
             }
         }
-
     }
 
     fun clearErrorMessage() {

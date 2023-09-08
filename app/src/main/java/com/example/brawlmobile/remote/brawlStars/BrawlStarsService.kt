@@ -1,4 +1,4 @@
-package com.example.brawlmobile.remote.brawlStars.brawler
+package com.example.brawlmobile.remote.brawlStars
 
 import com.example.brawlmobile.remote.brawlStars.model.BrawlerApiResponse
 import com.example.brawlmobile.remote.brawlStars.model.PlayerInfoResponse
@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ApiService {
+interface BrawlStarsService {
     // Lista dei brawler
     @GET("brawlers")
     suspend fun getAllBrawlers(

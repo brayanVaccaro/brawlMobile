@@ -3,7 +3,6 @@ package com.example.brawlmobile.model.clashRoyale
 import com.example.brawlmobile.remote.clashRoyale.model.*
 
 data class ClashPlayerInfoModel (
-
     val tag: String,
     val name: String,
     val expLevel: Int,

@@ -13,22 +13,13 @@ class PlayerAdapterBrawlersUnlocked() : RecyclerView.Adapter<PlayerAdapterBrawle
     private var playerBrawlersUnlocked: MutableList<BrawlersUnlocked> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val txtProvaName: TextView
-//        val txtProvaId: TextView
-
-
-        init {
-            txtProvaName = view.findViewById(R.id.brawlerUnlockedName)
-//            txtProvaId = view.findViewById(R.id.provaId)
-        }
-
+        val txtName: TextView= view.findViewById(R.id.brawlerUnlockedName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_player_brawl_brawler, parent, false)
         return ViewHolder(view)
-
     }
 
     override fun getItemCount(): Int {
@@ -37,9 +28,7 @@ class PlayerAdapterBrawlersUnlocked() : RecyclerView.Adapter<PlayerAdapterBrawle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val infoBrawlersUnlocked = playerBrawlersUnlocked[position]
-        holder.txtProvaName.text = infoBrawlersUnlocked.name
-//        holder.txtProvaId.text = infoBrawlersUnlocked.unlocked[position].id.toString()
-
+        holder.txtName.text = infoBrawlersUnlocked.name
     }
 
     fun setBrawlersUnlocked(data: List<BrawlersUnlocked>) {
@@ -47,6 +36,4 @@ class PlayerAdapterBrawlersUnlocked() : RecyclerView.Adapter<PlayerAdapterBrawle
         playerBrawlersUnlocked.addAll(data)
         notifyDataSetChanged()
     }
-
-
 }

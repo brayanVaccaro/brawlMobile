@@ -55,23 +55,6 @@ class MyCustomViewModelFactory(private val context: Context, private val activit
                 }
             }
 
-//            ClashHomeActivity::class.java -> {
-//                if (modelClass.isAssignableFrom(HomeActivityViewModel::class.java)) {
-//                    HomeActivityViewModel(context) as T
-//                } else {
-//                    throw IllegalArgumentException("Unknown ViewModel class")
-//                }
-//            }
-//            ClashFavouriteActivity::class.java -> {
-//                if (modelClass.isAssignableFrom(HomeActivityViewModel::class.java)) {
-//                    HomeActivityViewModel(context) as T
-//                } else {
-//                    throw IllegalArgumentException("Unknown ViewModel class")
-//                }
-//            }
-
-
-            // Aggiungi altri casi per altre Activity qui se necessario
             else -> throw IllegalArgumentException("Unknown Activity type")
         }
     }

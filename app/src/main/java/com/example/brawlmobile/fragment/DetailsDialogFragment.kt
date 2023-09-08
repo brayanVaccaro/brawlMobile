@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
 
 class DetailsDialogFragment : DialogFragment() {
-
     companion object {
         private const val ARG_NAME = "EXTRA_NAME"
         private const val ARG_MAX_LEVEL = "EXTRA_MAX_LEVEL"
@@ -33,15 +32,14 @@ class DetailsDialogFragment : DialogFragment() {
         val iconUrlMedium = view.findViewById<ImageView>(R.id.iconUrlMedium)
         val iconUrlEvolutionMedium = view.findViewById<ImageView>(R.id.iconUrlEvolutionMedium)
 
-        // Ottieni i dati dal Bundle
+        // Ottengo i dati dal Bundle
         val name = arguments?.getString(ARG_NAME)
         val maxLevelValue = arguments?.getString(ARG_MAX_LEVEL)
         val maxEvolutionLevelValue = arguments?.getString(ARG_MAX_EVOLUTION_LEVEL)
         val iconUrlMediumValue = arguments?.getString(ARG_ICON_NORMAL)
         val iconUrlEvolutionMediumValue = arguments?.getString(ARG_ICON_EVOLUTION)
-//        val description = arguments?.getString(ARG_DESCRIPTION)
 
-        // Imposta i dati nelle view
+        // Imposto i dati nelle view
         cardName.text = name
         maxLevel.text = maxLevelValue
         maxEvolutionLevel.text = maxEvolutionLevelValue
@@ -53,9 +51,6 @@ class DetailsDialogFragment : DialogFragment() {
             .load(iconUrlEvolutionMediumValue)
             .error(R.drawable.ic_delete)
             .into(iconUrlEvolutionMedium)
-
-
-//        descriptionTextView.text = description
 
         return view
     }

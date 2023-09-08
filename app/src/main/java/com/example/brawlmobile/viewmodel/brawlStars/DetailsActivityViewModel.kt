@@ -8,16 +8,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.brawlmobile.R
 import com.example.brawlmobile.model.brawlStar.web.ImagesModel
 import com.example.brawlmobile.model.brawlStar.web.TextModel
-import com.example.brawlmobile.repository.brawlStars.details.TextRepository
-import com.example.brawlmobile.repository.brawlStars.details.UrlRepository
+import com.example.brawlmobile.repository.brawlStars.TextRepository
+import com.example.brawlmobile.repository.brawlStars.UrlRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetailsActivityViewModel(context: Context) : ViewModel() {
 
-    // Repository per prelevare dati da web
+    // Repositories per prelevare dati da web
     private val textRepository: TextRepository
-
     private val urlRepository: UrlRepository
 
     private val TAG = "DetailsActivityViewModel"
@@ -27,32 +26,30 @@ class DetailsActivityViewModel(context: Context) : ViewModel() {
         urlRepository = UrlRepository()
     }
 
-    // LiveData per mantenere l'elenco degli url delle immagini aggiornato nell'UI
+    // LiveData per mantenere l'elenco degli url delle immagini
     val webUrls: MutableLiveData<ImagesModel> by lazy {
         MutableLiveData<ImagesModel>()
     }
 
-    // LiveData per mantenere l'elenco dei testi aggiornato nell'UI
+    // LiveData per mantenere l'elenco dei testi
     val webText: MutableLiveData<TextModel> by lazy {
         MutableLiveData<TextModel>()
     }
+    // LiveData per gli eventuali errori
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     // Metodo per ottenere i testi dal sito web
     fun getWebText(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "recupero il text flow dal WebRepo")
+
             try {
                 val textFlow = textRepository.getTextFromWebFlow(name)
                 textFlow.collect {
-                    Log.d(TAG, "size della Lista di text vale = ${it.size}")
 
                     var uiText: TextModel? = null
                     // In base alla size del Flow ho diversi TextModel da dover rappresentare
                     when (it.size) {
                         7 -> {
-                            Log.d(TAG, "sono in size 7")
-
                             uiText = TextModel(
                                 description = it[0],
                                 trait = "",
@@ -66,11 +63,8 @@ class DetailsActivityViewModel(context: Context) : ViewModel() {
                                 secondStarPower = it[6],
                                 layoutResId = R.layout.item_text_size7
                             )
-                            Log.d(TAG, "uiText_size7 vale $uiText")
-
                         }
                         8 -> {
-                            Log.d(TAG, "sono in size 8")
                             uiText = TextModel(
                                 description = it[0],
                                 trait = it[1],
@@ -84,10 +78,8 @@ class DetailsActivityViewModel(context: Context) : ViewModel() {
                                 secondStarPower = it[7],
                                 layoutResId = R.layout.item_text_size8
                             )
-                            Log.d(TAG, "uiText_size8 vale $uiText")
                         }
                         9 -> {
-                            Log.d(TAG, "sono in size 9")
                             uiText = TextModel(
                                 description = it[0],
                                 trait = "",
@@ -101,14 +93,11 @@ class DetailsActivityViewModel(context: Context) : ViewModel() {
                                 secondStarPower = it[8],
                                 layoutResId = R.layout.item_text_size9
                             )
-                            Log.d(TAG, "uiText_size9 vale $uiText")
                         }
                     }
-
                     webText.postValue(uiText)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "ERRORE durante il recupero del testo web: ${e.message}", e)
                 errorLiveData.postValue(e.message)
             }
         }
@@ -141,7 +130,6 @@ class DetailsActivityViewModel(context: Context) : ViewModel() {
                                 firstStarPowerUrl = it[3],
                                 secondStarPowerUrl = it[4]
                             )
-                            Log.d(TAG, "uiUrls_size5 vale $uiUrls")
                         }
                         7 -> {
                             uiUrls = ImagesModel(
@@ -151,7 +139,6 @@ class DetailsActivityViewModel(context: Context) : ViewModel() {
                                 firstStarPowerUrl = it[5],
                                 secondStarPowerUrl = it[6]
                             )
-                            Log.d(TAG, "uiUrls_size7 vale $uiUrls")
                         }
                         8 -> {
                             uiUrls = ImagesModel(
@@ -161,23 +148,17 @@ class DetailsActivityViewModel(context: Context) : ViewModel() {
                                 firstStarPowerUrl = it[6],
                                 secondStarPowerUrl = it[7]
                             )
-                            Log.d(TAG, "uiUrls_size8 vale $uiUrls")
                         }
                     }
                     webUrls.postValue(uiUrls)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "ERRORE durante il recupero degli url web: ${e.message}", e)
                 errorLiveData.postValue(e.message)
             }
-
-
         }
     }
 
     fun clearErrorMessage() {
         errorLiveData.postValue(null)
     }
-
-
 }
