@@ -1,12 +1,10 @@
 package com.example.brawlmobile.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 import com.example.brawlmobile.model.clashRoyale.CardModel
 import com.example.brawlmobile.repository.brawlStars.BrawlerRepository
@@ -26,9 +24,6 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
     // Urls da cui prendere le immagini dei brawler, i nomi dei brawler saranno gli endpoint
     private val brawlerImagesUrl = "https://cdn-old.brawlify.com/brawler-bs/"
     private val clashImageUrl = "https://cdn.royaleapi.com/static/img/cards-150/"
-
-    // Lista per salvare gli url per cui fare il preload
-    private var imgUrlsToPreload: MutableList<String> = mutableListOf()
 
     private var maxSize = 72
     private var totalLoaded = 0
@@ -100,22 +95,6 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
             } catch (e: Exception) {
                 errorLiveData.postValue(e.message)
             }
-        }
-    }
-
-    // Metodo per fare il preload di tutte le immagini
-    private fun preloadImages(context: Context, urls: List<String>) {
-        viewModelScope.launch(Dispatchers.Default) {
-            //
-            Log.d(TAG, "sto facendo il preload")
-
-            for (imageUrl in urls) {
-//                Log.d(TAG, "imageUrl vale $imageUrl")
-                Glide.with(context)
-                    .load(imageUrl)
-                    .preload()
-            }
-            Log.d(TAG, "ho finito il preload")
         }
     }
 

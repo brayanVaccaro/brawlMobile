@@ -47,9 +47,9 @@ class MyCustomViewModelFactory(private val context: Context, private val activit
                 }
             }
 
-            BrawlDetailsActivity::class.java,  -> {
+            BrawlDetailsActivity::class.java -> {
                 if (modelClass.isAssignableFrom(DetailsActivityViewModel::class.java)) {
-                    DetailsActivityViewModel(context) as T
+                    DetailsActivityViewModel() as T
                 } else {
                     throw IllegalArgumentException("Unknown ViewModel class")
                 }

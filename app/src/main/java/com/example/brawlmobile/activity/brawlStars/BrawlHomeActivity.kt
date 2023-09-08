@@ -20,10 +20,8 @@ import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
 import com.example.brawlmobile.viewmodel.HomeActivityViewModel
-
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlin.math.log
 
 class BrawlHomeActivity : AppCompatActivity(), ClickListener {
 
@@ -77,7 +75,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
         viewModel.getBrawlers()
 
         // Gestisco la bottomNavigationView
-        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
 
@@ -92,23 +90,16 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
                     true
                 }
                 R.id.menu_favourite -> {
-                    Log.d(TAG, "ho cliccato favourites")
                     Intent(this, BrawlFavouriteActivity::class.java)
                         .also {
-                            Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
-
                         }
                     true
                 }
                 else -> {
-                    Log.d(TAG, "ho cliccato EXIT")
                     Intent(this, StartActivity::class.java)
                         .also {
-                            Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
-
-
                         }
                     true
                 }

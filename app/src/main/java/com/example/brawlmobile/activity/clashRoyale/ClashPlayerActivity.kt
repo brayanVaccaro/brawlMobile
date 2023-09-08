@@ -3,7 +3,6 @@ package com.example.brawlmobile.activity.clashRoyale
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +20,6 @@ import com.example.brawlmobile.adapter.clashRoyale.ClashPlayerAdapterInfo
 import com.example.brawlmobile.fragment.InputFragment
 import com.example.brawlmobile.viewmodel.PlayerActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ClashPlayerActivity : AppCompatActivity() {
@@ -101,11 +99,8 @@ class ClashPlayerActivity : AppCompatActivity() {
         })
         viewModel.errorLiveData.observe(this, Observer { errorMessage ->
             if (errorMessage.isNotEmpty()) {
-
-                Log.e(TAG, "c'è errore, $errorMessage")
                 inputFragment.showTagError()
             } else {
-                Log.d(TAG, "sono nell'else, non c'è errore")
                 val fragment = supportFragmentManager.beginTransaction()
                 fragment.remove(inputFragment)
                 fragment.commit()
@@ -155,8 +150,8 @@ class ClashPlayerActivity : AppCompatActivity() {
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
-            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+            findViewById(R.id.bottomNavigationView)
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
                     Intent(this, ClashHomeActivity::class.java).also {
@@ -177,12 +172,10 @@ class ClashPlayerActivity : AppCompatActivity() {
                         }
                     true
                 }
-                else -> {Log.d(TAG, "ho cliccato EXIT")
+                else -> {
                     Intent(this, StartActivity::class.java)
                         .also {
-                            Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
-
                         }
                     true
                 }
@@ -199,9 +192,6 @@ class ClashPlayerActivity : AppCompatActivity() {
     }
 
     private fun startInputFragment() {
-
-        Log.d(TAG, "inizio il fragment di input")
-
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.clashInputFragmentContainer, inputFragment)
         transaction.commit()

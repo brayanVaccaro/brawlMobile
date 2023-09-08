@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
@@ -24,7 +23,7 @@ class ClashPlayerAdapterBadgeUnlocked(
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
 //        val badgeNameTextView: TextView = view.findViewById(R.id.badgeNameTextView)
         val badgeIconUrls: ImageView = view.findViewById(R.id.badgeIconUrl)
-        val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+        private val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
         val glideRequestListener: RequestListener<Drawable> = GlideRequestListener(progressBar)
     }
     fun setBadge(data_badge: List<Badge>) {

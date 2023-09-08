@@ -1,11 +1,10 @@
 package com.example.brawlmobile.activity.clashRoyale
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
-import com.example.brawlmobile.activity.brawlStars.BrawlFavouriteActivity
 import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.clashRoyale.HomeAdapter
 import com.example.brawlmobile.data.entities.CardEntity
@@ -73,7 +71,7 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
         viewModel.getCards()
 
         // Gestiamo la bottomNavigationView
-        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
 
@@ -88,20 +86,16 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
                     true
                 }
                 R.id.menu_favourite -> {
-                    Log.d(TAG, "ho cliccato favourites")
                     Intent(this, ClashFavouriteActivity::class.java)
                         .also {
-                            Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
 
                         }
                     true
                 }
                 else -> {
-                    Log.d(TAG, "ho cliccato EXIT")
                     Intent(this, StartActivity::class.java)
                         .also {
-                            Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
 
                         }
@@ -134,7 +128,6 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
         bundle.putString("EXTRA_ICON_NORMAL", cardModel.urlNormal)
         bundle.putString("EXTRA_ICON_EVOLUTION", cardModel.urlEvolution)
 
-        Log.d(TAG, "il bundle vale $bundle")
         val dialog: DialogFragment = DetailsDialogFragment()
         dialog.arguments = bundle
 
@@ -148,7 +141,6 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
 
     override fun onClickAddToFavourite(model: Any) {
         val cardModel = model as CardModel
-        Log.d(TAG, "aggiungo ai favoriti")
 
         val favouriteCard = CardEntity(
             id = cardModel.id.toString(),

@@ -1,7 +1,5 @@
 package com.example.brawlmobile.viewmodel.brawlStars
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +11,7 @@ import com.example.brawlmobile.repository.brawlStars.UrlRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DetailsActivityViewModel(context: Context) : ViewModel() {
+class DetailsActivityViewModel : ViewModel() {
 
     // Repositories per prelevare dati da web
     private val textRepository: TextRepository
@@ -110,7 +108,6 @@ class DetailsActivityViewModel(context: Context) : ViewModel() {
             try {
                 val urlsFlow = urlRepository.getUrlsFromWebFlow(name)
                 urlsFlow.collect {
-                    Log.d(TAG, "size della Lista degli urls vale = ${it.size}")
                     // In base alla size del flow imposto le immagini corrette da dover visualizzare
                     when (it.size) {
                         1 -> {

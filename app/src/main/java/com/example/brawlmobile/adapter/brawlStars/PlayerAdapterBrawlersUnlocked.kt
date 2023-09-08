@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.remote.brawlStars.model.BrawlersUnlocked
 
-class PlayerAdapterBrawlersUnlocked() : RecyclerView.Adapter<PlayerAdapterBrawlersUnlocked.ViewHolder>() {
+class PlayerAdapterBrawlersUnlocked : RecyclerView.Adapter<PlayerAdapterBrawlersUnlocked.ViewHolder>() {
 
     private var playerBrawlersUnlocked: MutableList<BrawlersUnlocked> = mutableListOf()
 

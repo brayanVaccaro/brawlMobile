@@ -1,7 +1,6 @@
 package com.example.brawlmobile.repository.brawlStars
 
 import android.content.Context
-import android.util.Log
 import com.example.brawlmobile.remote.brawlStars.RetrofitBrawlStars
 import com.example.brawlmobile.remote.brawlStars.model.BrawlerApiResponse
 
@@ -36,10 +35,7 @@ class BrawlerRepository(
             "R-t" to "R-T"
         )
 
-        Log.d(TAG, "fetchBrawlers(), prendo i dati")
         val resultBrawler = retrofitBrawlStars.brawlerBrawlStarsService.getAllBrawlers(afterCursor, limit)
-        Log.d(TAG,"brawler ottenuti: $resultBrawler")
-        Log.d(TAG,"brawler ottenuti lunghezza: ${resultBrawler.items.size}")
 
         // Trasformazione dei nomi dei Brawler ottenuti, in base alla mappa di trasformazione
         resultBrawler.items.map { brawler ->
@@ -50,9 +46,9 @@ class BrawlerRepository(
         }
 
         afterCursor = resultBrawler.paging?.cursors?.after
-        var beforeCursor = resultBrawler.paging?.cursors?.before
+//        var beforeCursor = resultBrawler.paging?.cursors?.before
 
-        return if (afterCursor == null && beforeCursor != null) {
+        return if (afterCursor == null) {
             resultBrawler
         } else {
             resultBrawler

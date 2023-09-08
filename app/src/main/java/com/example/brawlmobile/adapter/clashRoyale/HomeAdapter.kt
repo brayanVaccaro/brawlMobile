@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
@@ -71,7 +70,6 @@ class HomeAdapter(
         holder.clickableSpriteHeart.setOnClickListener {
             clickListener.onClickAddToFavourite(cardModel)
         }
-//        Log.d("clashRoyale.HomeAdapter","loading image named ${cardModel.urlNormal}")
         holder.clashProgressBar.visibility = View.VISIBLE
         Glide.with(context)
             .load(cardModel.urlNormal)

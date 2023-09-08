@@ -1,10 +1,8 @@
 package com.example.brawlmobile.repository.clashRoyale
 
 import android.content.Context
-import android.util.Log
 import com.example.brawlmobile.remote.clashRoyale.RetrofitClashRoyale
 import com.example.brawlmobile.remote.clashRoyale.model.CardResponse
-
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
