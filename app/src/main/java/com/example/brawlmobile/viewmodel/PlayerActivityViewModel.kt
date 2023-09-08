@@ -135,6 +135,7 @@ class PlayerActivityViewModel(
                     )
                     val uiPlayerCardsUnlocked = uiPlayerInfo.cards
                     val uiPlayerBadgesUnlocked = uiPlayerInfo.badges
+                    Log.e(TAG,"badges unlocked = $uiPlayerBadgesUnlocked")
 
                     withContext(Dispatchers.IO) {
                         Log.d(TAG, "sto facendo postvalue")
