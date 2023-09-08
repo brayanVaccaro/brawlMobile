@@ -25,8 +25,8 @@ import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BrawlPlayerActivity : AppCompatActivity() {
+
     private lateinit var viewModel: PlayerActivityViewModel
-//    private lateinit var viewModelFactory: MyCustomViewModelFactory
 
     private lateinit var recyclerViewInfo: RecyclerView
     private lateinit var recyclerViewBrawlers: RecyclerView
@@ -34,14 +34,14 @@ class BrawlPlayerActivity : AppCompatActivity() {
     private lateinit var adapterInfo: PlayerAdapterInfo
     private lateinit var adapterBrawlersUnlocked: PlayerAdapterBrawlersUnlocked
 
-    private var TAG = "PlayerActivity"
+    private var TAG = "BrawlPlayerActivity"
+
     private lateinit var expandPlayerInfo: TextView
     private lateinit var expandUnlocked: TextView
-
     private lateinit var drawableArrowForward: Drawable
     private lateinit var drawableArrowDown: Drawable
+
     private val inputFragment = InputFragment()
-//    private lateinit var playerTag: String
 
     //    tag personale: #PRGG0V09G
     // secondo tag personale: #29G8QYCYG
@@ -56,19 +56,14 @@ class BrawlPlayerActivity : AppCompatActivity() {
 
         startInputFragment()
 
-//        val arrowIconPlayerInfo: ImageView = findViewById(R.id.arrowIconPlayerInfo)
-
         drawableArrowForward = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_forward, null)!!
         drawableArrowDown = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_down, null)!!
         expandPlayerInfo = findViewById(R.id.expandPlayerInfo)
 
-//        val arrowIconUnlocked: ImageView = findViewById(R.id.arrowIconUnlocked)
         expandUnlocked = findViewById(R.id.expandUnlockedBrawler)
 
-        // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
             findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-
 
         adapterInfo = PlayerAdapterInfo()
         adapterBrawlersUnlocked = PlayerAdapterBrawlersUnlocked()
@@ -78,7 +73,6 @@ class BrawlPlayerActivity : AppCompatActivity() {
         recyclerViewInfo.adapter = adapterInfo
         recyclerViewInfo.visibility = View.GONE
 
-
         recyclerViewBrawlers = findViewById(R.id.playerRecyclerViewBrawlers)
         recyclerViewBrawlers.layoutManager = GridLayoutManager(this, 3)
         recyclerViewBrawlers.adapter = adapterBrawlersUnlocked
@@ -87,9 +81,11 @@ class BrawlPlayerActivity : AppCompatActivity() {
         viewModel.brawlPlayerInfo.observe(this, Observer { info ->
             adapterInfo.setInfo(info)
         })
+
         viewModel.playerBrawlersUnlocked.observe(this, Observer { data ->
             adapterBrawlersUnlocked.setBrawlersUnlocked(data)
         })
+
         viewModel.errorLiveData.observe(this, Observer { errorMessage ->
             if (errorMessage.isNotEmpty()) {
 //                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
@@ -109,7 +105,7 @@ class BrawlPlayerActivity : AppCompatActivity() {
         })
 
 
-        //Gestiamo l'apertura della recycler dei brawler sbloccati dal player
+        // Gestisco l'apertura della recycler dei brawler sbloccati dal player
         expandUnlocked.visibility = View.GONE
         expandUnlocked.setOnClickListener {
             if (recyclerViewBrawlers.visibility == View.GONE) {
@@ -122,7 +118,7 @@ class BrawlPlayerActivity : AppCompatActivity() {
             }
         }
 
-        //Gestiamo l'apertura della recycler delle info del player
+        // Gestisco l'apertura della recycler delle info del player
         expandPlayerInfo.visibility = View.GONE
         expandPlayerInfo.setOnClickListener {
             if (recyclerViewInfo.visibility == View.GONE) {
@@ -136,6 +132,7 @@ class BrawlPlayerActivity : AppCompatActivity() {
             }
         }
 
+        // Gestisco la bottomNavigationView
         bottomNavigationView.setOnItemSelectedListener() { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
@@ -173,10 +170,9 @@ class BrawlPlayerActivity : AppCompatActivity() {
         bottomNavigationView.selectedItemId = R.id.menu_player
 
 
-        //
+        // Gestisco il submit del tag
         inputFragment.onTagSubmitted = { playerTag ->
             viewModel.getBrawlPlayerInfo(playerTag)
-
         }
     }
 
@@ -185,7 +181,6 @@ class BrawlPlayerActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.brawlFragmentContainer, inputFragment)
         transaction.commit()
-
 
     }
 

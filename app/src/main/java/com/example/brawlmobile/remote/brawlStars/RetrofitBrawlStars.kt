@@ -1,4 +1,4 @@
-package com.example.brawlmobile.remote.brawlStars.brawler
+package com.example.brawlmobile.remote.brawlStars
 
 import android.content.Context
 import com.example.brawlmobile.R
@@ -18,7 +18,7 @@ import javax.net.ssl.X509TrustManager
  * Questa classe permette di creare un'istanza di Retrofit configurata per effettuare richieste all'API remota specificata tramite l'URL di base BASE_URL. Utilizza un OkHttpClient personalizzato per accettare un certificato del server personalizzato,
  * il quale viene caricato da una risorsa locale.
  */
-class RemoteApi(
+class RetrofitBrawlStars(
     private val context: Context
 ) {
 
@@ -26,8 +26,8 @@ class RemoteApi(
 
     companion object {
         // Metodo di factory per creare una istanza di RemoteApi
-        fun create(context: Context): RemoteApi {
-            return RemoteApi(context)
+        fun create(context: Context): RetrofitBrawlStars {
+            return RetrofitBrawlStars(context)
         }
     }
 
@@ -90,7 +90,7 @@ class RemoteApi(
         .build()
 
     // Creazione del servizio di interfaccia per l'API brawler utilizzando Retrofit
-    val brawlerApiService: ApiService by lazy {
-        retrofitBrawler.create(ApiService::class.java)
+    val brawlerBrawlStarsService: BrawlStarsService by lazy {
+        retrofitBrawler.create(BrawlStarsService::class.java)
     }
 }

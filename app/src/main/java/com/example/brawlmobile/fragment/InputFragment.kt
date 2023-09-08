@@ -19,9 +19,8 @@ class InputFragment : Fragment() {
 
     private lateinit var viewModel: PlayerActivityViewModel
     private lateinit var notValidTag: TextView
-    private var hasError: Boolean = false
-    var onTagSubmitted: ((tag: String) -> Unit)? = null
 
+    var onTagSubmitted: ((tag: String) -> Unit)? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,17 +38,12 @@ class InputFragment : Fragment() {
                 showTagError()
             }
         })
-        // Gestiamo il submit del tag
+        // Gestisco il submit del tag
         submitButton.setOnClickListener {
             val playerTag = editText.text.toString()
             Log.d("inputFragment", "playerTag vale $playerTag")
 
-//            viewModel.getPlayerInfo(playerTag)
             onTagSubmitted?.invoke(playerTag)
-
-
-//            viewModel.getPlayerInfo(playerTag)
-
 
         }
         return view
@@ -57,17 +51,5 @@ class InputFragment : Fragment() {
 
     fun showTagError() {
         notValidTag.visibility = View.VISIBLE
-        hasError = true
     }
-
-    fun hideTagError() {
-        notValidTag.visibility = View.GONE
-        hasError = false
-    }
-
-    fun hasError(): Boolean {
-        return hasError
-    }
-
-
 }

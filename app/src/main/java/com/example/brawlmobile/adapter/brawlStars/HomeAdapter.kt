@@ -23,7 +23,6 @@ class HomeAdapter(
     private val clickListener: ClickListener
 ): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txtBrawlerName: TextView
         val imageView: ImageView

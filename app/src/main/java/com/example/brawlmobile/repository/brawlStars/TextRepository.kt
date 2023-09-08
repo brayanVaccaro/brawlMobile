@@ -1,32 +1,22 @@
-package com.example.brawlmobile.repository.brawlStars.details
+package com.example.brawlmobile.repository.brawlStars
 
-import android.util.Log
-import com.example.brawlmobile.remote.brawlStars.web.Remote
+import com.example.brawlmobile.remote.brawlStars.RetrofitWeb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
-class TextRepository{
+class TextRepository {
 
     private val TAG = "TextRepository"
 
     suspend fun getTextFromWebFlow(name: String): Flow<List<String>> = flow {
 
-//            Log.d(TAG,"prendo il testo da web, name vale $name")
-        val response = Remote.webService.getTextFromWeb(name)
-        if (response.isSuccessful) {
-            val htmlBody = response.body()?.string() ?: ""
-            val resultText = extractText(htmlBody)
-//                Log.d(TAG,"il testo da web vale = $resultText")
-
-            emit(resultText)
-        } else {
-            Log.d(TAG, "Errore nella risposta dal sito Web: ${response.code()}")
-        }
-
+        val response = RetrofitWeb.webService.getTextFromWeb(name)
+        val htmlBody = response.body()?.string() ?: ""
+        val resultText = extractText(htmlBody)
+        emit(resultText)
     }
-
 
     private fun extractText(html: String): List<String> {
         // Utilizzo la libreria jsoup per fare parsing dell'HTMl
@@ -50,18 +40,7 @@ class TextRepository{
                 }
             }
             quoteBlockText.add(stringBuilder.toString().trim())
-
         }
-
-//        Log.d(TAG,"testo dagli elementi quote-block vale = $quoteBlockText")
         return quoteBlockText
-
-    }
-
-
-    private fun cleanUrls(url: String): String {
-
-        return url.substringBeforeLast(".png") + ".png"
-
     }
 }

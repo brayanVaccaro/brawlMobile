@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.example.brawlmobile.R
 
 class ErrorFragment : Fragment() {
-
     companion object {
         private const val ARG_ERROR_MESSAGE = ""
 
@@ -33,7 +32,6 @@ class ErrorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val errorMessage = arguments?.getString(ARG_ERROR_MESSAGE)
-
         val txtErrorInfo: TextView = view.findViewById(R.id.txtErrorInfo)
         txtErrorInfo.text = errorMessage
     }

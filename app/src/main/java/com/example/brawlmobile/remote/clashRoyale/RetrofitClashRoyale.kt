@@ -13,7 +13,7 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
-class ClashRemoteApi(
+class RetrofitClashRoyale(
     private val context: Context
 ) {
 
@@ -21,8 +21,8 @@ class ClashRemoteApi(
 
     companion object {
         // Metodo di factory per creare una istanza di RemoteApi
-        fun create(context: Context): ClashRemoteApi {
-            return ClashRemoteApi(context)
+        fun create(context: Context): RetrofitClashRoyale {
+            return RetrofitClashRoyale(context)
         }
     }
 
@@ -85,7 +85,7 @@ class ClashRemoteApi(
         .build()
 
     // Creazione del servizio di interfaccia per l'API brawler utilizzando Retrofit
-    val clashService: ClashService by lazy {
-        retrofitClash.create(ClashService::class.java)
+    val clashRoyaleService: ClashRoyaleService by lazy {
+        retrofitClash.create(ClashRoyaleService::class.java)
     }
 }

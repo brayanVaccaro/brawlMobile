@@ -1,8 +1,8 @@
-package com.example.brawlmobile.repository.brawlStars.home
+package com.example.brawlmobile.repository.brawlStars
 
 import android.content.Context
 import android.util.Log
-import com.example.brawlmobile.remote.brawlStars.brawler.RemoteApi
+import com.example.brawlmobile.remote.brawlStars.RetrofitBrawlStars
 import com.example.brawlmobile.remote.brawlStars.model.BrawlerApiResponse
 
 /**
@@ -14,7 +14,7 @@ class BrawlerRepository(
 
     private val TAG = "BrawlerRepository"
 
-    private val remoteApi: RemoteApi = RemoteApi.create(context)
+    private val retrofitBrawlStars: RetrofitBrawlStars = RetrofitBrawlStars.create(context)
 
     private var afterCursor: String?
     private var limit = 36
@@ -37,7 +37,7 @@ class BrawlerRepository(
         )
 
         Log.d(TAG, "fetchBrawlers(), prendo i dati")
-        val resultBrawler = remoteApi.brawlerApiService.getAllBrawlers(afterCursor, limit)
+        val resultBrawler = retrofitBrawlStars.brawlerBrawlStarsService.getAllBrawlers(afterCursor, limit)
         Log.d(TAG,"brawler ottenuti: $resultBrawler")
         Log.d(TAG,"brawler ottenuti lunghezza: ${resultBrawler.items.size}")
 

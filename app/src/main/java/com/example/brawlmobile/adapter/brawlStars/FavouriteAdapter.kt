@@ -9,20 +9,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.data.entities.BrawlerEntity
 import com.example.brawlmobile.data.entities.CardEntity
 
 class FavouriteAdapter(
     private val context: Context,
-    private val onClick: OnClick
+    private val clickListener: ClickListener
 ) : RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {
 
-//    private var favouriteBrawlers: List<BrawlerEntity>? = mutableListOf()
-//    private var favouriteCards: List<CardEntity>? = mutableListOf()
     private var favouriteItem: List<Any> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         val imgFavourite: ImageView
         val txtNameFavourite: TextView
         val deleteButton: ImageView
@@ -44,10 +42,6 @@ class FavouriteAdapter(
         return favouriteItem.size
     }
 
-    interface OnClick {
-        fun deleteFromFavourites(name: String){}
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val item = favouriteItem[position]
@@ -59,30 +53,23 @@ class FavouriteAdapter(
                 .into(holder.imgFavourite)
             holder.txtNameFavourite.text = item.name
             holder.deleteButton.setOnClickListener {
-                onClick.deleteFromFavourites(item.name)
+                clickListener.deleteFromFavourites(item.name)
             }
         } else if (item is CardEntity) {
             // È un oggetto CardEntity
-            Glide.with(context).load(item.spriteUrl).into(holder.imgFavourite)
+            Glide.with(context)
+                .load(item.spriteUrl)
+                .into(holder.imgFavourite)
             holder.txtNameFavourite.text = item.name
             holder.deleteButton.setOnClickListener {
-                onClick.deleteFromFavourites(item.name)
+                clickListener.deleteFromFavourites(item.name)
             }
         }
-
-
     }
 
     fun setFavouriteItem(item: List<Any>) {
         favouriteItem = item
         notifyDataSetChanged()
     }
-//    fun setFavouriteBrawler(data: List<BrawlerEntity>) {
-//        favouriteBrawlers = data
-//        notifyDataSetChanged()
-//    }
-//    fun setFavouriteCard(data: List<CardEntity>) {
-//        favouriteCards = data
-//        notifyDataSetChanged()
-//    }
+
 }

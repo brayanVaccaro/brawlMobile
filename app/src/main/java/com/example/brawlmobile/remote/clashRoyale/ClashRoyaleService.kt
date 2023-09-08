@@ -1,12 +1,11 @@
 package com.example.brawlmobile.remote.clashRoyale
 
-import com.example.brawlmobile.remote.brawlStars.model.PlayerInfoResponse
 import com.example.brawlmobile.remote.clashRoyale.model.CardResponse
 import com.example.brawlmobile.remote.clashRoyale.model.PlayerResponseModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface ClashService {
+interface ClashRoyaleService {
 
     @GET("cards")
     suspend fun getAllCards(): CardResponse

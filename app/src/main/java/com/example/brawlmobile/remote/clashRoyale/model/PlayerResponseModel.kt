@@ -35,7 +35,7 @@ data class PlayerResponseModel(
     val lastPathOfLegendSeasonResult: PathOfLegendSeasonResult?,
     val bestPathOfLegendSeasonResult: PathOfLegendSeasonResult?,
     val totalExpPoints: Int,
-    )
+)
 
 data class Clan(
 

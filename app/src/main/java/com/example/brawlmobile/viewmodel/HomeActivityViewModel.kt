@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 import com.example.brawlmobile.model.clashRoyale.CardModel
-import com.example.brawlmobile.repository.brawlStars.home.BrawlerRepository
+import com.example.brawlmobile.repository.brawlStars.BrawlerRepository
 import com.example.brawlmobile.repository.clashRoyale.CardRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,24 +43,24 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
 
     // LiveData per mantenere l'elenco dei Brawler
     private val _brawlers = MutableLiveData<List<BrawlerModel>>()
+
     // LiveData per esporre l'elenco dei Brawler alla activity
     val brawlers: LiveData<List<BrawlerModel>> = _brawlers
 
-
+    // LiveData per mantenere l'elenco delle carte
     val cards: MutableLiveData<List<CardModel>> by lazy {
         MutableLiveData<List<CardModel>>()
     }
 
+    // LiveData per gli eventuali errori
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     // Metodo per ottenere i Brawler dall'API remota
     fun getBrawlers() {
         viewModelScope.launch(Dispatchers.IO) {
-
             try {
                 do {
                     val brawlerResponse = brawlerRepository.fetchBrawlers()
-
                     val uiBrawlers = brawlerResponse.items.map {
                         BrawlerModel(
                             id = it.id,
@@ -70,12 +70,9 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
                             spriteUrl = "${brawlerImagesUrl}${it.name}.png"
                         )
                     }
-
                     totalLoaded += uiBrawlers.size
-
                     _brawlers.postValue(uiBrawlers)
                 } while (totalLoaded < maxSize)
-
             } catch (e: Exception) {
                 errorLiveData.postValue(e.message)
             }
@@ -84,9 +81,7 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
 
     fun getCards() {
         viewModelScope.launch(Dispatchers.IO) {
-
             try {
-
                 val cardFlow = cardRepository.getAllCardFlow()
                 cardFlow.collect { cardFromRepo ->
                     val uiCard = cardFromRepo.items.map {
@@ -96,7 +91,6 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
                             transformedName = it.transformedName ?: "",
                             maxLevel = it.maxLevel,
                             maxEvolutionLevel = it.maxEvolutionLevel,
-//                            urlNormal = it.iconUrls.medium,
                             urlNormal = "${clashImageUrl}${it.transformedName}.png",
                             urlEvolution = it.iconUrls.evolutionMedium ?: ""
                         )
@@ -106,7 +100,6 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
             } catch (e: Exception) {
                 errorLiveData.postValue(e.message)
             }
-
         }
     }
 

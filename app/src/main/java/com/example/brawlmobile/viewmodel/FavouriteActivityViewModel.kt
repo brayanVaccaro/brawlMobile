@@ -9,7 +9,7 @@ import com.example.brawlmobile.data.dao.CardDao
 import com.example.brawlmobile.data.database.AppDatabase
 import com.example.brawlmobile.data.entities.BrawlerEntity
 import com.example.brawlmobile.data.entities.CardEntity
-import com.example.brawlmobile.repository.brawlStars.favourite.FavouriteRepository
+import com.example.brawlmobile.repository.brawlStars.FavouriteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,15 +22,12 @@ class FavouriteActivityViewModel(
     private val cardDao: CardDao
 
     init {
-
         brawlerDao = AppDatabase.getInstance(context).favouriteBrawlerDao()
         cardDao = AppDatabase.getInstance(context).favouriteCardDao()
         favouriteRepository = FavouriteRepository(brawlerDao, cardDao)
     }
 
-
     val allFavouriteBrawlers: LiveData<List<BrawlerEntity>> = favouriteRepository.getAllBrawlers()
-
     val allFavouriteCards: LiveData<List<CardEntity>> = favouriteRepository.getAllCards()
 
     // Metodo per inserire il brawler al click del cuore
