@@ -12,44 +12,45 @@ class ClashPlayerAdapterInfo: RecyclerView.Adapter<ClashPlayerAdapterInfo.ViewHo
 
     private val infoPlayer: MutableList<ClashPlayerInfoModel> = mutableListOf()
 
-
-
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val infoNameTextView: TextView = view.findViewById(R.id.infoNameTextView)
+        val txtName: TextView = view.findViewById(R.id.name)
+        val txtTag: TextView = view.findViewById(R.id.tag)
+        val txtTrophies: TextView = view.findViewById(R.id.trophies)
+        val txtHightestTrophies: TextView = view.findViewById(R.id.hightestTrophies)
+        val txtArena: TextView = view.findViewById(R.id.arena)
+        val txtExpLevel: TextView = view.findViewById(R.id.expLevel)
+        val txtExpPoints: TextView = view.findViewById(R.id.expPoints)
+        val txtWins: TextView = view.findViewById(R.id.wins)
+        val txtLosses: TextView = view.findViewById(R.id.loss)
+        val txtBattleCount: TextView = view.findViewById(R.id.battleCount)
+        val txtThreeCrownWins: TextView = view.findViewById(R.id.threeCrownWins)
+        val txtChallengeCardsWon: TextView = view.findViewById(R.id.challengeCardsWon)
+        val txtChallengeMaxWins: TextView = view.findViewById(R.id.challengeMaxWins)
+        val txtTournamentCardsWon: TextView = view.findViewById(R.id.tournamentCardsWon)
+        val txtTournamentBattleCount: TextView = view.findViewById(R.id.tournamentBattleCount)
 
-        /*val trophiesTextView: TextView = view.findViewById(R.id.trophiesTextView)
-        val bestTrophiesTextView: TextView = view.findViewById(R.id.bestTrophiesTextView)
-        val winsTextView: TextView = view.findViewById(R.id.winsTextView)
-        val lossesTextView: TextView = view.findViewById(R.id.lossesTextView)
-        val battleCountTextView: TextView = view.findViewById(R.id.battleCountTextView)
-        val threeCrownWinsTextView: TextView = view.findViewById(R.id.threeCrownWinsTextView)
+        /*
 
-        val challengeCardsWonTextView: TextView = view.findViewById(R.id.challengeCardsWonTextView)
-        val challengeMaxWinsTextView: TextView = view.findViewById(R.id.challengeMaxWinsTextView)
-        val tournamentCardsWonTextView: TextView = view.findViewById(R.id.tournamentCardsWonTextView)
-        val tournamentBattleCountTextView: TextView = view.findViewById(R.id.tournamentBattleCountTextView)
-        val roleTextView: TextView = view.findViewById(R.id.roleTextView)
-        val donationsTextView: TextView = view.findViewById(R.id.donationsTextView)
-        val donationsReceivedTextView: TextView = view.findViewById(R.id.donationsReceivedTextView)
-        val totalDonationsTextView: TextView = view.findViewById(R.id.totalDonationsTextView)
-        val warDayWinsTextView: TextView = view.findViewById(R.id.warDayWinsTextView)
-        val clanCardsCollectedTextView: TextView = view.findViewById(R.id.clanCardsCollectedTextView)
-        val clanTextView: TextView = view.findViewById(R.id.clanTextView)
-        val arenaTextView: TextView = view.findViewById(R.id.arenaTextView)
-        val leagueStatisticsTextView: TextView = view.findViewById(R.id.leagueStatisticsTextView)
+        val txtRole: TextView = view.findViewById(R.id.roleTextView)
+        val txtDonations: TextView = view.findViewById(R.id.donationsTextView)
+        val txtDonationsReceived: TextView = view.findViewById(R.id.donationsReceivedTextView)
+        val txtTotalDonations: TextView = view.findViewById(R.id.totalDonationsTextView)
+        val txtWarDayWins: TextView = view.findViewById(R.id.warDayWinsTextView)
+        val txtClanCardsCollected: TextView = view.findViewById(R.id.clanCardsCollectedTextView)
+        val txtClan: TextView = view.findViewById(R.id.clanTextView)
+
+        val txtLeagueStatistics: TextView = view.findViewById(R.id.leagueStatisticsTextView)
         val badgesRecyclerView: RecyclerView = view.findViewById(R.id.badgesRecyclerView)
         val achievementsRecyclerView: RecyclerView = view.findViewById(R.id.achievementsRecyclerView)
-        val cardsRecyclerView: RecyclerView = view.findViewById(R.id.cardsRecyclerView)
-        val currentDeckRecyclerView: RecyclerView = view.findViewById(R.id.currentDeckRecyclerView)
-        val currentFavouriteCardTextView: TextView = view.findViewById(R.id.currentFavouriteCardTextView)
-        val starPointsTextView: TextView = view.findViewById(R.id.starPointsTextView)
-        val expPointsTextView: TextView = view.findViewById(R.id.expPointsTextView)
-        val legacyTrophyRoadHighScoreTextView: TextView? = view.findViewById(R.id.legacyTrophyRoadHighScoreTextView)
-        val currentPathOfLegendSeasonResultTextView: TextView? = view.findViewById(R.id.currentPathOfLegendSeasonResultTextView)
-        val lastPathOfLegendSeasonResultTextView: TextView? = view.findViewById(R.id.lastPathOfLegendSeasonResultTextView)
-        val bestPathOfLegendSeasonResultTextView: TextView? = view.findViewById(R.id.bestPathOfLegendSeasonResultTextView)
-        val totalExpPointsTextView: TextView = view.findViewById(R.id.totalExpPointsTextView)*/
+
+        val txtCurrentFavouriteCard: TextView = view.findViewById(R.id.currentFavouriteCardTextView)
+        val txtStarPoints: TextView = view.findViewById(R.id.starPointsTextView)
+
+        val txtLegacyTrophyRoadHighScore: TextView? = view.findViewById(R.id.legacyTrophyRoadHighScoreTextView)
+        val txtCurrentPathOfLegendSeasonResult: TextView? = view.findViewById(R.id.currentPathOfLegendSeasonResultTextView)
+        val txtLastPathOfLegendSeasonResult: TextView? = view.findViewById(R.id.lastPathOfLegendSeasonResultTextView)
+        val txtBestPathOfLegendSeasonResult: TextView? = view.findViewById(R.id.bestPathOfLegendSeasonResultTextView)
+        */
     }
 
 
@@ -71,9 +72,22 @@ class ClashPlayerAdapterInfo: RecyclerView.Adapter<ClashPlayerAdapterInfo.ViewHo
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val infoModel = infoPlayer[position]
+        holder.txtName.text = infoModel.name
+        holder.txtTag.text = infoModel.tag
+        holder.txtTrophies.text = infoModel.trophies.toString()
+        holder.txtHightestTrophies.text = infoModel.bestTrophies.toString()
+        holder.txtArena.text = infoModel.arena.name
+        holder.txtExpLevel.text = infoModel.expLevel.toString()
+        holder.txtExpPoints.text = infoModel.expPoints.toString()
+        holder.txtWins.text = infoModel.wins.toString()
+        holder.txtLosses.text = infoModel.losses.toString()
+        holder.txtBattleCount.text = infoModel.battleCount.toString()
+        holder.txtThreeCrownWins.text = infoModel.threeCrownWins.toString()
+        holder.txtChallengeCardsWon.text = infoModel.challengeCardsWon.toString()
+        holder.txtChallengeMaxWins.text = infoModel.challengeMaxWins.toString()
+        holder.txtTournamentCardsWon.text = infoModel.tournamentCardsWon.toString()
+        holder.txtTournamentBattleCount.text = infoModel.tournamentBattleCount.toString()
 
-
-        holder.infoNameTextView.text = infoModel.name
 
     }
 

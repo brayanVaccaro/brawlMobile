@@ -63,4 +63,17 @@
     <string name="header_unlocked_cards">Unlocked Cards</string>
     <string name="header_unlocked_badges">Unlocked Badges</string>
 
+    <string name="header_wins">Wins:</string>
+    <string name="header_loss">Loss:</string>
+    <string name="header_battle_count">Battle Count:</string>
+    <string name="header_three_crown_wins">Three Crown Wins:</string>
+    <string name="header_arena">Arena:</string>
+
+    <string name="challenge_cards_won">Challenge Cards Won:</string>
+    <string name="challenge_max_wins">Challenge Max Wins:</string>
+    <string name="tournament_cards_won">Tournament Cards Won:</string>
+    <string name="tournament_battle_count">Tournament Battle Count:</string>
+
+
+
 </resources>
