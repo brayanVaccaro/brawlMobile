@@ -1,13 +1,10 @@
 package com.example.brawlmobile.activity.clashRoyale
 
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -17,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
-import com.example.brawlmobile.activity.brawlStars.BrawlFavouriteActivity
+import com.example.brawlmobile.StartActivity
 import com.example.brawlmobile.adapter.clashRoyale.ClashPlayerAdapterBadgeUnlocked
 import com.example.brawlmobile.adapter.clashRoyale.ClashPlayerAdapterCardUnlocked
 import com.example.brawlmobile.adapter.clashRoyale.ClashPlayerAdapterInfo
@@ -34,7 +31,7 @@ class ClashPlayerActivity : AppCompatActivity() {
     private lateinit var recyclerViewCards: RecyclerView
     private lateinit var recyclerViewBadges: RecyclerView
 
-    private lateinit var adapter: ClashPlayerAdapterInfo
+    private lateinit var adapterPlayerInfo: ClashPlayerAdapterInfo
     private lateinit var adapterCardUnlocked: ClashPlayerAdapterCardUnlocked
     private lateinit var adapterBadgeUnlocked: ClashPlayerAdapterBadgeUnlocked
 
@@ -73,13 +70,13 @@ class ClashPlayerActivity : AppCompatActivity() {
         expandUnlockedBadges = findViewById(R.id.expandUnlockedBadges)
 
 
-        adapter = ClashPlayerAdapterInfo()
+        adapterPlayerInfo = ClashPlayerAdapterInfo()
         adapterCardUnlocked = ClashPlayerAdapterCardUnlocked()
-        adapterBadgeUnlocked = ClashPlayerAdapterBadgeUnlocked()
+        adapterBadgeUnlocked = ClashPlayerAdapterBadgeUnlocked(this)
 
         recyclerViewInfo = findViewById(R.id.playerRecyclerViewInfo)
         recyclerViewInfo.layoutManager = LinearLayoutManager(this)
-        recyclerViewInfo.adapter = adapter
+        recyclerViewInfo.adapter = adapterPlayerInfo
         recyclerViewInfo.visibility = View.GONE
 
 
@@ -94,7 +91,7 @@ class ClashPlayerActivity : AppCompatActivity() {
         recyclerViewBadges.visibility = View.GONE
 
         viewModel.clashPlayerInfo.observe(this, Observer { info ->
-            adapter.setInfo(info)
+            adapterPlayerInfo.setInfo(info)
         })
         viewModel.playerCardsUnlocked.observe(this, Observer { card ->
             adapterCardUnlocked.setCard(card)
@@ -180,8 +177,14 @@ class ClashPlayerActivity : AppCompatActivity() {
                         }
                     true
                 }
-                else -> {
-                    false
+                else -> {Log.d(TAG, "ho cliccato EXIT")
+                    Intent(this, StartActivity::class.java)
+                        .also {
+                            Log.d(TAG, "faccio partire la activity")
+                            startActivity(it)
+
+                        }
+                    true
                 }
             }
         }

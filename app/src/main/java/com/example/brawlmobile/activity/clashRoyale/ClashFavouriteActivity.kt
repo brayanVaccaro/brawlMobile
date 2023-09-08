@@ -1,5 +1,6 @@
 package com.example.brawlmobile.activity.clashRoyale
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
+import com.example.brawlmobile.StartActivity
 import com.example.brawlmobile.adapter.brawlStars.FavouriteAdapter
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ClashFavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
 
@@ -35,6 +38,42 @@ class ClashFavouriteActivity : AppCompatActivity(), FavouriteAdapter.OnClick {
         viewModel.allFavouriteCards.observe(this, Observer {fav ->
             adapter.setFavouriteItem(fav)
         })
+
+
+        // Gestiamo la bottomNavigationView
+        val bottomNavigationView: BottomNavigationView =
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_home -> {
+                    Intent(this, ClashHomeActivity::class.java).also {
+                        startActivity(it)
+
+                    }
+                    true
+                }
+                R.id.menu_player -> {
+                    Intent(this, ClashPlayerActivity::class.java)
+                        .also {
+                            startActivity(it)
+                        }
+                    true
+                }
+                R.id.menu_favourite -> {
+
+                    true
+                }
+                else -> {Log.d(TAG, "ho cliccato EXIT")
+                    Intent(this, StartActivity::class.java)
+                        .also {
+                            startActivity(it)
+
+                        }
+                    true
+                }
+            }
+        }
+        bottomNavigationView.selectedItemId = R.id.menu_favourite
 
     }
 
