@@ -1,7 +1,6 @@
 package com.example.brawlmobile.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +12,6 @@ import com.example.brawlmobile.remote.clashRoyale.model.Card
 import com.example.brawlmobile.repository.brawlStars.PlayerRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class PlayerActivityViewModel(
     context: Context
@@ -68,16 +66,12 @@ class PlayerActivityViewModel(
                     )
                     val uiPlayerBrawlersUnlocked = uiPlayerInfo.brawlersUnlocked
 
-                    withContext(Dispatchers.Main) {
-                        brawlPlayerInfo.postValue(uiPlayerInfo)
-                        playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
-                        errorLiveData.postValue("")
-                    }
+                    brawlPlayerInfo.postValue(uiPlayerInfo)
+                    playerBrawlersUnlocked.postValue(uiPlayerBrawlersUnlocked)
+                    errorLiveData.postValue("")
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    errorLiveData.postValue("${e.message}")
-                }
+                errorLiveData.postValue("${e.message}")
             }
         }
     }
@@ -87,7 +81,6 @@ class PlayerActivityViewModel(
             try {
                 val playerInfoFlow = playerRepository.fetchClashPlayerInfo(tag)
                 playerInfoFlow.collect {
-                    Log.d(TAG, "sono nel collect")
                     val uiPlayerInfo = ClashPlayerInfoModel(
                         tag = it.tag,
                         name = it.name,
@@ -127,19 +120,13 @@ class PlayerActivityViewModel(
                     val uiPlayerCardsUnlocked = uiPlayerInfo.cards
                     val uiPlayerBadgesUnlocked = uiPlayerInfo.badges
 
-                    withContext(Dispatchers.IO) {
-                        Log.d(TAG, "sto facendo postvalue")
-                        clashPlayerInfo.postValue(uiPlayerInfo)
-                        playerCardsUnlocked.postValue(uiPlayerCardsUnlocked)
-                        playerBadgesUnlocked.postValue(uiPlayerBadgesUnlocked)
-
-                        errorLiveData.postValue("")
-                    }
+                    clashPlayerInfo.postValue(uiPlayerInfo)
+                    playerCardsUnlocked.postValue(uiPlayerCardsUnlocked)
+                    playerBadgesUnlocked.postValue(uiPlayerBadgesUnlocked)
+                    errorLiveData.postValue("")
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    errorLiveData.postValue("${e.message}")
-                }
+                errorLiveData.postValue("${e.message}")
             }
         }
     }

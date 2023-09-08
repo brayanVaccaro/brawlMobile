@@ -3,10 +3,7 @@ package com.example.brawlmobile.activity.brawlStars
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -63,7 +60,7 @@ class BrawlPlayerActivity : AppCompatActivity() {
         expandUnlocked = findViewById(R.id.expandUnlockedBrawler)
 
         val bottomNavigationView: BottomNavigationView =
-            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+            findViewById(R.id.bottomNavigationView)
 
         adapterInfo = PlayerAdapterInfo()
         adapterBrawlersUnlocked = PlayerAdapterBrawlersUnlocked()
@@ -88,14 +85,9 @@ class BrawlPlayerActivity : AppCompatActivity() {
 
         viewModel.errorLiveData.observe(this, Observer { errorMessage ->
             if (errorMessage.isNotEmpty()) {
-//                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
-//                viewModel.clearErrorMessage()
-                Log.d(TAG, "sono nell'else, c'è errore")
+                viewModel.clearErrorMessage()
                 inputFragment.showTagError()
-//                val inputFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as? InputFragment
-//                inputFragment?.hideTagError()
             } else {
-                Log.d(TAG, "sono nell'else, non c'è errore")
                 val fragment = supportFragmentManager.beginTransaction()
                 fragment.remove(inputFragment)
                 fragment.commit()
@@ -133,7 +125,7 @@ class BrawlPlayerActivity : AppCompatActivity() {
         }
 
         // Gestisco la bottomNavigationView
-        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
                     Intent(this, BrawlHomeActivity::class.java).also {
@@ -155,10 +147,8 @@ class BrawlPlayerActivity : AppCompatActivity() {
                     true
                 }
                 else -> {
-                    Log.d(TAG, "ho cliccato EXIT")
                     Intent(this, StartActivity::class.java)
                         .also {
-                            Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
 
 

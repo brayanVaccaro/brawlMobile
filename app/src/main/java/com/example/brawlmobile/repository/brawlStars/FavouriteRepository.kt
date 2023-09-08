@@ -1,6 +1,5 @@
 package com.example.brawlmobile.repository.brawlStars
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.brawlmobile.data.dao.BrawlerDao
 import com.example.brawlmobile.data.dao.CardDao
@@ -17,7 +16,6 @@ class FavouriteRepository(private val brawlerDao: BrawlerDao, private val cardDa
 
     suspend fun insertBrawler(brawler: BrawlerEntity) {
         brawlerDao.insertBrawler(brawler)
-        Log.d("FavRepo","ho inserito ai preferiti")
     }
 
     fun getAllCards(): LiveData<List<CardEntity>> {

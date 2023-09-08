@@ -59,7 +59,6 @@ class BrawlDetailsActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         viewModel.webText.observe(this, Observer { text ->
-            Log.d(TAG, "sto invocando setData")
             adapter.setData(text, headers)
         })
 

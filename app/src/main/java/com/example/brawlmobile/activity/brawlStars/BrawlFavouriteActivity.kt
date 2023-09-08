@@ -1,10 +1,9 @@
 package com.example.brawlmobile.activity.brawlStars
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +30,7 @@ class BrawlFavouriteActivity : AppCompatActivity(), ClickListener {
         setContentView(R.layout.activity_brawl_favourite)
 
         val bottomNavigationView: BottomNavigationView =
-            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+            findViewById(R.id.bottomNavigationView)
 
         viewModel = ViewModelProvider(
             this,
@@ -40,7 +39,7 @@ class BrawlFavouriteActivity : AppCompatActivity(), ClickListener {
 
         adapter = FavouriteAdapter(this, this)
 
-        recyclerView = findViewById<RecyclerView?>(R.id.favouriteRecyclerView)
+        recyclerView = findViewById(R.id.favouriteRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
@@ -49,7 +48,7 @@ class BrawlFavouriteActivity : AppCompatActivity(), ClickListener {
         })
 
         // Gestisco la bottomNavigationView
-        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
                     Intent(this, BrawlHomeActivity::class.java)
@@ -73,10 +72,8 @@ class BrawlFavouriteActivity : AppCompatActivity(), ClickListener {
 
                 }
                 else -> {
-                    Log.d(TAG, "ho cliccato EXIT")
                     Intent(this, StartActivity::class.java)
                         .also {
-                            Log.d(TAG, "faccio partire la activity")
                             startActivity(it)
 
 
@@ -91,7 +88,6 @@ class BrawlFavouriteActivity : AppCompatActivity(), ClickListener {
 
     //Gestisco la eliminazione dai preferiti
     override fun deleteFromFavourites(name: String) {
-        Log.d(TAG, "elimino dai preferiti")
         viewModel.deleteBrawler(name)
         Toast.makeText(this, "$name removed from favourites", Toast.LENGTH_SHORT)
             .show()

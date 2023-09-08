@@ -1,7 +1,6 @@
 package com.example.brawlmobile.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,10 +40,8 @@ class InputFragment : Fragment() {
         // Gestisco il submit del tag
         submitButton.setOnClickListener {
             val playerTag = editText.text.toString()
-            Log.d("inputFragment", "playerTag vale $playerTag")
 
             onTagSubmitted?.invoke(playerTag)
-
         }
         return view
     }

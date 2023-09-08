@@ -1,6 +1,5 @@
 package com.example.brawlmobile.repository.brawlStars
 
-import android.util.Log
 import com.example.brawlmobile.remote.brawlStars.RetrofitWeb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

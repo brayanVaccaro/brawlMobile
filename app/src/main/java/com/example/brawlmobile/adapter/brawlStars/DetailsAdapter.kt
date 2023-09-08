@@ -2,7 +2,6 @@ package com.example.brawlmobile.adapter.brawlStars
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,7 +85,6 @@ class DetailsAdapter(
 
             when (textViews.size) {
                 12 -> {
-//                    Log.d("DetailsAdapter", "Sono in size 12")
                     textViews[0].text = headers.name
                     textViews[1].text = text.description
                     textViews[2].text = text.firstAttack
@@ -101,7 +99,6 @@ class DetailsAdapter(
                     textViews[11].text = text.secondStarPower
                 }
                 13 -> {
-//                    Log.d("DetailsAdapter", "Sono in size 13")
                     textViews[0].text = headers.name
                     textViews[1].text = text.description
                     textViews[2].text = text.trait
@@ -117,7 +114,6 @@ class DetailsAdapter(
                     textViews[12].text = text.secondStarPower
                 }
                 14 -> {
-//                    Log.d("DetailsAdapter", "Sono in size 14")
                     textViews[0].text = headers.name
                     textViews[1].text = text.description
                     textViews[2].text = text.firstAttack
@@ -168,13 +164,11 @@ class DetailsAdapter(
         val view = inflater.inflate(viewType, parent, false)
         val textViewIds = getTextViewIdsForLayout(viewType)
         val imageViewIds = getImageViewIdsForLayout(viewType)
-        Log.d(TAG, "onCreateViewHolder")
+
         return ViewHolder(view, textViewIds, imageViewIds, context)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder")
-
         text?.let { it ->
             headers?.let { it1 ->
                 urls?.let { it2 -> holder.bindData(it, it1, it2) }
@@ -187,15 +181,12 @@ class DetailsAdapter(
     }
 
     fun setData(data_text: TextModel, data_headers: HeaderModel) {
-//        Log.d(TAG, "sono in setdata, setto text e headers")
         text = data_text
         headers = data_headers
         notifyDataSetChanged()
     }
 
     fun setImages(data_urls: ImagesModel) {
-//        Log.d(TAG, "sono in setImages, setto gli urls")
-//        Log.d(TAG, "urls vale = $data_urls")
         urls = data_urls
         notifyDataSetChanged()
 
@@ -207,13 +198,10 @@ class DetailsAdapter(
     }
 
     private fun getImageViewIdsForLayout(layoutId: Int): List<Int> {
-//        Log.d(TAG, "Sto recuperando gli id delle ImageView")
-
         return when (layoutId) {
             R.layout.item_text_size7,
             R.layout.item_text_size9,
             R.layout.item_text_size8 -> {
-//                Log.d(TAG, "Sono in size 7/8/9")
                 listOf(
                     R.id.imgDefaultSkin,
                     R.id.imgFirstGadget,
@@ -227,8 +215,6 @@ class DetailsAdapter(
     }
 
     private fun getTextViewIdsForLayout(layoutId: Int): List<Int> {
-//        Log.d(TAG, "Sto recuperando gli id delle TextView")
-
         return when (layoutId) {
             R.layout.item_text_size7 -> {
                 listOf(

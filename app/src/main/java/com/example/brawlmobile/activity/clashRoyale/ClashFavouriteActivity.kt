@@ -1,10 +1,9 @@
 package com.example.brawlmobile.activity.clashRoyale
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,8 +42,8 @@ class ClashFavouriteActivity : AppCompatActivity(), ClickListener {
 
         // Gestiamo la bottomNavigationView
         val bottomNavigationView: BottomNavigationView =
-            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.setOnItemSelectedListener() { menuItem ->
+            findViewById(R.id.bottomNavigationView)
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
                     Intent(this, ClashHomeActivity::class.java).also {
@@ -64,7 +63,7 @@ class ClashFavouriteActivity : AppCompatActivity(), ClickListener {
 
                     true
                 }
-                else -> {Log.d(TAG, "ho cliccato EXIT")
+                else -> {
                     Intent(this, StartActivity::class.java)
                         .also {
                             startActivity(it)
@@ -79,7 +78,6 @@ class ClashFavouriteActivity : AppCompatActivity(), ClickListener {
     }
 
     override fun deleteFromFavourites(name: String) {
-        Log.d(TAG,"elimino dai preferiti")
         viewModel.deleteCard(name)
         Toast.makeText(this, "$name removed from favourites", Toast.LENGTH_SHORT)
             .show()

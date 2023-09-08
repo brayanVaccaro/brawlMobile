@@ -1,6 +1,5 @@
 package com.example.brawlmobile.adapter.brawlStars
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.model.brawlStar.player.PlayerInfoModel
 
-class PlayerAdapterInfo(
-) : RecyclerView.Adapter<PlayerAdapterInfo.ViewHolder>() {
+class PlayerAdapterInfo : RecyclerView.Adapter<PlayerAdapterInfo.ViewHolder>() {
 
     private var infoPlayer: MutableList<PlayerInfoModel> = mutableListOf()
     private val TAG = "PlayerAdapterInfo"
