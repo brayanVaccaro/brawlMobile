@@ -23,7 +23,7 @@ data class ClashPlayerInfoModel (
     val totalDonations: Int,
     val warDayWins: Int,
     val clanCardsCollected: Int,
-    val clan: Clan,
+    val clan: Clan?,
     val arena: Arena,
     val leagueStatistics: LeagueStatistics,
     val badges: List<Badge>,
