@@ -120,8 +120,6 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
 
     private fun startErrorFragment(errorMessage: String) {
         val errorFragment = ErrorFragment.newInstance(errorMessage)
-
-
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.brawlFragmentContainer, errorFragment)
         transaction.addToBackStack(null)

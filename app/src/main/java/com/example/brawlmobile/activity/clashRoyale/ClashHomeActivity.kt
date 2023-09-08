@@ -115,9 +115,6 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
 
     private fun startErrorFragment(errorMessage: String) {
         val errorFragment = ErrorFragment.newInstance(errorMessage)
-//        val txtErrorInfo = errorFragment.view?.findViewById<TextView>(R.id.txtErrorInfo)
-//        txtErrorInfo?.text = errorMessage
-
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.clashFragmentContainer, errorFragment)
         transaction.addToBackStack(null)

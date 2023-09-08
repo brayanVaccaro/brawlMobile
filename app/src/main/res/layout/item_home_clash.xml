@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/clashHomeConstraint"
     android:layout_width="130dp"
-    android:layout_height="160dp"
+    android:layout_height="165dp"
     android:layout_marginBottom="10dp">
 
 
