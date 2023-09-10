@@ -31,7 +31,6 @@ class ClashPlayerAdapterInfo: RecyclerView.Adapter<ClashPlayerAdapterInfo.ViewHo
 
     }
 
-
     fun setInfo(data_info: ClashPlayerInfoModel) {
         infoPlayer.clear()
         infoPlayer.add(data_info)
