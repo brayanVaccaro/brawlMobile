@@ -79,9 +79,9 @@ classDiagram
         +onCreate(savedInstanceState: Bundle?)
     }
 ```
-La `StartActivity` è la Activity iniziale da cui muoversi verso `BrawlHomeActivity` o `ClashHomeActivity`. Il suo scopo è di far partire una delle due activiy al clic su uno dei due bottoni tramite un Intent() nel metodo onCreate(). Non necessita quindi di viewModel o Adapter in quanto è solo una activity di utilità
+La `StartActivity` è la Activity iniziale da cui muoversi verso `BrawlHomeActivity` o `ClashHomeActivity`. Il suo scopo è di far partire una delle due activity al clic su uno dei due bottoni tramite un Intent() nel metodo onCreate(). Non necessita quindi di viewModel o Adapter in quanto è solo una activity di utilità
 
-## BrawlHomeActivity:
+## HomeActivity:
 ```mermaid
 classDiagram
     class BrawlHomeActivity {
@@ -198,6 +198,7 @@ classDiagram
     CardRepository *-- RetrofitClashRoyale : uses >
 ```
 La `BrawlHomeActivity` utilizza il ViewModel (`HomeActivityViewModel`) per gestire la logica dei dati e l'Adapter (`BrawlHomeAdapter`) per visualizzare i dati dei Brawler nella RecyclerView. In caso di errore, può visualizzare un `ErrorFragment`. I dati dei Brawler vengono recuperati dal repository (`BrawlerRepository`) tramite Retrofit.
+
 La `ClashHomeActivity` utilizza il ViewModel (`HomeActivityViewModel`) per gestire la logica dei dati e l'Adapter (`ClashHomeAdapter`) per visualizzare i dati delle Carte nella RecyclerView. In caso di errore, può visualizzare un `ErrorFragment`. I dati delle Carte vengono recuperati dal repository (`CardRepository`) tramite Retrofit.
 
 Ecco una descrizione della struttura di `BrawlHomeActivity` e `ClashHomeActivity` e dei componenti associati:
@@ -205,7 +206,7 @@ Ecco una descrizione della struttura di `BrawlHomeActivity` e `ClashHomeActivity
 - **BrawlHomeActivity**: Questa è l'activity responsabile di visualizzare i dati dei Brawler. La classe contiene i seguenti componenti:
 
   - `viewModel`: Un'istanza del ViewModel chiamato `HomeActivityViewModel` utilizzato per gestire la logica dei dati e l'interfaccia utente relativi alla visualizzazione dei Brawler.
-  -
+  
   - `recyclerView`: Una RecyclerView utilizzata per visualizzare i dati dei Brawler.
 
   - `adapter`: Un Adapter chiamato `BrawlHomeAdapter` utilizzato per popolare la RecyclerView con i dati dei Brawler.
@@ -223,7 +224,7 @@ Ecco una descrizione della struttura di `BrawlHomeActivity` e `ClashHomeActivity
 - **ClashHomeActivity**: Questa è l'activity responsabile di visualizzare i dati delle Carte. La classe contiene i seguenti componenti:
 
   - `viewModel`: Un'istanza del ViewModel chiamato `HomeActivityViewModel` utilizzato per gestire la logica dei dati e l'interfaccia utente relativi alla visualizzazione delle Carte.
-  -
+  
   - `recyclerView`: Una RecyclerView utilizzata per visualizzare i dati delle Carte.
 
   - `adapter`: Un Adapter chiamato `ClashHomeAdapter` utilizzato per popolare la RecyclerView con i dati delle Carte.
@@ -305,10 +306,6 @@ Ecco una descrizione della struttura di `BrawlHomeActivity` e `ClashHomeActivity
 - **ClickListener**: Questa interfaccia definisce le azioni da eseguire quando si fa clic su un elemento negli `HomeAdapter`, come visualizzare informazioni dettagliate o aggiungere ai preferiti.
 
 - **RetrofitBrawlStars** e **RetrofitClashRoyale**: Queste classi forniscono istanze di Retrofit configurate per le richieste relative a Brawl Stars e Clash Royale. Configurano anche OkHttpClient per accettare un certificato del server personalizzato.
-
-Approfondimenti:
-- Nel `BrawlerRepository` ho effettuato richieste API con paginazione per dividere il carico di una singola richiesta in due richieste, non ho potuto fare lo stesso in `CardRepository` in quanto, pur avendo la possibilità di fare paginazione, la API restituisce sempre l'intero dataset anche usando il parametro 'limit'.
-- `ErrorFragment` a prescindere dall'errore riscontrato questo viene avviato con un messaggio al centro uguale a 'strings/fragment_error_txt'. Al di sotto è presente una TextView in cui c'è scritto l'errore vero e proprio che ha causato l'apparizione del fragment.
 
 ## FavouriteActivity:
 ```mermaid
@@ -768,7 +765,14 @@ Ecco una descrizione della struttura di `BrawlDetailsActivity` e dei componenti 
 - **DetailsAdapter**: Questa classe è un Adapter utilizzato per popolare la RecyclerView con i dati relativi ai dettagli. Contiene metodi per impostare i dati, inclusi testo e immagini, nelle RecyclerView.
 
 # Implementazione Tecnica
-Entrambe le API richiedono un IP a cui associare una API_KEY. Di conseguenza ho creato un server nginx su una istanza di GCE con un IP esterno pubblico. Così facendo ho creato una API_KEY, per entrambe le API, sull'IP esterno della istanza di GCE risolvendo così il limite dell'IP da associare alla chiave
+Entrambe le API richiedono un IP a cui associare una API_KEY. Di conseguenza ho creato un server nginx su una istanza di GCE con un IP esterno pubblico. Così facendo ho creato due API_KEY, una per ogni API, sull'IP esterno della istanza di GCE risolvendo così il limite dell'IP da associare alla chiave
+
+# Note di Sviluppo
+- Nel `BrawlerRepository` ho effettuato richieste API con paginazione per dividere il carico di una singola richiesta in due richieste, non ho potuto fare lo stesso in `CardRepository` in quanto, pur avendo la possibilità di fare paginazione, la API restituisce sempre l'intero dataset anche usando il parametro 'limit'.
+- `ErrorFragment`: a prescindere dall'errore riscontrato questo viene avviato con un messaggio al centro uguale a 'strings/fragment_error_txt'. Al di sotto è presente una TextView in cui c'è scritto l'errore vero e proprio che ha causato l'apparizione del fragment.
+- `DetailsDialogFragment`: Questo DialogFragment viene usato per visualizzare info dettagliate sulle Carte. Per i Brawler ho invece creato la `BrawlerDetailsActivity`
+- Caricamento immagini: l'applicazione fa largo uso di Glide per il caricamento delle immagini, al di sopra di ognuna di esse vi è una ProgressBar che verrà nascosta al caricamento dell'immagine, se l'immagine non viene caricata correttamente viene inserito 'R.drawable.ic_delete'
+
 
 # Conclusioni
 Questo progetto mi ha permesso di mettere a frutto non solo ciò che ho potuto apprendere durante le lezioni ma anche ciò che abbiamo affrontato in altri corsi. 
