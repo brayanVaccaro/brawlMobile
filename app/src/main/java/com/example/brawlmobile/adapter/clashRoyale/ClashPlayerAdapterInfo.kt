@@ -29,28 +29,6 @@ class ClashPlayerAdapterInfo: RecyclerView.Adapter<ClashPlayerAdapterInfo.ViewHo
         val txtTournamentCardsWon: TextView = view.findViewById(R.id.tournamentCardsWon)
         val txtTournamentBattleCount: TextView = view.findViewById(R.id.tournamentBattleCount)
 
-        /*
-
-        val txtRole: TextView = view.findViewById(R.id.roleTextView)
-        val txtDonations: TextView = view.findViewById(R.id.donationsTextView)
-        val txtDonationsReceived: TextView = view.findViewById(R.id.donationsReceivedTextView)
-        val txtTotalDonations: TextView = view.findViewById(R.id.totalDonationsTextView)
-        val txtWarDayWins: TextView = view.findViewById(R.id.warDayWinsTextView)
-        val txtClanCardsCollected: TextView = view.findViewById(R.id.clanCardsCollectedTextView)
-        val txtClan: TextView = view.findViewById(R.id.clanTextView)
-
-        val txtLeagueStatistics: TextView = view.findViewById(R.id.leagueStatisticsTextView)
-        val badgesRecyclerView: RecyclerView = view.findViewById(R.id.badgesRecyclerView)
-        val achievementsRecyclerView: RecyclerView = view.findViewById(R.id.achievementsRecyclerView)
-
-        val txtCurrentFavouriteCard: TextView = view.findViewById(R.id.currentFavouriteCardTextView)
-        val txtStarPoints: TextView = view.findViewById(R.id.starPointsTextView)
-
-        val txtLegacyTrophyRoadHighScore: TextView? = view.findViewById(R.id.legacyTrophyRoadHighScoreTextView)
-        val txtCurrentPathOfLegendSeasonResult: TextView? = view.findViewById(R.id.currentPathOfLegendSeasonResultTextView)
-        val txtLastPathOfLegendSeasonResult: TextView? = view.findViewById(R.id.lastPathOfLegendSeasonResultTextView)
-        val txtBestPathOfLegendSeasonResult: TextView? = view.findViewById(R.id.bestPathOfLegendSeasonResultTextView)
-        */
     }
 
 
