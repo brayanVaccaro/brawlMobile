@@ -735,6 +735,7 @@ Entrambe le API richiedono un IP a cui associare una API_KEY. Di conseguenza ho 
 - `ErrorFragment`: a prescindere dall'errore riscontrato questo viene avviato con un messaggio al centro uguale a 'strings/fragment_error_txt'. Al di sotto è presente una TextView in cui c'è scritto l'errore vero e proprio che ha causato l'apparizione del fragment.
 - `DetailsDialogFragment`: Questo DialogFragment viene usato per visualizzare info dettagliate sulle Carte. Per i Brawler ho invece creato la `BrawlerDetailsActivity`
 - Caricamento immagini: l'applicazione fa largo uso di Glide per il caricamento delle immagini, al di sopra di ognuna di esse vi è una ProgressBar che verrà nascosta al caricamento dell'immagine, se l'immagine non viene caricata correttamente viene inserito 'R.drawable.ic_delete'
+- L'`InputFragment` è un fragment che viene usato da ogni PlayerActivity per inserire il TAG di gioco. Se il tag esiste allora viene inflato il layout dell'Activity corrispondente, se il TAG non esiste allora una TextView con valore uguale a 'strings/not_valid_player_tag' viene visualizzata sopra il bottone di SUBMIT
 
 # Conclusioni
 Questo progetto mi ha permesso di mettere a frutto non solo ciò che ho potuto apprendere durante le lezioni ma anche ciò che abbiamo affrontato in altri corsi.
