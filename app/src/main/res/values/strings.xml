@@ -2,7 +2,7 @@
     <string name="app_name">BrawlMobile</string>
     <string name="fragment_error_txt">Check internet connection and restart the app</string>
     <string name="insert_your_personal_tag">Insert Your Personal Tag</string>
-    <string name="not_valid_player_tag">TAG non corretto o inesistente</string>
+    <string name="not_valid_player_tag">TAG not correct</string>
     <string name="submit_tag">SUBMIT</string>
 
     <!-- CONTENT DESCRIPTION -->
