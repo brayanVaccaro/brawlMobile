@@ -8,8 +8,3 @@ class CardResponseModel(
     val maxEvolutionLevel: Int?,
     val iconUrls: IconUrls,
 )
-
-data class IconUrls(
-    val medium: String,
-    val evolutionMedium: String?
-)

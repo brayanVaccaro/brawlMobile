@@ -2,7 +2,7 @@ package com.example.brawlmobile.remote.brawlStars.model
 
 import com.squareup.moshi.Json
 
-data class PlayerInfoResponse(
+data class BrawlPlayerResponseModel(
     val tag: String,
     val name: String,
     val nameColor: String,

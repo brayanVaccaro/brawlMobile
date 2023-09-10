@@ -60,9 +60,12 @@ class HomeActivityViewModel(context: Context) : ViewModel() {
                         BrawlerModel(
                             id = it.id,
                             name = it.name,
-                            starPowers = it.starPowers,
-                            gadgets = it.gadgets,
-                            spriteUrl = "${brawlerImagesUrl}${it.name}.png"
+                            transformedName = it.transformedName ?: "",
+                            firstStarPower = it.starPowers[0].name,
+                            secondStarPower = it.starPowers[1].name,
+                            firstGadget = it.gadgets[0].name,
+                            secondGadget = it.gadgets[1].name,
+                            spriteUrl = "${brawlerImagesUrl}${it.transformedName}.png"
                         )
                     }
                     totalLoaded += uiBrawlers.size

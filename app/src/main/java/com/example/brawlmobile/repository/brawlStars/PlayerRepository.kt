@@ -3,7 +3,7 @@ package com.example.brawlmobile.repository.brawlStars
 import android.content.Context
 import android.util.Log
 import com.example.brawlmobile.remote.brawlStars.RetrofitBrawlStars
-import com.example.brawlmobile.remote.brawlStars.model.PlayerInfoResponse
+import com.example.brawlmobile.remote.brawlStars.model.BrawlPlayerResponseModel
 import com.example.brawlmobile.remote.clashRoyale.RetrofitClashRoyale
 import com.example.brawlmobile.remote.clashRoyale.model.PlayerResponseModel
 import kotlinx.coroutines.delay
@@ -28,7 +28,7 @@ class PlayerRepository(
      * Continua ad emettere risultati ogni 5 secondi.
      */
 
-    suspend fun fetchBrawlPlayerInfo(tag: String): Flow<PlayerInfoResponse> = flow {
+    suspend fun fetchBrawlPlayerInfo(tag: String): Flow<BrawlPlayerResponseModel> = flow {
         Log.d(TAG, "Prendo le info del player, BrawlStars")
         while (true) {
 

@@ -127,11 +127,11 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
 
         // Creo il bundle con i relativi dati da passare alla DetailsActivity
         val bundle = Bundle()
-        bundle.putString("EXTRA_NAME", brawlerModel.name)
-        bundle.putString("EXTRA_GADGET_1_NAME", brawlerModel.gadgets[0].name)
-        bundle.putString("EXTRA_GADGET_2_NAME", brawlerModel.gadgets[1].name)
-        bundle.putString("EXTRA_STARPOWER_1_NAME", brawlerModel.starPowers[0].name)
-        bundle.putString("EXTRA_STARPOWER_2_NAME", brawlerModel.starPowers[1].name)
+        bundle.putString("EXTRA_NAME", brawlerModel.transformedName)
+        bundle.putString("EXTRA_GADGET_1_NAME", brawlerModel.firstGadget)
+        bundle.putString("EXTRA_GADGET_2_NAME", brawlerModel.secondGadget)
+        bundle.putString("EXTRA_STARPOWER_1_NAME", brawlerModel.firstStarPower)
+        bundle.putString("EXTRA_STARPOWER_2_NAME", brawlerModel.secondStarPower)
 
         // Creo l'intento in cui passo il bundle e faccio partire la DetailsActivity
         Intent(this, BrawlDetailsActivity::class.java)
@@ -142,7 +142,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
             }
 
         // Creo un Toast in cui visualizzare il nome del Brawler
-        Toast.makeText(this, "Brawler: ${brawlerModel.name}", Toast.LENGTH_SHORT)
+        Toast.makeText(this, "Brawler: ${brawlerModel.transformedName}", Toast.LENGTH_SHORT)
             .show()
     }
 

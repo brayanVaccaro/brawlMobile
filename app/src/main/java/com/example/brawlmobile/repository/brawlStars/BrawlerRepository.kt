@@ -2,7 +2,7 @@ package com.example.brawlmobile.repository.brawlStars
 
 import android.content.Context
 import com.example.brawlmobile.remote.brawlStars.RetrofitBrawlStars
-import com.example.brawlmobile.remote.brawlStars.model.BrawlerApiResponse
+import com.example.brawlmobile.remote.brawlStars.model.BrawlerResponse
 
 /**
  * Il compito di questo repository è ottenere e modificare i dati dei Brawler da una API remota utilizzando RemoteApi
@@ -25,7 +25,7 @@ class BrawlerRepository(
     /**
      *
      */
-    suspend fun fetchBrawlers(): BrawlerApiResponse {
+    suspend fun fetchBrawlers(): BrawlerResponse {
 
         // Mappa per trasformare i nomi di alcuni brawler (necessario successivamente per ottenere le immagini giuste)
         val nameMap = mapOf(
@@ -41,12 +41,11 @@ class BrawlerRepository(
         resultBrawler.items.map { brawler ->
             // Tutti i nomi dei brawler devono essere formattati, trasformo il nome rendendo la prima lettera maiuscola e le restanti minuscole
             val transformedName = brawler.name.lowercase().replaceFirstChar { it.uppercase() }
-            // Aggiorno il nome del brawler con il nome trasformato dalla mappa, se presente, o lascia il nome trasformato
-            brawler.name = nameMap[transformedName] ?: transformedName
+            // Aggiorno 'transformedName' con il nome trasformato dalla mappa, se presente, o lascio il nome trasformato
+            brawler.transformedName = nameMap[transformedName] ?: transformedName
         }
 
         afterCursor = resultBrawler.paging?.cursors?.after
-//        var beforeCursor = resultBrawler.paging?.cursors?.before
 
         return if (afterCursor == null) {
             resultBrawler

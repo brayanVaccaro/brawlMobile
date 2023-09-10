@@ -61,7 +61,7 @@ class BrawlHomeAdapter(
             .listener(holder.glideRequestListener)
             .error(R.drawable.ic_delete)
             .into(holder.imageView)
-        holder.txtBrawlerName.text = brawlerModel.name
+        holder.txtBrawlerName.text = brawlerModel.transformedName
         holder.imageView.setOnClickListener {
             clickListener.onClickViewInfo(brawlerModel)
         }
