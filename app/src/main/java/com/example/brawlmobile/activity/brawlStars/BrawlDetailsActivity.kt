@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
-import com.example.brawlmobile.adapter.brawlStars.DetailsAdapter
+import com.example.brawlmobile.adapter.brawlStars.BrawlDetailsAdapter
 import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.brawlStar.brawler.HeaderModel
 import com.example.brawlmobile.viewmodel.brawlStars.DetailsActivityViewModel
@@ -22,7 +22,7 @@ class BrawlDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailsActivityViewModel
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: DetailsAdapter
+    private lateinit var adapter: BrawlDetailsAdapter
 
     private val TAG = "DetailsActivity"
 
@@ -52,7 +52,7 @@ class BrawlDetailsActivity : AppCompatActivity() {
             MyCustomViewModelFactory(this, this::class.java)
         )[DetailsActivityViewModel::class.java]
 
-        adapter = DetailsAdapter(this)
+        adapter = BrawlDetailsAdapter(this)
 
         recyclerView = findViewById(R.id.detailsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)

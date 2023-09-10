@@ -35,7 +35,7 @@ class BrawlerRepository(
             "R-t" to "R-T"
         )
 
-        val resultBrawler = retrofitBrawlStars.brawlerBrawlStarsService.getAllBrawlers(afterCursor, limit)
+        val resultBrawler = retrofitBrawlStars.brawlStarsService.getAllBrawlers(afterCursor, limit)
 
         // Trasformazione dei nomi dei Brawler ottenuti, in base alla mappa di trasformazione
         resultBrawler.items.map { brawler ->

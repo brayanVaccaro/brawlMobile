@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
-import com.example.brawlmobile.adapter.ClickListener
-import com.example.brawlmobile.adapter.brawlStars.HomeAdapter
+import com.example.brawlmobile.adapter.listener.ClickListener
+import com.example.brawlmobile.adapter.brawlStars.BrawlHomeAdapter
 import com.example.brawlmobile.data.entities.BrawlerEntity
 import com.example.brawlmobile.fragment.ErrorFragment
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
@@ -26,11 +26,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class BrawlHomeActivity : AppCompatActivity(), ClickListener {
 
     private lateinit var viewModel: HomeActivityViewModel
+    private lateinit var favouriteViewModel: FavouriteActivityViewModel
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: HomeAdapter
+    private lateinit var adapter: BrawlHomeAdapter
+    private lateinit var bottomNavigationView: BottomNavigationView
 
-    private lateinit var favouriteViewModel: FavouriteActivityViewModel
 
     private var TAG = "MainActivity"
     private var brawlerList: MutableList<BrawlerModel> = mutableListOf()
@@ -39,7 +40,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brawl_home)
 
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
         viewModel = ViewModelProvider(
             this,
@@ -51,7 +52,7 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
             MyCustomViewModelFactory(this, this::class.java)
         )[FavouriteActivityViewModel::class.java]
 
-        adapter = HomeAdapter(brawlerList, this, this)
+        adapter = BrawlHomeAdapter(brawlerList, this, this)
 
         recyclerView = findViewById(R.id.mainRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)

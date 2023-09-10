@@ -40,8 +40,10 @@ class ClashPlayerActivity : AppCompatActivity() {
 
     private lateinit var drawableArrowForward: Drawable
     private lateinit var drawableArrowDown: Drawable
+
+    private lateinit var bottomNavigationView: BottomNavigationView
+
     private val inputFragment = InputFragment()
-//    private lateinit var playerTag: String
 
     //    tag personale: #80RL2LU2R
     // secondo tag personale: #JL8RPC0
@@ -56,7 +58,8 @@ class ClashPlayerActivity : AppCompatActivity() {
 
         startInputFragment()
 
-        drawableArrowForward = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_forward, null)!!
+        drawableArrowForward =
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_forward, null)!!
         drawableArrowDown = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_down, null)!!
 //        val arrowIconPlayerInfo: ImageView = findViewById(R.id.arrowIconPlayerInfo)
         expandPlayerInfo = findViewById(R.id.expandPlayerInfo)
@@ -67,7 +70,6 @@ class ClashPlayerActivity : AppCompatActivity() {
 //        val arrowIconUnlockedBadges: ImageView = findViewById(R.id.arrowIconUnlockedBadges)
         expandUnlockedBadges = findViewById(R.id.expandUnlockedBadges)
 
-
         adapterPlayerInfo = ClashPlayerAdapterInfo()
         adapterCardUnlocked = ClashPlayerAdapterCardUnlocked()
         adapterBadgeUnlocked = ClashPlayerAdapterBadgeUnlocked(this)
@@ -76,7 +78,6 @@ class ClashPlayerActivity : AppCompatActivity() {
         recyclerViewInfo.layoutManager = LinearLayoutManager(this)
         recyclerViewInfo.adapter = adapterPlayerInfo
         recyclerViewInfo.visibility = View.GONE
-
 
         recyclerViewCards = findViewById(R.id.playerRecyclerViewCards)
         recyclerViewCards.layoutManager = GridLayoutManager(this, 4)
@@ -115,11 +116,21 @@ class ClashPlayerActivity : AppCompatActivity() {
         expandPlayerInfo.setOnClickListener {
             if (recyclerViewInfo.visibility == View.GONE) {
                 recyclerViewInfo.visibility = View.VISIBLE
-                expandPlayerInfo.setCompoundDrawablesWithIntrinsicBounds(drawableArrowDown, null, null, null)
+                expandPlayerInfo.setCompoundDrawablesWithIntrinsicBounds(
+                    drawableArrowDown,
+                    null,
+                    null,
+                    null
+                )
 
             } else {
                 recyclerViewInfo.visibility = View.GONE
-                expandPlayerInfo.setCompoundDrawablesWithIntrinsicBounds(drawableArrowForward, null, null, null)
+                expandPlayerInfo.setCompoundDrawablesWithIntrinsicBounds(
+                    drawableArrowForward,
+                    null,
+                    null,
+                    null
+                )
             }
         }
 
@@ -128,11 +139,21 @@ class ClashPlayerActivity : AppCompatActivity() {
         expandUnlockedCards.setOnClickListener {
             if (recyclerViewCards.visibility == View.GONE) {
                 recyclerViewCards.visibility = View.VISIBLE
-                expandUnlockedCards.setCompoundDrawablesWithIntrinsicBounds(drawableArrowDown, null, null, null)
+                expandUnlockedCards.setCompoundDrawablesWithIntrinsicBounds(
+                    drawableArrowDown,
+                    null,
+                    null,
+                    null
+                )
 
             } else {
                 recyclerViewCards.visibility = View.GONE
-                expandUnlockedCards.setCompoundDrawablesWithIntrinsicBounds(drawableArrowForward, null, null, null)
+                expandUnlockedCards.setCompoundDrawablesWithIntrinsicBounds(
+                    drawableArrowForward,
+                    null,
+                    null,
+                    null
+                )
             }
         }
 
@@ -141,16 +162,25 @@ class ClashPlayerActivity : AppCompatActivity() {
         expandUnlockedBadges.setOnClickListener {
             if (recyclerViewBadges.visibility == View.GONE) {
                 recyclerViewBadges.visibility = View.VISIBLE
-                expandUnlockedBadges.setCompoundDrawablesWithIntrinsicBounds(drawableArrowDown, null, null, null)
+                expandUnlockedBadges.setCompoundDrawablesWithIntrinsicBounds(
+                    drawableArrowDown,
+                    null,
+                    null,
+                    null
+                )
             } else {
                 recyclerViewBadges.visibility = View.GONE
-                expandUnlockedBadges.setCompoundDrawablesWithIntrinsicBounds(drawableArrowForward, null, null, null)
+                expandUnlockedBadges.setCompoundDrawablesWithIntrinsicBounds(
+                    drawableArrowForward,
+                    null,
+                    null,
+                    null
+                )
             }
         }
 
         // Gestiamo la bottomNavigationView
-        val bottomNavigationView: BottomNavigationView =
-            findViewById(R.id.bottomNavigationView)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {
@@ -195,8 +225,6 @@ class ClashPlayerActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.clashInputFragmentContainer, inputFragment)
         transaction.commit()
-
-
     }
 
 

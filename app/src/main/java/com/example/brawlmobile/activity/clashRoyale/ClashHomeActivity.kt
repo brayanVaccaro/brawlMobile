@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
-import com.example.brawlmobile.adapter.ClickListener
-import com.example.brawlmobile.adapter.clashRoyale.HomeAdapter
+import com.example.brawlmobile.adapter.listener.ClickListener
+import com.example.brawlmobile.adapter.clashRoyale.ClashHomeAdapter
 import com.example.brawlmobile.data.entities.CardEntity
 import com.example.brawlmobile.fragment.DetailsDialogFragment
 import com.example.brawlmobile.fragment.ErrorFragment
@@ -26,18 +26,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ClashHomeActivity : AppCompatActivity(), ClickListener {
 
-    private var TAG = "ClashHomeActivity"
-
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: HomeActivityViewModel
     private lateinit var favouriteViewModel: FavouriteActivityViewModel
-    private lateinit var adapter: HomeAdapter
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ClashHomeAdapter
+
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private var TAG = "ClashHomeActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clash_home)
 
-        val bottomNavigationView: BottomNavigationView =
-            findViewById(R.id.bottomNavigationView)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
         viewModel = ViewModelProvider(
             this,
@@ -49,7 +51,7 @@ class ClashHomeActivity : AppCompatActivity(), ClickListener {
             MyCustomViewModelFactory(this, this::class.java)
         )[FavouriteActivityViewModel::class.java]
 
-        adapter = HomeAdapter(this, this)
+        adapter = ClashHomeAdapter(this, this)
 
         recyclerView = findViewById(R.id.playerClashRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)

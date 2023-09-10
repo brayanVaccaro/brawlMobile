@@ -17,9 +17,9 @@ import com.example.brawlmobile.model.brawlStar.brawler.HeaderModel
 import com.example.brawlmobile.model.brawlStar.web.ImagesModel
 import com.example.brawlmobile.model.brawlStar.web.TextModel
 
-class BrawlDetailsAdapter(
+class DetailsAdapter(
     private val context: Context
-) : RecyclerView.Adapter<BrawlDetailsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<DetailsAdapter.ViewHolder>() {
 
     private var headers: HeaderModel? = null
     private var text: TextModel? = null

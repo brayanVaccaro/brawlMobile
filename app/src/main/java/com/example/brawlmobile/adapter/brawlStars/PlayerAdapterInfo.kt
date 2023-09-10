@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.model.brawlStar.player.PlayerInfoModel
 
-class BrawlPlayerAdapterInfo : RecyclerView.Adapter<BrawlPlayerAdapterInfo.ViewHolder>() {
+class PlayerAdapterInfo : RecyclerView.Adapter<PlayerAdapterInfo.ViewHolder>() {
 
     private var infoPlayer: MutableList<PlayerInfoModel> = mutableListOf()
     private val TAG = "PlayerAdapterInfo"

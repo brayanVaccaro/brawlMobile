@@ -90,7 +90,7 @@ class RetrofitBrawlStars(
         .build()
 
     // Creazione del servizio di interfaccia per l'API brawler utilizzando Retrofit
-    val brawlerBrawlStarsService: BrawlStarsService by lazy {
+    val brawlStarsService: BrawlStarsService by lazy {
         retrofitBrawler.create(BrawlStarsService::class.java)
     }
 }

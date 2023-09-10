@@ -9,18 +9,21 @@ import com.example.brawlmobile.activity.clashRoyale.ClashHomeActivity
 
 class StartActivity : AppCompatActivity() {
 
+    private lateinit var brawlStars: Button
+    private lateinit var clashRoyale: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        val brawlStars: Button = findViewById(R.id.brawlStars)
+        brawlStars = findViewById(R.id.brawlStars)
         brawlStars.setOnClickListener {
             Intent(this, BrawlHomeActivity::class.java).also {
                 startActivity(it)
             }
         }
 
-        val clashRoyale: Button = findViewById(R.id.clashRoyale)
+        clashRoyale = findViewById(R.id.clashRoyale)
         clashRoyale.setOnClickListener {
             Intent(this, ClashHomeActivity::class.java).also {
                 startActivity(it)

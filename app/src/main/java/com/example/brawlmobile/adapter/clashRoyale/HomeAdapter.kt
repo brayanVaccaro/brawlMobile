@@ -12,25 +12,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
-import com.example.brawlmobile.adapter.listener.ClickListener
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.model.clashRoyale.CardModel
 
+//import com.example.brawlmobile.clashRoyale.adapter.listener.GlideRequestListener
 
-class ClashHomeAdapter(
+class HomeAdapter(
     private val context: Context,
     private val clickListener: ClickListener
-) : RecyclerView.Adapter<ClashHomeAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
+
 
     private var cards: MutableList<CardModel> = mutableListOf()
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardName: TextView
         val clickableCardImageMedium: ImageView
         val clickableSpriteHeart: ImageView
         val clashProgressBar: ProgressBar
+
 //        val maxLevel: TextView
+//        val cardImageEvolutionMedium: ImageView
         val glideRequestListener: RequestListener<Drawable>
+
 
         init {
             cardName = view.findViewById(R.id.cardName)

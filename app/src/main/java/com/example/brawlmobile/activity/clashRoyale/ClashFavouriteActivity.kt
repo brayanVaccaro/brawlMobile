@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
-import com.example.brawlmobile.adapter.ClickListener
-import com.example.brawlmobile.adapter.brawlStars.FavouriteAdapter
+import com.example.brawlmobile.adapter.listener.ClickListener
+import com.example.brawlmobile.adapter.FavouriteAdapter
 import com.example.brawlmobile.viewmodel.FavouriteActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,6 +23,7 @@ class ClashFavouriteActivity : AppCompatActivity(), ClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FavouriteAdapter
     private val TAG = "FavouriteActivity"
+    private lateinit var bottomNavigationView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clash_favourite)
@@ -41,8 +42,7 @@ class ClashFavouriteActivity : AppCompatActivity(), ClickListener {
 
 
         // Gestiamo la bottomNavigationView
-        val bottomNavigationView: BottomNavigationView =
-            findViewById(R.id.bottomNavigationView)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_home -> {

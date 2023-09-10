@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.brawlmobile.R
 import com.example.brawlmobile.StartActivity
-import com.example.brawlmobile.adapter.brawlStars.PlayerAdapterBrawlersUnlocked
-import com.example.brawlmobile.adapter.brawlStars.PlayerAdapterInfo
+import com.example.brawlmobile.adapter.brawlStars.BrawlPlayerAdapterBrawlersUnlocked
+import com.example.brawlmobile.adapter.brawlStars.BrawlPlayerAdapterInfo
 import com.example.brawlmobile.fragment.InputFragment
 import com.example.brawlmobile.viewmodel.PlayerActivityViewModel
 import com.example.brawlmobile.viewmodel.factory.MyCustomViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class BrawlPlayerActivity : AppCompatActivity() {
 
@@ -28,8 +29,8 @@ class BrawlPlayerActivity : AppCompatActivity() {
     private lateinit var recyclerViewInfo: RecyclerView
     private lateinit var recyclerViewBrawlers: RecyclerView
 
-    private lateinit var adapterInfo: PlayerAdapterInfo
-    private lateinit var adapterBrawlersUnlocked: PlayerAdapterBrawlersUnlocked
+    private lateinit var adapterInfo: BrawlPlayerAdapterInfo
+    private lateinit var adapterBrawlersUnlocked: BrawlPlayerAdapterBrawlersUnlocked
 
     private var TAG = "BrawlPlayerActivity"
 
@@ -37,6 +38,8 @@ class BrawlPlayerActivity : AppCompatActivity() {
     private lateinit var expandUnlocked: TextView
     private lateinit var drawableArrowForward: Drawable
     private lateinit var drawableArrowDown: Drawable
+
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     private val inputFragment = InputFragment()
 
@@ -53,17 +56,17 @@ class BrawlPlayerActivity : AppCompatActivity() {
 
         startInputFragment()
 
-        drawableArrowForward = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_forward, null)!!
+        drawableArrowForward =
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_forward, null)!!
         drawableArrowDown = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_down, null)!!
         expandPlayerInfo = findViewById(R.id.expandPlayerInfo)
 
         expandUnlocked = findViewById(R.id.expandUnlockedBrawler)
 
-        val bottomNavigationView: BottomNavigationView =
-            findViewById(R.id.bottomNavigationView)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        adapterInfo = PlayerAdapterInfo()
-        adapterBrawlersUnlocked = PlayerAdapterBrawlersUnlocked()
+        adapterInfo = BrawlPlayerAdapterInfo()
+        adapterBrawlersUnlocked = BrawlPlayerAdapterBrawlersUnlocked()
 
         recyclerViewInfo = findViewById(R.id.playerRecyclerViewInfo)
         recyclerViewInfo.layoutManager = LinearLayoutManager(this)
@@ -102,11 +105,21 @@ class BrawlPlayerActivity : AppCompatActivity() {
         expandUnlocked.setOnClickListener {
             if (recyclerViewBrawlers.visibility == View.GONE) {
                 recyclerViewBrawlers.visibility = View.VISIBLE
-                expandUnlocked.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableArrowDown,null,null,null)
+                expandUnlocked.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    drawableArrowDown,
+                    null,
+                    null,
+                    null
+                )
 
             } else {
                 recyclerViewBrawlers.visibility = View.GONE
-                expandUnlocked.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableArrowForward,null,null,null)
+                expandUnlocked.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    drawableArrowForward,
+                    null,
+                    null,
+                    null
+                )
             }
         }
 
@@ -115,12 +128,22 @@ class BrawlPlayerActivity : AppCompatActivity() {
         expandPlayerInfo.setOnClickListener {
             if (recyclerViewInfo.visibility == View.GONE) {
                 recyclerViewInfo.visibility = View.VISIBLE
-                expandPlayerInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableArrowDown,null,null,null)
+                expandPlayerInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    drawableArrowDown,
+                    null,
+                    null,
+                    null
+                )
 
 
             } else {
                 recyclerViewInfo.visibility = View.GONE
-                expandPlayerInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableArrowForward,null,null,null)
+                expandPlayerInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    drawableArrowForward,
+                    null,
+                    null,
+                    null
+                )
             }
         }
 

@@ -1,4 +1,4 @@
-package com.example.brawlmobile.adapter
+package com.example.brawlmobile.adapter.brawlStars
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.brawlmobile.R
-import com.example.brawlmobile.adapter.listener.ClickListener
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.data.entities.BrawlerEntity
 import com.example.brawlmobile.data.entities.CardEntity
 

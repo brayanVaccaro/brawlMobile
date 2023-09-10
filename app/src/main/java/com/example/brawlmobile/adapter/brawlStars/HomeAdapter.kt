@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.example.brawlmobile.R
-import com.example.brawlmobile.adapter.listener.ClickListener
+import com.example.brawlmobile.adapter.ClickListener
 import com.example.brawlmobile.adapter.listener.GlideRequestListener
 import com.example.brawlmobile.model.brawlStar.brawler.BrawlerModel
 
-class BrawlHomeAdapter(
+class HomeAdapter(
     private var brawlerList: List<BrawlerModel>,
     private val context: Context,
     private val clickListener: ClickListener
-): RecyclerView.Adapter<BrawlHomeAdapter.ViewHolder>() {
+): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txtBrawlerName: TextView

@@ -1,4 +1,4 @@
-package com.example.brawlmobile.adapter.listener
+package com.example.brawlmobile.adapter
 
 interface ClickListener {
     fun onClickViewInfo(model: Any){}

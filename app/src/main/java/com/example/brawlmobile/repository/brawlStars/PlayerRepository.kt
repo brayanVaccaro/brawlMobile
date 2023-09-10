@@ -33,7 +33,7 @@ class PlayerRepository(
         while (true) {
 
             val resultInfoPlayer =
-                brawlRetrofitBrawlStars.brawlerBrawlStarsService.getPlayerInfo(tag)
+                brawlRetrofitBrawlStars.brawlStarsService.getPlayerInfo(tag)
 
             // Mappa per trasformare i nomi di alcuni brawler (necessario successivamente per ottenere le immagini giuste)
             val nameMap = mapOf(
