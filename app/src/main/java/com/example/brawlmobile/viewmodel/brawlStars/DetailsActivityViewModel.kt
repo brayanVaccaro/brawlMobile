@@ -77,7 +77,7 @@ class DetailsActivityViewModel : ViewModel() {
                                 layoutResId = R.layout.item_text_size8
                             )
                         }
-                        9 -> {
+                        9, 12 -> {
                             uiText = TextModel(
                                 description = it[0],
                                 trait = "",
@@ -116,7 +116,8 @@ class DetailsActivityViewModel : ViewModel() {
                                 firstGadgetUrl = "",
                                 secondGadgetUrl = "",
                                 firstStarPowerUrl = "",
-                                secondStarPowerUrl = ""
+                                secondStarPowerUrl = "",
+
                             )
                         }
                         5 -> {
@@ -125,7 +126,18 @@ class DetailsActivityViewModel : ViewModel() {
                                 firstGadgetUrl = it[1],
                                 secondGadgetUrl = it[2],
                                 firstStarPowerUrl = it[3],
-                                secondStarPowerUrl = it[4]
+                                secondStarPowerUrl = it[4],
+
+                            )
+                        }
+                        6 -> {
+                            uiUrls = ImagesModel(
+                                defaultSkin = it[0],
+                                firstGadgetUrl = it[1],
+                                secondGadgetUrl = it[2],
+                                firstStarPowerUrl = it[3],
+                                secondStarPowerUrl = it[4],
+
                             )
                         }
                         7 -> {
@@ -134,7 +146,8 @@ class DetailsActivityViewModel : ViewModel() {
                                 firstGadgetUrl = it[3],
                                 secondGadgetUrl = it[4],
                                 firstStarPowerUrl = it[5],
-                                secondStarPowerUrl = it[6]
+                                secondStarPowerUrl = it[6],
+
                             )
                         }
                         8 -> {
@@ -143,9 +156,11 @@ class DetailsActivityViewModel : ViewModel() {
                                 firstGadgetUrl = it[3],
                                 secondGadgetUrl = it[4],
                                 firstStarPowerUrl = it[6],
-                                secondStarPowerUrl = it[7]
+                                secondStarPowerUrl = it[7],
+
                             )
                         }
+
                     }
                     webUrls.postValue(uiUrls)
                 }
