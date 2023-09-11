@@ -31,6 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".activity.clashRoyale.ClashHomeActivity"
             android:exported="false" />
@@ -46,6 +48,8 @@
         <activity
             android:name=".activity.brawlStars.BrawlHomeActivity"
             android:exported="false" />
+
+
     </application>
 
 </manifest>

@@ -41,6 +41,8 @@ class TextRepository {
             }
             quoteBlockText.add(stringBuilder.toString().trim())
         }
+//        Log.d(TAG,"quoteBlockText vale $quoteBlockText")
+//        Log.d(TAG,"quoteBlockText size vale ${quoteBlockText.size}")
         return quoteBlockText
     }
 }
