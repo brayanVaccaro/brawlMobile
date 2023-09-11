@@ -121,8 +121,8 @@ class BrawlHomeActivity : AppCompatActivity(), ClickListener {
     override fun onClickViewInfo(model: Any) {
         val brawlerModel = model as BrawlerModel
 
-        if (brawlerModel.name == "El-Primo") {
-            brawlerModel.name = "El_Primo"
+        if (brawlerModel.transformedName == "El-Primo") {
+            brawlerModel.transformedName = "El_Primo"
         }
 
         // Creo il bundle con i relativi dati da passare alla DetailsActivity

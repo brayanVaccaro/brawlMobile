@@ -1,7 +1,7 @@
 # BrawlMobile
 
 # Scopo
-La applicazione nasce per usare la API del gioco Brawl Stars, unico gioco mobile su cui regolarmente spendo il mio tempo libero. Il fatto che si possa interagire anche con la API di Clash Royale è venuto dopo aver già deciso il nome dell'app e per pura necessita (rispettare il requisito opzionale: Usare almeno due API).
+La applicazione nasce per usare la API del gioco Brawl Stars, unico gioco mobile su cui regolarmente spendo il mio tempo libero. Il fatto che si possa interagire anche con la API di Clash Royale è venuto dopo aver già deciso il nome dell'app e per pura necessità (rispettare il requisito opzionale: Usare almeno due API).
 
 # Requisiti di Sistema
 Per poter funzionare il device deve essere connesso ad internet. La versione minima di Android è la 26
@@ -23,7 +23,7 @@ Nel corso dello sviluppo di questo progetto Android, ho sfruttato una serie di l
 6. **Room Database**: Ho sfruttato `androidx.room` per creare e gestire un database locale all'interno dell'app, consentendo la memorizzazione e la gestione efficiente dei dati.
 
 # Funzionalità Principali
-Visualizzare Brawler, visualizzre Carte e dettagli su entrambi.
+Visualizzare Brawler, visualizzare Carte e dettagli su entrambi.
 
 Creare una lista di Brawler preferiti o una lista di Carte Preferite.
 
@@ -731,11 +731,11 @@ Ecco una descrizione della struttura di `BrawlDetailsActivity` e dei componenti 
 Entrambe le API richiedono un IP a cui associare una API_KEY. Di conseguenza ho creato un server nginx su una istanza di GCE con un IP esterno pubblico. Così facendo ho creato due API_KEY, una per ogni API, sull'IP esterno della istanza di GCE risolvendo così il limite dell'IP da associare alla chiave
 
 # Note di Sviluppo
-- Nel `BrawlerRepository` ho effettuato richieste API con paginazione per dividere il carico di una singola richiesta in due richieste, non ho potuto fare lo stesso in `CardRepository` in quanto, pur avendo la possibilità di fare paginazione, la API restituisce sempre l'intero dataset anche usando il parametro 'limit'.
+- Nel `BrawlerRepository` ho effettuato richieste API con paginazione per dividere il carico di una singola richiesta in due richieste; non ho potuto fare lo stesso in `CardRepository` in quanto, pur avendo la possibilità di fare paginazione, la API restituisce sempre l'intero dataset anche usando il parametro 'limit'.
 - `ErrorFragment`: a prescindere dall'errore riscontrato questo viene avviato con un messaggio al centro uguale a 'strings/fragment_error_txt'. Al di sotto è presente una TextView in cui c'è scritto l'errore vero e proprio che ha causato l'apparizione del fragment.
 - `DetailsDialogFragment`: Questo DialogFragment viene usato per visualizzare info dettagliate sulle Carte. Per i Brawler ho invece creato la `BrawlerDetailsActivity`
-- Caricamento immagini: l'applicazione fa largo uso di Glide per il caricamento delle immagini, al di sopra di ognuna di esse vi è una ProgressBar che verrà nascosta al caricamento dell'immagine, se l'immagine non viene caricata correttamente viene inserito 'R.drawable.ic_delete'
-- L'`InputFragment` è un fragment che viene usato da ogni PlayerActivity per inserire il TAG di gioco. Se il tag esiste allora viene inflato il layout dell'Activity corrispondente, se il TAG non esiste allora una TextView con valore uguale a 'strings/not_valid_player_tag' viene visualizzata sopra il bottone di SUBMIT
+- Caricamento immagini: l'applicazione fa largo uso di Glide per il caricamento delle immagini, al di sopra di ognuna di esse vi è una ProgressBar che verrà nascosta al caricamento dell'immagine; se l'immagine non viene caricata correttamente viene inserito 'R.drawable.ic_delete'
+- L'`InputFragment` è un fragment che viene usato da ogni PlayerActivity per inserire il TAG di gioco. Se il tag esiste allora viene immesso il layout dell'Activity corrispondente; se il TAG non esiste allora una TextView con valore uguale a 'strings/not_valid_player_tag' viene visualizzata sopra il bottone di SUBMIT
 
 # Conclusioni
 Questo progetto mi ha permesso di mettere a frutto non solo ciò che ho potuto apprendere durante le lezioni ma anche ciò che abbiamo affrontato in altri corsi.

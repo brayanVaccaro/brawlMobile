@@ -41,6 +41,10 @@ class UrlRepository {
             imageUrls.add(src)
         }
 
+//        Log.d(TAG,"imageUrls size vale ${imageUrls.size}")
+//        Log.d(TAG,"imageUrls vale $imageUrls")
+
         return imageUrls
     }
+
 }
