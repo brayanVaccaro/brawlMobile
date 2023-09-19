@@ -22,9 +22,6 @@ class BrawlerRepository(
         afterCursor = null
     }
 
-    /**
-     *
-     */
     suspend fun fetchBrawlers(): BrawlerResponse {
 
         // Mappa per trasformare i nomi di alcuni brawler (necessario successivamente per ottenere le immagini giuste)
@@ -47,11 +44,12 @@ class BrawlerRepository(
 
         afterCursor = resultBrawler.paging?.cursors?.after
 
-        return if (afterCursor == null) {
-            resultBrawler
-        } else {
-            resultBrawler
-        }
+        return resultBrawler
+//        if (afterCursor == null) {
+
+//        } else {
+//            resultBrawler
+//        }
 
     }
 }
