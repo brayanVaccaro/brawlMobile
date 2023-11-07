@@ -36,6 +36,7 @@ class BrawlerRepository(
 
         // Trasformazione dei nomi dei Brawler ottenuti, in base alla mappa di trasformazione
         resultBrawler.items.map { brawler ->
+
             // Tutti i nomi dei brawler devono essere formattati, trasformo il nome rendendo la prima lettera maiuscola e le restanti minuscole
             val transformedName = brawler.name.lowercase().replaceFirstChar { it.uppercase() }
             // Aggiorno 'transformedName' con il nome trasformato dalla mappa, se presente, o lascio il nome trasformato
